@@ -1,0 +1,98 @@
+<h1>System Keyboard Lock</h1>
+
+<pre class="metadata">
+Shortname: systemkeylock
+Level:
+Group: uievents
+Status: WD
+TR: http://www.w3.org/TR/systemkeylock/
+ED: https://github.com/w3c/systemkeylock/
+Repository: garykac/system-keyboard-lock
+Previous Version:
+	<none>
+Editor: Gary Kacmarcik, Google, garykac@google.com
+Abstract:
+	This specification defines an API that allows websites to capture keys that
+	are normally reserved by the underlying host operating system. It is
+	intended to be used by web applications that provide a fullscreen
+	immersive experience (like games or remote access apps).
+</pre>
+
+<h2 id="introduction">Introduction</h2>
+
+	Richly interactive web sites, games and remote desktop/application streaming
+	experiences want to provide an immersive, full screen experience. To
+	accomplish this, sites need access to special keys and keyboard shortcuts
+	while they are in full screen mode so that they can be used for
+	navigation, menus or gaming functionality. Some examples of the keys that
+	may be required are Escape, Alt+Tab, Cmd+`,  and Ctrl+N.
+
+	By default, these keys are not available to the web application because
+	they are captured by the browser or the underlying operating
+	system. The System Keyboard Lock API enables websites to capture and use
+	all available keys allowed by the OS.
+
+<h2 id="requestSystemKeyboardLock">requestSystemKeyboardLock</h3>
+
+	<pre class="idl" data-highlight="webidl" dfn-for="KeyFilterRecord">
+	interface KeyFilterRecord {
+		attribute DOMString code;
+		attribute boolean? ctrlKey;
+		attribute boolean? shiftKey;
+		attribute boolean? altKey;
+		attribute boolean? metaKey;
+	};
+	</pre>
+
+	<pre class="idl" data-highlight="webidl">
+	partial interface Navigator {
+		[Secure Context] boolean requestSystemKeyboardLock(sequence&lt;KeyFilterRecord> keys);
+	};
+	</pre>
+
+<h2 id="handling-system-key-presses">Handling System Key Presses</h2>
+
+	In response to the user pressing a key, the user agent should run the
+	following steps:
+
+	1. If a system-key-filter has been specified, then run these sub-steps:
+
+		1. Let keyEvent be the key event for the new key press
+
+		2. Compare the {{code}} attribute of keyEvent with {{code} attribute of
+			each of the key filter records. For the first match it finds,
+			perform the following steps:
+
+			1. Let filterKey be the matching key filter record
+
+			2. For each of the {{ctrlKey}}, {{shiftKey}}, {{altKey}} or
+				{{metaKey}} attributes in the filterKey that are non-null,
+				perform the following steps:
+
+				1. Let modifier be the matching attribute
+
+				2. If the value of modifier in the filterKey does not match
+					the value of modifier in the keyEvent
+
+
+	2. Continue processing the key as normal.
+
+<h2 id="security">Security Considerations</h2>
+
+	TODO: How does this proposal prevent malicious sites from taking all
+	key events and preventing the user from escaping?
+
+	TODO: How could this be used (alone or in conjunction with other APIs) to
+	give the user a bad experience?
+
+<h2 id="privacy">Privacy Considerations</h2>
+
+	Not applicable. This API does not use or reveal any personal information
+	about the current user.
+
+<h2 id="acknowledgements-contributors">Acknowledgements</h2>
+
+	Thanks to the following people for the discussions that lead to the creation
+	of this proposal:
+
+	Jon Dahlke (Google), Jamie Walch (Google)
