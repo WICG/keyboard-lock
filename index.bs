@@ -12,20 +12,23 @@ Previous Version:
 	<none>
 Editor: Gary Kacmarcik, Google, garykac@google.com
 Abstract:
-	This specification defines an API that allows websites to capture keys that
-	are normally reserved by the underlying host operating system. It is
-	intended to be used by web applications that provide a fullscreen
-	immersive experience (like games or remote access apps).
+	This specification defines an API that allows websites to
+	capture keys that are normally reserved by the underlying host
+	operating system. It is intended to be used by web
+	applications that provide a fullscreen immersive experience
+	(like games or remote access apps).
 </pre>
 
 <h2 id="introduction">Introduction</h2>
 
-	Richly interactive web sites, games and remote desktop/application streaming
-	experiences want to provide an immersive, full screen experience. To
-	accomplish this, sites need access to special keys and keyboard shortcuts
-	while they are in full screen mode so that they can be used for
-	navigation, menus or gaming functionality. Some examples of the keys that
-	may be required are Escape, Alt+Tab, Cmd+`,  and Ctrl+N.
+	Richly interactive web sites, games and remote
+	desktop/application streaming experiences want to provide an
+	immersive, full screen experience. To accomplish this, sites
+	need access to special keys and keyboard shortcuts while they
+	are in full screen mode so that they can be used for
+	navigation, menus or gaming functionality. Some examples of
+	the keys that may be required are Escape, Alt+Tab, Cmd+`, and
+	Ctrl+N.
 
 	By default, these keys are not available to the web application because
 	they are captured by the browser or the underlying operating
@@ -34,7 +37,7 @@ Abstract:
 
 <h2 id="requestSystemKeyboardLock">requestSystemKeyboardLock</h3>
 
-	<pre class="idl" data-highlight="webidl" dfn-for="KeyFilterRecord">
+	<pre class="idl" data-highlight="webidl">
 	interface KeyFilterRecord {
 		attribute DOMString code;
 		attribute boolean? ctrlKey;
@@ -46,7 +49,7 @@ Abstract:
 
 	<pre class="idl" data-highlight="webidl">
 	partial interface Navigator {
-		[Secure Context] boolean requestSystemKeyboardLock(sequence&lt;KeyFilterRecord> keys);
+	  [Secure Context] boolean requestSystemKeyboardLock(sequence&lt;KeyFilterRecord> keys);
 	};
 	</pre>
 
@@ -59,20 +62,24 @@ Abstract:
 
 		1. Let keyEvent be the key event for the new key press
 
-		2. Compare the {{code}} attribute of keyEvent with {{code} attribute of
-			each of the key filter records. For the first match it finds,
-			perform the following steps:
+		2. Compare the {{code}} attribute of keyEvent with
+			{{code}} attribute of each of the key filter
+			records. For the first match it finds, perform
+			the following steps:
 
 			1. Let filterKey be the matching key filter record
 
-			2. For each of the {{ctrlKey}}, {{shiftKey}}, {{altKey}} or
-				{{metaKey}} attributes in the filterKey that are non-null,
+			2. For each of the {{ctrlKey}}, {{shiftKey}},
+				{{altKey}} or {{metaKey}} attributes
+				in the filterKey that are non-null,
 				perform the following steps:
 
 				1. Let modifier be the matching attribute
 
-				2. If the value of modifier in the filterKey does not match
-					the value of modifier in the keyEvent
+				2. If the value of modifier in the
+					filterKey does not match the
+					value of modifier in the
+					keyEvent
 
 
 	2. Continue processing the key as normal.
@@ -82,8 +89,8 @@ Abstract:
 	TODO: How does this proposal prevent malicious sites from taking all
 	key events and preventing the user from escaping?
 
-	TODO: How could this be used (alone or in conjunction with other APIs) to
-	give the user a bad experience?
+	TODO: How could this be used (alone or in conjunction with
+	other APIs) to give the user a bad experience?
 
 <h2 id="privacy">Privacy Considerations</h2>
 
@@ -92,7 +99,7 @@ Abstract:
 
 <h2 id="acknowledgements-contributors">Acknowledgements</h2>
 
-	Thanks to the following people for the discussions that lead to the creation
-	of this proposal:
+	Thanks to the following people for the discussions that lead
+	to the creation of this proposal:
 
 	Jon Dahlke (Google), Jamie Walch (Google)

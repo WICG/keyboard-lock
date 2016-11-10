@@ -256,12 +256,12 @@ pre.idl.highlight { color: #708090; }
    <header>
     <p data-fill-with="logo"><a href="http://www.w3.org/"><img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"></a></p>
     <h1>System Keyboard Lock</h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">W3C Working Draft, <time class="dt-updated" datetime="2016-10-26">26 October 2016</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">W3C Working Draft, <time class="dt-updated" datetime="2016-11-10">10 November 2016</time></span></h2>
    </header>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="https://www.w3.org/TR/2016/WD-systemkeylock-20161026/">https://www.w3.org/TR/2016/WD-systemkeylock-20161026/</a>
+     <dd><a class="u-url" href="https://www.w3.org/TR/2016/WD-systemkeylock-20161110/">https://www.w3.org/TR/2016/WD-systemkeylock-20161110/</a>
      <dt>Latest published version:
      <dd><a href="http://www.w3.org/TR/systemkeylock/">http://www.w3.org/TR/systemkeylock/</a>
      <dt>Editor's Draft:
@@ -281,11 +281,12 @@ pre.idl.highlight { color: #708090; }
   </div>
   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
   <div class="p-summary" data-fill-with="abstract">
-   <p>This specification defines an API that allows websites to capture keys that
+   <p>This specification defines an API that allows websites to
 
-are normally reserved by the underlying host operating system. It is
-intended to be used by web applications that provide a fullscreen
-immersive experience (like games or remote access apps).</p>
+capture keys that are normally reserved by the underlying host
+operating system. It is intended to be used by web
+applications that provide a fullscreen immersive experience
+(like games or remote access apps).</p>
   </div>
   <h2 class="no-num no-toc no-ref heading settled" id="status"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
@@ -335,18 +336,20 @@ immersive experience (like games or remote access apps).</p>
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
-   <p>Richly interactive web sites, games and remote desktop/application streaming
-	experiences want to provide an immersive, full screen experience. To
-	accomplish this, sites need access to special keys and keyboard shortcuts
-	while they are in full screen mode so that they can be used for
-	navigation, menus or gaming functionality. Some examples of the keys that
-	may be required are Escape, Alt+Tab, Cmd+`,  and Ctrl+N.</p>
+   <p>Richly interactive web sites, games and remote
+	desktop/application streaming experiences want to provide an
+	immersive, full screen experience. To accomplish this, sites
+	need access to special keys and keyboard shortcuts while they
+	are in full screen mode so that they can be used for
+	navigation, menus or gaming functionality. Some examples of
+	the keys that may be required are Escape, Alt+Tab, Cmd+`, and
+	Ctrl+N.</p>
    <p>By default, these keys are not available to the web application because
 	they are captured by the browser or the underlying operating
 	system. The System Keyboard Lock API enables websites to capture and use
 	all available keys allowed by the OS.</p>
    <h2 class="heading settled" data-level="2" id="requestSystemKeyboardLock"><span class="secno">2. </span><span class="content">requestSystemKeyboardLock</span><a class="self-link" href="#requestSystemKeyboardLock"></a></h2>
-<pre class="idl highlight def" data-highlight="webidl"><span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="KeyFilterRecord" data-dfn-type="interface" data-export="" id="keyfilterrecord-keyfilterrecord">KeyFilterRecord</dfn> {
+<pre class="idl highlight def" data-highlight="webidl"><span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="keyfilterrecord">KeyFilterRecord</dfn> {
   <span class="kt">attribute</span> <span class="kt">DOMString</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="KeyFilterRecord" data-dfn-type="attribute" data-export="" data-type="DOMString" id="dom-keyfilterrecord-code">code</dfn>;
   <span class="kt">attribute</span> <span class="kt">boolean</span>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="KeyFilterRecord" data-dfn-type="attribute" data-export="" data-type="boolean?" id="dom-keyfilterrecord-ctrlkey">ctrlKey</dfn>;
   <span class="kt">attribute</span> <span class="kt">boolean</span>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="KeyFilterRecord" data-dfn-type="attribute" data-export="" data-type="boolean?" id="dom-keyfilterrecord-shiftkey">shiftKey</dfn>;
@@ -355,7 +358,7 @@ immersive experience (like games or remote access apps).</p>
 };
 </pre>
 <pre class="idl highlight def" data-highlight="webidl"><span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a> {
-  [Secure Context] <span class="kt">boolean</span> <dfn class="nv idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export="" data-lt="requestSystemKeyboardLock(keys)" id="dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock<a class="self-link" href="#dom-navigator-requestsystemkeyboardlock"></a></dfn>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#keyfilterrecord-keyfilterrecord" id="ref-for-keyfilterrecord-keyfilterrecord-1">KeyFilterRecord</a>> <dfn class="nv idl-code" data-dfn-for="Navigator/requestSystemKeyboardLock(keys)" data-dfn-type="argument" data-export="" id="dom-navigator-requestsystemkeyboardlock-keys-keys">keys<a class="self-link" href="#dom-navigator-requestsystemkeyboardlock-keys-keys"></a></dfn>);
+  [Secure Context] <span class="kt">boolean</span> <dfn class="nv idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export="" data-lt="requestSystemKeyboardLock(keys)" id="dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock<a class="self-link" href="#dom-navigator-requestsystemkeyboardlock"></a></dfn>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#keyfilterrecord" id="ref-for-keyfilterrecord-1">KeyFilterRecord</a>> <dfn class="nv idl-code" data-dfn-for="Navigator/requestSystemKeyboardLock(keys)" data-dfn-type="argument" data-export="" id="dom-navigator-requestsystemkeyboardlock-keys-keys">keys<a class="self-link" href="#dom-navigator-requestsystemkeyboardlock-keys-keys"></a></dfn>);
 };
 </pre>
    <h2 class="heading settled" data-level="3" id="handling-system-key-presses"><span class="secno">3. </span><span class="content">Handling System Key Presses</span><a class="self-link" href="#handling-system-key-presses"></a></h2>
@@ -368,21 +371,24 @@ immersive experience (like games or remote access apps).</p>
       <li data-md="">
        <p>Let keyEvent be the key event for the new key press</p>
       <li data-md="">
-       <p>Compare the <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-code" id="ref-for-dom-keyfilterrecord-code-1">code</a></code> attribute of keyEvent with {{code} attribute of
-each of the key filter records. For the first match it finds,
-perform the following steps:</p>
+       <p>Compare the <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-code" id="ref-for-dom-keyfilterrecord-code-1">code</a></code> attribute of keyEvent with <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-code" id="ref-for-dom-keyfilterrecord-code-2">code</a></code> attribute of each of the key filter
+records. For the first match it finds, perform
+the following steps:</p>
        <ol>
         <li data-md="">
          <p>Let filterKey be the matching key filter record</p>
         <li data-md="">
-         <p>For each of the <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-ctrlkey" id="ref-for-dom-keyfilterrecord-ctrlkey-1">ctrlKey</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-shiftkey" id="ref-for-dom-keyfilterrecord-shiftkey-1">shiftKey</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-altkey" id="ref-for-dom-keyfilterrecord-altkey-1">altKey</a></code> or <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-metakey" id="ref-for-dom-keyfilterrecord-metakey-1">metaKey</a></code> attributes in the filterKey that are non-null,
+         <p>For each of the <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-ctrlkey" id="ref-for-dom-keyfilterrecord-ctrlkey-1">ctrlKey</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-shiftkey" id="ref-for-dom-keyfilterrecord-shiftkey-1">shiftKey</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-altkey" id="ref-for-dom-keyfilterrecord-altkey-1">altKey</a></code> or <code class="idl"><a data-link-type="idl" href="#dom-keyfilterrecord-metakey" id="ref-for-dom-keyfilterrecord-metakey-1">metaKey</a></code> attributes
+in the filterKey that are non-null,
 perform the following steps:</p>
          <ol>
           <li data-md="">
-           <p>Let <code class="idl"><a data-link-type="idl">modifier</a></code> be the matching attribute</p>
+           <p>Let modifier be the matching attribute</p>
           <li data-md="">
-           <p>If the value of <code class="idl"><a data-link-type="idl">modifier</a></code> in the filterKey does not match
-the value of modifier in the keyEvent</p>
+           <p>If the value of modifier in the
+filterKey does not match the
+value of modifier in the
+keyEvent</p>
          </ol>
        </ol>
      </ol>
@@ -392,14 +398,14 @@ the value of modifier in the keyEvent</p>
    <h2 class="heading settled" data-level="4" id="security"><span class="secno">4. </span><span class="content">Security Considerations</span><a class="self-link" href="#security"></a></h2>
    <p>TODO: How does this proposal prevent malicious sites from taking all
 	key events and preventing the user from escaping?</p>
-   <p>TODO: How could this be used (alone or in conjunction with other APIs) to
-	give the user a bad experience?</p>
+   <p>TODO: How could this be used (alone or in conjunction with
+	other APIs) to give the user a bad experience?</p>
    <h2 class="heading settled" data-level="5" id="privacy"><span class="secno">5. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#privacy"></a></h2>
    <p>Not applicable. This API does not use or reveal any personal information
 	about the current user.</p>
    <h2 class="heading settled" data-level="6" id="acknowledgements-contributors"><span class="secno">6. </span><span class="content">Acknowledgements</span><a class="self-link" href="#acknowledgements-contributors"></a></h2>
-   <p>Thanks to the following people for the discussions that lead to the creation
-	of this proposal:</p>
+   <p>Thanks to the following people for the discussions that lead
+	to the creation of this proposal:</p>
    <p>Jon Dahlke (Google), Jamie Walch (Google)</p>
   </main>
 <script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
@@ -409,7 +415,7 @@ the value of modifier in the keyEvent</p>
    <li><a href="#dom-keyfilterrecord-altkey">altKey</a><span>, in §2</span>
    <li><a href="#dom-keyfilterrecord-code">code</a><span>, in §2</span>
    <li><a href="#dom-keyfilterrecord-ctrlkey">ctrlKey</a><span>, in §2</span>
-   <li><a href="#keyfilterrecord-keyfilterrecord">KeyFilterRecord</a><span>, in §2</span>
+   <li><a href="#keyfilterrecord">KeyFilterRecord</a><span>, in §2</span>
    <li><a href="#dom-keyfilterrecord-metakey">metaKey</a><span>, in §2</span>
    <li><a href="#dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock(keys)</a><span>, in §2</span>
    <li><a href="#dom-keyfilterrecord-shiftkey">shiftKey</a><span>, in §2</span>
@@ -429,7 +435,7 @@ the value of modifier in the keyEvent</p>
    <dd>Ian Hickson. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
-<pre class="idl def"><span class="kt">interface</span> <a class="nv" href="#keyfilterrecord-keyfilterrecord">KeyFilterRecord</a> {
+<pre class="idl def"><span class="kt">interface</span> <a class="nv" href="#keyfilterrecord">KeyFilterRecord</a> {
   <span class="kt">attribute</span> <span class="kt">DOMString</span> <a class="nv" data-type="DOMString" href="#dom-keyfilterrecord-code">code</a>;
   <span class="kt">attribute</span> <span class="kt">boolean</span>? <a class="nv" data-type="boolean?" href="#dom-keyfilterrecord-ctrlkey">ctrlKey</a>;
   <span class="kt">attribute</span> <span class="kt">boolean</span>? <a class="nv" data-type="boolean?" href="#dom-keyfilterrecord-shiftkey">shiftKey</a>;
@@ -438,20 +444,20 @@ the value of modifier in the keyEvent</p>
 };
 
 <span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a> {
-  [Secure Context] <span class="kt">boolean</span> <a class="nv" href="#dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock</a>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#keyfilterrecord-keyfilterrecord">KeyFilterRecord</a>> <a class="nv" href="#dom-navigator-requestsystemkeyboardlock-keys-keys">keys</a>);
+  [Secure Context] <span class="kt">boolean</span> <a class="nv" href="#dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock</a>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#keyfilterrecord">KeyFilterRecord</a>> <a class="nv" href="#dom-navigator-requestsystemkeyboardlock-keys-keys">keys</a>);
 };
 
 </pre>
-  <aside class="dfn-panel" data-for="keyfilterrecord-keyfilterrecord">
-   <b><a href="#keyfilterrecord-keyfilterrecord">#keyfilterrecord-keyfilterrecord</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="keyfilterrecord">
+   <b><a href="#keyfilterrecord">#keyfilterrecord</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-keyfilterrecord-keyfilterrecord-1">2. requestSystemKeyboardLock</a>
+    <li><a href="#ref-for-keyfilterrecord-1">2. requestSystemKeyboardLock</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-keyfilterrecord-code">
    <b><a href="#dom-keyfilterrecord-code">#dom-keyfilterrecord-code</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-keyfilterrecord-code-1">3. Handling System Key Presses</a>
+    <li><a href="#ref-for-dom-keyfilterrecord-code-1">3. Handling System Key Presses</a> <a href="#ref-for-dom-keyfilterrecord-code-2">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-keyfilterrecord-ctrlkey">
