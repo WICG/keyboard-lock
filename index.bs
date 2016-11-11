@@ -10,13 +10,36 @@ ED: https://github.com/w3c/systemkeylock/
 Repository: garykac/system-keyboard-lock
 Previous Version:
 	<none>
-Editor: Gary Kacmarcik, Google, garykac@google.com
+Editor:
+    Gary Kacmarcik, Google, garykac@google.com
+    Jamie Walch, Google, jamiewalch@google.com
 Abstract:
 	This specification defines an API that allows websites to
 	capture keys that are normally reserved by the underlying host
 	operating system. It is intended to be used by web
 	applications that provide a fullscreen immersive experience
 	(like games or remote access apps).
+</pre>
+
+<pre class="link-defaults">
+spec:ui-events-1; type:attribute; text:code
+</pre>
+
+<pre class="biblio">
+{
+	"QuartzEventServices": {
+		"title": "Quartz Event Services",
+		"href": "https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services"
+	},
+	"GrabKeyboard": {
+		"title": "X11 GrabKeyboard API",
+		"href": "https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard"
+	},
+    "LowLevelKeyboardProc": {
+		"title": "LowLevelKeyboardProc documentation on MSDN",
+		"href": "https://msdn.microsoft.com/en-us/library/windows/desktop/ms644985(v=vs.85).aspx"
+	}
+}
 </pre>
 
 <h2 id="introduction">Introduction</h2>
@@ -35,54 +58,87 @@ Abstract:
 	system. The System Keyboard Lock API enables websites to capture and use
 	all available keys allowed by the OS.
 
-<h2 id="requestSystemKeyboardLock">requestSystemKeyboardLock</h3>
-
-	<pre class="idl" data-highlight="webidl">
-	interface KeyFilterRecord {
-		attribute DOMString code;
-		attribute boolean? ctrlKey;
-		attribute boolean? shiftKey;
-		attribute boolean? altKey;
-		attribute boolean? metaKey;
-	};
-	</pre>
+<h2 id="API">Activating and Deactivating System Keyboard Lock</h3>
 
 	<pre class="idl" data-highlight="webidl">
 	partial interface Navigator {
-	  [Secure Context] boolean requestSystemKeyboardLock(sequence&lt;KeyFilterRecord> keys);
+		[Secure Context] void requestSystemKeyboardLock(optional sequence&lt;DOMString> keyCodes);
+		[Secure Context] void cancelSystemKeyboardLock();
 	};
 	</pre>
 
-<h2 id="handling-system-key-presses">Handling System Key Presses</h2>
+	If {{keyCodes}} is not present, it should be considered to contain all the
+	values specified in [[UIEvents-Code]] throughout this specification.
 
-	In response to the user pressing a key, the user agent should run the
-	following steps:
+ 	In response to {{requestSystemKeyboardLock()}}, the user agent should
+ 	run the following steps:
 
-	1. If a system-key-filter has been specified, then run these sub-steps:
+	1. If full-screen mode is not active, do nothing.
 
-		1. Let keyEvent be the key event for the new key press
+	1. If {{keyCodes}} is present, delete duplicate elements and any element
+		that does not correspond to one of the values specified in
+        [[UIEvents-Code]].
 
-		2. Compare the {{code}} attribute of keyEvent with
-			{{code}} attribute of each of the key filter
-			records. For the first match it finds, perform
-			the following steps:
+	1. Save {{keyCodes}} as <dfn attribute for=navigator>reservedKeyCodes</dfn>
+		for future reference.
 
-			1. Let filterKey be the matching key filter record
+	1. If system keyboard lock is not already active, and if the user agent has
+		input focus, register a keyboard handler that runs before any user-agent
+        keyboard shortcuts are processed. If the operating system supports it,
+        this should also run before any system keyboard shortcuts are processed.
+        See [[LowLevelKeyboardProc]], [[QuartzEventServices]] and
+        [[GrabKeyboard]] for examples for the Windows, Mac and OS X platforms,
+        respectively.
 
-			2. For each of the {{ctrlKey}}, {{shiftKey}},
-				{{altKey}} or {{metaKey}} attributes
-				in the filterKey that are non-null,
-				perform the following steps:
+ 	In response to {{cancelSystemKeyboardLock()}}, or if full-screen is exited
+    while system keyboard lock is active, the user agent should run the
+    following steps:
 
-				1. Let modifier be the matching attribute
+	1. If keyboard lock is in effect:
+    
+		1. Clear the {{reservedKeyCodes}} value saved from the previous call to
+			{{requestSystemKeyboardLock()}}.
 
-				2. If the value of modifier in the
-					filterKey does not match the
-					value of modifier in the
-					keyEvent
+		1. Unregister the low-level keyboard handler that was registered
+			previously.
 
+<h2 id="handling-focus-events">Handling Focus Events</h2>
 
-	2. Continue processing the key as normal.
+	If system keyboard lock is active when the user agent loses keyboard focus,
+    it must ensure that system keys are processed as if system keyboard lock was
+    not active.
+    
+    When the user agent regains keyboard focus, if {{reservedKeyCodes}} is set
+    and full-screen is active, it should reactivate system keyboard lock with
+    {{reservedKeyCodes}} as the {{keyCodes}} parameter.
+
+<h2 id="handling-key-presses">Handling Key Presses</h2>
+
+	In response to the user pressing a key, if a low-level keyboard handler
+	is registered, it should run the following steps:
+
+	1. Let <dfn attribute for=navigator>keyEvent</dfn> be the key event for the
+		new key press.
+
+	1. Compare the {{code}} attribute of {{keyEvent}} with those saved in
+		{{reservedKeyCodes}}.
+
+    1. If a match is found, dispatch {{keyEvent}} to the web page.
+    
+	1. If no match is found, allow the OS to process the key as normal.
+    
+    It is not required that a conforming implementation be able to override the
+    OS default behaviour for every key combination. Specifically, most OSes have
+    a “secure attention sequence” that applications cannot override;
+    this specification does not supersede that.
+
+<h2 id="mobile">Mobile Device Considerations</h2>
+
+    TODO: What level of support do we need on mobile? Is it enough to say that
+    it's a keyboard-focused API and mobile devices typically don't have
+    keyboards? What does Chrome do if you activate full-screen on a mobile
+    web site and hit Escape from an attached keyboard? It seems like that should
+    also be supported.
 
 <h2 id="security">Security Considerations</h2>
 
@@ -102,4 +158,4 @@ Abstract:
 	Thanks to the following people for the discussions that lead
 	to the creation of this proposal:
 
-	Jon Dahlke (Google), Jamie Walch (Google)
+	Jon Dahlke (Google)
