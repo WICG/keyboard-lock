@@ -67,85 +67,155 @@ spec:ui-events-1; type:attribute; text:code
 	};
 	</pre>
 
-	If {{keyCodes}} is not present, it should be considered to contain all the
-	values specified in [[UIEvents-Code]] throughout this specification.
+	There are two variables that the user agent needs to use to keep track of
+	the current state of the System Keyboard Lock:
 
- 	In response to {{requestSystemKeyboardLock()}}, the user agent should
- 	run the following steps:
+		* |enableKeyboardLock| a boolean that is set to true when System
+			Keyboard Lock is enabled. By default, this is set to false.
+		* |reservedKeyCodes| is a sequence of DOMStrings, each of which is a
+			valid KeyboardEvent {{code}} as defined in [[UIEvents-Code]].
+			By default this sequence is empty (which would capture all keys
+			if |enableKeyboardLock| was enabled.
 
-	1. If full-screen mode is not active, do nothing.
+	<h3 id="requestSystemKeyboardLock">requestSystemKeyboardLock</h3>
 
-	1. If {{keyCodes}} is present, delete duplicate elements and any element
-		that does not correspond to one of the values specified in
-        [[UIEvents-Code]].
+		In response to {{requestSystemKeyboardLock()}}, the user agent should
+		run the following steps:
 
-	1. Save {{keyCodes}} as <dfn attribute for=navigator>reservedKeyCodes</dfn>
-		for future reference.
+		1. Reset |reservedKeyCodes| to be the empty list.
 
-	1. If system keyboard lock is not already active, and if the user agent has
-		input focus, register a keyboard handler that runs before any user-agent
-        keyboard shortcuts are processed. If the operating system supports it,
-        this should also run before any system keyboard shortcuts are processed.
-        See [[LowLevelKeyboardProc]], [[QuartzEventServices]] and
-        [[GrabKeyboard]] for examples for the Windows, Mac and OS X platforms,
-        respectively.
+		2. If the optional {{keyCodes}} argument is present, then run the
+			following substeps:
 
- 	In response to {{cancelSystemKeyboardLock()}}, or if full-screen is exited
-    while system keyboard lock is active, the user agent should run the
-    following steps:
+			1. Copy the values from {{keyCodes}} into |reservedKeyCodes|,
+				removing any entries which are invalid (those not listed in
+				[[UIEvents-Code]]) or duplicate.
 
-	1. If keyboard lock is in effect:
-    
-		1. Clear the {{reservedKeyCodes}} value saved from the previous call to
-			{{requestSystemKeyboardLock()}}.
+		3. If |enableKeyboardLock| is currently false, then run the following
+			substeps:
 
-		1. Unregister the low-level keyboard handler that was registered
-			previously.
+			1. Register a low level keyboard event handler. This event handler
+				should have the following properties:
 
-<h2 id="handling-focus-events">Handling Focus Events</h2>
+				* It should process keyboard events before any user agent
+					keyboard shortcuts are handled.
+				* Wherever possible, it should process keyboard events before
+					any system keyboard shortcuts are processed.
 
-	If system keyboard lock is active when the user agent loses keyboard focus,
-    it must ensure that system keys are processed as if system keyboard lock was
-    not active.
-    
-    When the user agent regains keyboard focus, if {{reservedKeyCodes}} is set
-    and full-screen is active, it should reactivate system keyboard lock with
-    {{reservedKeyCodes}} as the {{keyCodes}} parameter.
+			2. Set |enableKeyboardLock| to be true.
 
-<h2 id="handling-key-presses">Handling Key Presses</h2>
+		Note: If the user agent already has a keyboard event handler registered,
+		then it can optionally extend that handler to support the system
+		keyboard lock (assuming it meets the requirements mentioned above).
 
-	In response to the user pressing a key, if a low-level keyboard handler
-	is registered, it should run the following steps:
+		Note: The exact process for registering a keyboard event handler varies
+		from platform to platform.
+		For examples of how to register keyboard event handlers on common
+		platforms, see [[LowLevelKeyboardProc]] for Windows,
+		[[QuartzEventServices]] for Mac OS X and [[GrabKeyboard]] for X Windows.
 
-	1. Let <dfn attribute for=navigator>keyEvent</dfn> be the key event for the
-		new key press.
+	<h3 id="cancelSystemKeyboardLock">cancelSystemKeyboardLock</h3>
 
-	1. Compare the {{code}} attribute of {{keyEvent}} with those saved in
-		{{reservedKeyCodes}}.
+		In response to {{cancelSystemKeyboardLock()}}, the user agent should
+		run the following steps:
 
-    1. If a match is found, dispatch {{keyEvent}} to the web page.
-    
-	1. If no match is found, allow the OS to process the key as normal.
-    
-    It is not required that a conforming implementation be able to override the
-    OS default behaviour for every key combination. Specifically, most OSes have
-    a “secure attention sequence” that applications cannot override;
-    this specification does not supersede that.
+		1. If |enableKeyboardLock| is true, then run the following substeps:
+
+			1. Unregister the system keyboard event handler.
+
+			2. If Set |enableKeyboardLock| to be false.
+
+			3. Reset |reservedKeyCodes| to be an empty sequence.
+
+		Note: As with registering keyboard event handlers, the process for
+		unregistering keyboard event handlers is also platform-specific.
+		See the references listed under {{requestSystemKeyboardLock()}} for
+		more details and examples.
+
+<h2 id="handling-events">Handling Events</h2>
+
+	<h3 id="handling-keyboard-events">Handling Keyboard Events</h3>
+
+		In response to the user pressing a key, if a low-level keyboard handler
+		is registered, it should run the following steps:
+
+		1. Let |isJsFullscreen| be set to true if the user agent is currently in
+			fullscreen mode the was initiated by Element.requestFullscreen()
+			(see [[Fullscreen]]).
+
+			* This can be determined by adding a tracking variable in the
+				requestFullscreen() call or by checking to see if
+				Document.fullscreenElement is non-null.
+
+		2. Let |hasFocus| be set to true if the current fullscreen document or
+			element has input focus.
+
+			* The fullscreen element would not have focus, for example, if there
+				was a system dialog being displayed with focus.
+
+		3. If |isJsFullscreen|, |hasFocus| and |enableKeyboardLock| are all set
+			to true, then run the following substeps:
+
+			1. Let |keyEvent| be the key event for the new key press.
+
+			2. Let |code| be the value of the {{code}} attribute of |keyEvent|.
+
+			3. If |reservedKeyCodes| is empty or if |code| is listed in
+				|reservedKeyCodes|, then run the following substeps:
+
+				1. If |code| is equal to "Escape", then run the following
+					substeps:
+
+					1. Optionally overlay a message on the screen telling the
+						user that they can Hold the Escape key to exit from
+						fullscreen.
+
+					2. If the key is held for 2 seconds, then exit from the
+						keyboard handler and pass the key on to the user agent
+						for normal processing (which will exit fullscreen).
+
+				2. Dispatch |keyEvent| to the fullsceen document or element.
+
+		Note: It is not required that a conforming implementation be able to
+		override the OS default behaviour for every key combination.
+		Specifically, most OSes have a “secure attention sequence” (e.g.,
+		Ctrl-Alt-Del on Windows) that applications cannot override; this
+		specification does not supersede that.
+
+<h2 id="fullscreen-considerations">Fullscreen Considerations</h2>
+
+	There are two different types of fullscreen available in modern user agents:
+	JavaScript-initiated fullscreen (via the [[Fullscreen]] API) and
+	user-initiated fullscreen (when the user enters fullscreen using a keyboard
+	shortcut). The user-initiated fullscreen is often referred to as "F11"
+	fullscreen since that is a common key shortcut used to enter and exit
+	fullscreen mode.
+
+	F11 fullscreen and JavaScript (JS) fullscreen do not behave the same way.
+	When a user enters F11 fullscreen, they can only exit it via the same
+	keyboard shortcut that they used to enter it -- the exitFullscreen()
+	function will not work in this case. In addition, fullscreen events that are
+	normally fired for JS fullscreen are not sent for F11 fullscreen.
+
+	Because of these differences (and because there is no standard shortcut
+	for F11 fullscreen), the System Keyboard Lock API is only valid when the
+	a JavaScript-initiated fullscreen is active. During F11 fullscreen, no
+	System Keyboard Lock processing of keyboard events will take place.
 
 <h2 id="mobile">Mobile Device Considerations</h2>
 
-    TODO: What level of support do we need on mobile? Is it enough to say that
-    it's a keyboard-focused API and mobile devices typically don't have
-    keyboards? What does Chrome do if you activate full-screen on a mobile
-    web site and hit Escape from an attached keyboard? It seems like that should
-    also be supported.
+	Issue: What level of support do we need on mobile? Is it enough to say that
+	it's a keyboard-focused API and mobile devices typically don't have
+	keyboards? What does Chrome do if you activate full-screen on a mobile
+	web site and hit Escape from an attached keyboard? It seems like that should
+	also be supported.
 
 <h2 id="security">Security Considerations</h2>
 
-	TODO: How does this proposal prevent malicious sites from taking all
+	Issue: How does this proposal prevent malicious sites from taking all
 	key events and preventing the user from escaping?
 
-	TODO: How could this be used (alone or in conjunction with
+	Issue: How could this be used (alone or in conjunction with
 	other APIs) to give the user a bad experience?
 
 <h2 id="privacy">Privacy Considerations</h2>
