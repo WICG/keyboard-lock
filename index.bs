@@ -62,36 +62,36 @@ spec:ui-events-1; type:attribute; text:code
 
 	<pre class="idl" data-highlight="webidl">
 	partial interface Navigator {
-		[Secure Context] void requestSystemKeyboardLock(optional sequence&lt;DOMString> keyCodes);
-		[Secure Context] void cancelSystemKeyboardLock();
+		[SecureContext] void requestSystemKeyboardLock(optional sequence&lt;DOMString> keyCodes);
+		[SecureContext] void cancelSystemKeyboardLock();
 	};
 	</pre>
 
-	There are two variables that the user agent needs to use to keep track of
-	the current state of the System Keyboard Lock:
+	The <a>user agent</a> has <dfn>enable keyboard lock</dfn>, which is a
+	boolean that is set to true when System Keyboard Lock is enabled.
+	By default, this is set to false.
 
-		* |enableKeyboardLock| a boolean that is set to true when System
-			Keyboard Lock is enabled. By default, this is set to false.
-		* |reservedKeyCodes| is a sequence of DOMStrings, each of which is a
-			valid KeyboardEvent {{code}} as defined in [[UIEvents-Code]].
-			By default this sequence is empty (which would capture all keys
-			if |enableKeyboardLock| was enabled.
+	The <a>user agent</a> has <dfn>reserved key codes</dfn>, which is a
+	sequence of DOMStrings, each of which is a valid KeyboardEvent {{code}}
+	as defined in [[UIEvents-Code]].
+	By default this sequence is empty (which would capture all keys
+	if <a>enable keyboard lock</a> was enabled).
 
 	<h3 id="requestSystemKeyboardLock">requestSystemKeyboardLock</h3>
 
-		In response to {{requestSystemKeyboardLock()}}, the user agent should
+		When {{requestSystemKeyboardLock()}} is called, the user agent must
 		run the following steps:
 
-		1. Reset |reservedKeyCodes| to be the empty list.
+		1. Reset <a>reserved key codes</a> to be an empty sequence.
 
-		2. If the optional {{keyCodes}} argument is present, then run the
+		2. If the optional {{keyCodes}} argument is present, run the
 			following substeps:
 
-			1. Copy the values from {{keyCodes}} into |reservedKeyCodes|,
+			1. Copy the values from {{keyCodes}} into <a>reserved key codes</a>,
 				removing any entries which are invalid (those not listed in
 				[[UIEvents-Code]]) or duplicate.
 
-		3. If |enableKeyboardLock| is currently false, then run the following
+		3. If <a>enable keyboard lock</a> is currently false, run the following
 			substeps:
 
 			1. Register a low level keyboard event handler. This event handler
@@ -102,7 +102,7 @@ spec:ui-events-1; type:attribute; text:code
 				* Wherever possible, it should process keyboard events before
 					any system keyboard shortcuts are processed.
 
-			2. Set |enableKeyboardLock| to be true.
+			2. Set <a>enable keyboard lock</a> to be true.
 
 		Note: If the user agent already has a keyboard event handler registered,
 		then it can optionally extend that handler to support the system
@@ -116,16 +116,16 @@ spec:ui-events-1; type:attribute; text:code
 
 	<h3 id="cancelSystemKeyboardLock">cancelSystemKeyboardLock</h3>
 
-		In response to {{cancelSystemKeyboardLock()}}, the user agent should
+		When {{cancelSystemKeyboardLock()}} is called, the user agent must
 		run the following steps:
 
-		1. If |enableKeyboardLock| is true, then run the following substeps:
+		1. If <a>enable keyboard lock</a> is true, then run the following substeps:
 
 			1. Unregister the system keyboard event handler.
 
-			2. If Set |enableKeyboardLock| to be false.
+			2. Set <a>enable keyboard lock</a> to be false.
 
-			3. Reset |reservedKeyCodes| to be an empty sequence.
+			3. Reset <a>reserved key codes</a> to be an empty sequence.
 
 		Note: As with registering keyboard event handlers, the process for
 		unregistering keyboard event handlers is also platform-specific.
@@ -140,17 +140,17 @@ spec:ui-events-1; type:attribute; text:code
 		is registered, it should run the following steps:
 
 		1. Let |isJsFullscreen| be set to true if the user agent is currently in
-			fullscreen mode the was initiated by Element.requestFullscreen()
+			fullscreen mode that was initiated by Element.requestFullscreen()
 			(see [[Fullscreen]]).
 
-			* This can be determined by adding a tracking variable in the
+			Note: This can be determined by adding a tracking variable in the
 				requestFullscreen() call or by checking to see if
 				Document.fullscreenElement is non-null.
 
 		2. Let |hasFocus| be set to true if the current fullscreen document or
 			element has input focus.
 
-			* The fullscreen element would not have focus, for example, if there
+			Note: The fullscreen element would not have focus, for example, if there
 				was a system dialog being displayed with focus.
 
 		3. If |isJsFullscreen|, |hasFocus| and |enableKeyboardLock| are all set
@@ -160,8 +160,8 @@ spec:ui-events-1; type:attribute; text:code
 
 			2. Let |code| be the value of the {{code}} attribute of |keyEvent|.
 
-			3. If |reservedKeyCodes| is empty or if |code| is listed in
-				|reservedKeyCodes|, then run the following substeps:
+			3. If <a>reserved key codes</a> is empty or if |code| is listed in
+				<a>reserved key codes</a>, then run the following substeps:
 
 				1. If |code| is equal to "Escape", then run the following
 					substeps:
