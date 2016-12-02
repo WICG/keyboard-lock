@@ -8,7 +8,7 @@
   <link href="../csslogo.ico" rel="shortcut icon" type="image/x-icon">
   <link href="styles.css" rel="stylesheet" type="text/css">
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-WD" rel="stylesheet" type="text/css">
-  <meta content="Bikeshed 1.0.0" name="generator">
+  <meta content="Bikeshed version 6a4f8be68430b11c876cd3230aa3d768e5c074a3" name="generator">
 <style>/* style-md-lists */
 
             /* This is a weird hack for me not yet following the commonmark spec
@@ -256,12 +256,12 @@ pre.idl.highlight { color: #708090; }
    <header>
     <p data-fill-with="logo"><a href="http://www.w3.org/"><img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"></a></p>
     <h1>System Keyboard Lock</h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">W3C Working Draft, <time class="dt-updated" datetime="2016-11-17">17 November 2016</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">W3C Working Draft, <time class="dt-updated" datetime="2016-12-02">2 December 2016</time></span></h2>
    </header>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="https://www.w3.org/TR/2016/WD-systemkeylock-20161117/">https://www.w3.org/TR/2016/WD-systemkeylock-20161117/</a>
+     <dd><a class="u-url" href="https://www.w3.org/TR/2016/WD-systemkeylock-20161202/">https://www.w3.org/TR/2016/WD-systemkeylock-20161202/</a>
      <dt>Latest published version:
      <dd><a href="http://www.w3.org/TR/systemkeylock/">http://www.w3.org/TR/systemkeylock/</a>
      <dt>Editor's Draft:
@@ -366,38 +366,33 @@ applications that provide a fullscreen immersive experience
 	all available keys allowed by the OS.</p>
    <h2 class="heading settled" data-level="2" id="API"><span class="secno">2. </span><span class="content">Activating and Deactivating System Keyboard Lock</span><a class="self-link" href="#API"></a></h2>
 <pre class="idl highlight def" data-highlight="webidl"><span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a> {
-  [Secure Context] <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export="" data-lt="requestSystemKeyboardLock(keyCodes)|requestSystemKeyboardLock()" id="dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock</dfn>(<span class="kt">optional</span> <span class="kt">sequence</span>&lt;<span class="kt">DOMString</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator/requestSystemKeyboardLock(keyCodes), Navigator/requestSystemKeyboardLock()" data-dfn-type="argument" data-export="" id="dom-navigator-requestsystemkeyboardlock-keycodes-keycodes">keyCodes</dfn>);
-  [Secure Context] <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export="" data-lt="cancelSystemKeyboardLock()" id="dom-navigator-cancelsystemkeyboardlock">cancelSystemKeyboardLock</dfn>();
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>] <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export="" data-lt="requestSystemKeyboardLock(keyCodes)|requestSystemKeyboardLock()" id="dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock</dfn>(<span class="kt">optional</span> <span class="kt">sequence</span>&lt;<span class="kt">DOMString</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator/requestSystemKeyboardLock(keyCodes), Navigator/requestSystemKeyboardLock()" data-dfn-type="argument" data-export="" id="dom-navigator-requestsystemkeyboardlock-keycodes-keycodes">keyCodes</dfn>);
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>] <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator" data-dfn-type="method" data-export="" data-lt="cancelSystemKeyboardLock()" id="dom-navigator-cancelsystemkeyboardlock">cancelSystemKeyboardLock</dfn>();
 };
 </pre>
-   <p>There are two variables that the user agent needs to use to keep track of
-	the current state of the System Keyboard Lock:</p>
-   <ul>
-    <li data-md="">
-     <p><var>enableKeyboardLock</var> a boolean that is set to true when System
-Keyboard Lock is enabled. By default, this is set to false.</p>
-    <li data-md="">
-     <p><var>reservedKeyCodes</var> is a sequence of DOMStrings, each of which is a
-valid KeyboardEvent <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/uievents/#dom-keyboardevent-code">code</a></code> as defined in <a data-link-type="biblio" href="#biblio-uievents-code">[UIEvents-Code]</a>.
-By default this sequence is empty (which would capture all keys
-if <var>enableKeyboardLock</var> was enabled.</p>
-   </ul>
+   <p>The navigator has <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="enable-keyboard-lock">enable keyboard lock</dfn>, which is a
+	boolean that is set to true when System Keyboard Lock is enabled.
+	By default, this is set to false.</p>
+   <p>The navigator has <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="reserved-key-codes">reserved key codes</dfn>, which is a
+	sequence of DOMStrings, each of which is a valid KeyboardEvent <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/uievents/#dom-keyboardevent-code">code</a></code> as defined in <a data-link-type="biblio" href="#biblio-uievents-code">[UIEvents-Code]</a>.
+	By default this sequence is empty (which would capture all keys
+	if <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-1">enable keyboard lock</a> was enabled).</p>
    <h3 class="heading settled" data-level="2.1" id="requestSystemKeyboardLock"><span class="secno">2.1. </span><span class="content">requestSystemKeyboardLock</span><a class="self-link" href="#requestSystemKeyboardLock"></a></h3>
-   <p>In response to <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestsystemkeyboardlock" id="ref-for-dom-navigator-requestsystemkeyboardlock-1">requestSystemKeyboardLock()</a></code>, the user agent should
+   <p>When <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestsystemkeyboardlock" id="ref-for-dom-navigator-requestsystemkeyboardlock-1">requestSystemKeyboardLock()</a></code> is called, the user agent must
 		run the following steps:</p>
    <ol>
     <li data-md="">
-     <p>Reset <var>reservedKeyCodes</var> to be the empty list.</p>
+     <p>Reset <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-1">reserved key codes</a> to be an empty sequence.</p>
     <li data-md="">
-     <p>If the optional <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestsystemkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestsystemkeyboardlock-keycodes-keycodes-1">keyCodes</a></code> argument is present, then run the
+     <p>If the optional <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestsystemkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestsystemkeyboardlock-keycodes-keycodes-1">keyCodes</a></code> argument is present, run the
 following substeps:</p>
      <ol>
       <li data-md="">
-       <p>Copy the values from <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestsystemkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestsystemkeyboardlock-keycodes-keycodes-2">keyCodes</a></code> into <var>reservedKeyCodes</var>,
+       <p>Copy the values from <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestsystemkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestsystemkeyboardlock-keycodes-keycodes-2">keyCodes</a></code> into <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-2">reserved key codes</a>,
 removing any entries which are invalid (those not listed in <a data-link-type="biblio" href="#biblio-uievents-code">[UIEvents-Code]</a>) or duplicate.</p>
      </ol>
     <li data-md="">
-     <p>If <var>enableKeyboardLock</var> is currently false, then run the following
+     <p>If <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-2">enable keyboard lock</a> is currently false, run the following
 substeps:</p>
      <ol>
       <li data-md="">
@@ -412,7 +407,7 @@ keyboard shortcuts are handled.</p>
 any system keyboard shortcuts are processed.</p>
        </ul>
       <li data-md="">
-       <p>Set <var>enableKeyboardLock</var> to be true.</p>
+       <p>Set <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-3">enable keyboard lock</a> to be true.</p>
      </ol>
    </ol>
    <p class="note" role="note">Note: If the user agent already has a keyboard event handler registered,
@@ -423,18 +418,18 @@ any system keyboard shortcuts are processed.</p>
 		For examples of how to register keyboard event handlers on common
 		platforms, see <a data-link-type="biblio" href="#biblio-lowlevelkeyboardproc">[LowLevelKeyboardProc]</a> for Windows, <a data-link-type="biblio" href="#biblio-quartzeventservices">[QuartzEventServices]</a> for Mac OS X and <a data-link-type="biblio" href="#biblio-grabkeyboard">[GrabKeyboard]</a> for X Windows.</p>
    <h3 class="heading settled" data-level="2.2" id="cancelSystemKeyboardLock"><span class="secno">2.2. </span><span class="content">cancelSystemKeyboardLock</span><a class="self-link" href="#cancelSystemKeyboardLock"></a></h3>
-   <p>In response to <code class="idl"><a data-link-type="idl" href="#dom-navigator-cancelsystemkeyboardlock" id="ref-for-dom-navigator-cancelsystemkeyboardlock-1">cancelSystemKeyboardLock()</a></code>, the user agent should
+   <p>When <code class="idl"><a data-link-type="idl" href="#dom-navigator-cancelsystemkeyboardlock" id="ref-for-dom-navigator-cancelsystemkeyboardlock-1">cancelSystemKeyboardLock()</a></code> is called, the user agent must
 		run the following steps:</p>
    <ol>
     <li data-md="">
-     <p>If <var>enableKeyboardLock</var> is true, then run the following substeps:</p>
+     <p>If <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-4">enable keyboard lock</a> is true, then run the following substeps:</p>
      <ol>
       <li data-md="">
        <p>Unregister the system keyboard event handler.</p>
       <li data-md="">
-       <p>If Set <var>enableKeyboardLock</var> to be false.</p>
+       <p>Set <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-5">enable keyboard lock</a> to be false.</p>
       <li data-md="">
-       <p>Reset <var>reservedKeyCodes</var> to be an empty sequence.</p>
+       <p>Reset <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-3">reserved key codes</a> to be an empty sequence.</p>
      </ol>
    </ol>
    <p class="note" role="note">Note: As with registering keyboard event handlers, the process for
@@ -448,24 +443,18 @@ any system keyboard shortcuts are processed.</p>
    <ol>
     <li data-md="">
      <p>Let <var>isJsFullscreen</var> be set to true if the user agent is currently in
-fullscreen mode the was initiated by Element.requestFullscreen()
+fullscreen mode that was initiated by Element.requestFullscreen()
 (see <a data-link-type="biblio" href="#biblio-fullscreen">[Fullscreen]</a>).</p>
-     <ul>
-      <li data-md="">
-       <p>This can be determined by adding a tracking variable in the
-requestFullscreen() call or by checking to see if
-Document.fullscreenElement is non-null.</p>
-     </ul>
+     <p class="note" role="note">Note: This can be determined by adding a tracking variable in the
+	requestFullscreen() call or by checking to see if
+	Document.fullscreenElement is non-null.</p>
     <li data-md="">
      <p>Let <var>hasFocus</var> be set to true if the current fullscreen document or
 element has input focus.</p>
-     <ul>
-      <li data-md="">
-       <p>The fullscreen element would not have focus, for example, if there
-was a system dialog being displayed with focus.</p>
-     </ul>
+     <p class="note" role="note">Note: The fullscreen element would not have focus, for example, if there
+	was a system dialog being displayed with focus.</p>
     <li data-md="">
-     <p>If <var>isJsFullscreen</var>, <var>hasFocus</var> and <var>enableKeyboardLock</var> are all set
+     <p>If <var>isJsFullscreen</var>, <var>hasFocus</var> and <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-6">enable keyboard lock</a> are all set
 to true, then run the following substeps:</p>
      <ol>
       <li data-md="">
@@ -473,7 +462,7 @@ to true, then run the following substeps:</p>
       <li data-md="">
        <p>Let <var>code</var> be the value of the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/uievents/#dom-keyboardevent-code">code</a></code> attribute of <var>keyEvent</var>.</p>
       <li data-md="">
-       <p>If <var>reservedKeyCodes</var> is empty or if <var>code</var> is listed in <var>reservedKeyCodes</var>, then run the following substeps:</p>
+       <p>If <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-4">reserved key codes</a> is empty or if <var>code</var> is listed in <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-5">reserved key codes</a>, then run the following substeps:</p>
        <ol>
         <li data-md="">
          <p>If <var>code</var> is equal to "Escape", then run the following
@@ -538,8 +527,10 @@ for normal processing (which will exit fullscreen).</p>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
    <li><a href="#dom-navigator-cancelsystemkeyboardlock">cancelSystemKeyboardLock()</a><span>, in §2</span>
+   <li><a href="#enable-keyboard-lock">enable keyboard lock</a><span>, in §2</span>
    <li><a href="#dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock()</a><span>, in §2</span>
    <li><a href="#dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock(keyCodes)</a><span>, in §2</span>
+   <li><a href="#reserved-key-codes">reserved key codes</a><span>, in §2</span>
   </ul>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
@@ -553,6 +544,11 @@ for normal processing (which will exit fullscreen).</p>
     <ul>
      <li><a href="https://www.w3.org/TR/uievents/#dom-keyboardevent-code">code</a>
     </ul>
+   <li>
+    <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
+    <ul>
+     <li><a href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>
+    </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
@@ -561,6 +557,8 @@ for normal processing (which will exit fullscreen).</p>
    <dd>Ian Hickson. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-uievents">[UIEVENTS]
    <dd>Gary Kacmarcik; Travis Leithead. <a href="https://www.w3.org/TR/uievents/">UI Events</a>. 4 August 2016. WD. URL: <a href="https://www.w3.org/TR/uievents/">https://www.w3.org/TR/uievents/</a>
+   <dt id="biblio-webidl">[WebIDL]
+   <dd>Cameron McCormack; Boris Zbarsky; Tobie Langel. <a href="https://www.w3.org/TR/WebIDL-1/">Web IDL</a>. 15 September 2016. WD. URL: <a href="https://www.w3.org/TR/WebIDL-1/">https://www.w3.org/TR/WebIDL-1/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
@@ -573,12 +571,12 @@ for normal processing (which will exit fullscreen).</p>
    <dt id="biblio-quartzeventservices">[QuartzEventServices]
    <dd><a href="https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services">Quartz Event Services</a>. URL: <a href="https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services">https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services</a>
    <dt id="biblio-uievents-code">[UIEvents-Code]
-   <dd>Gary Kacmarcik; Travis Leithead. <a href="https://www.w3.org/TR/uievents-code/">UI Events KeyboardEvent code Values</a>. 15 December 2015. WD. URL: <a href="https://www.w3.org/TR/uievents-code/">https://www.w3.org/TR/uievents-code/</a>
+   <dd>Gary Kacmarcik; Travis Leithead. <a href="https://www.w3.org/TR/uievents-code/">UI Events KeyboardEvent code Values</a>. 24 October 2016. WD. URL: <a href="https://www.w3.org/TR/uievents-code/">https://www.w3.org/TR/uievents-code/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl def"><span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a> {
-  [Secure Context] <span class="kt">void</span> <a class="nv" href="#dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock</a>(<span class="kt">optional</span> <span class="kt">sequence</span>&lt;<span class="kt">DOMString</span>> <a class="nv" href="#dom-navigator-requestsystemkeyboardlock-keycodes-keycodes">keyCodes</a>);
-  [Secure Context] <span class="kt">void</span> <a class="nv" href="#dom-navigator-cancelsystemkeyboardlock">cancelSystemKeyboardLock</a>();
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>] <span class="kt">void</span> <a class="nv" href="#dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock</a>(<span class="kt">optional</span> <span class="kt">sequence</span>&lt;<span class="kt">DOMString</span>> <a class="nv" href="#dom-navigator-requestsystemkeyboardlock-keycodes-keycodes">keyCodes</a>);
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>] <span class="kt">void</span> <a class="nv" href="#dom-navigator-cancelsystemkeyboardlock">cancelSystemKeyboardLock</a>();
 };
 
 </pre>
@@ -611,6 +609,23 @@ for normal processing (which will exit fullscreen).</p>
    <b><a href="#dom-navigator-cancelsystemkeyboardlock">#dom-navigator-cancelsystemkeyboardlock</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-navigator-cancelsystemkeyboardlock-1">2.2. cancelSystemKeyboardLock</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="enable-keyboard-lock">
+   <b><a href="#enable-keyboard-lock">#enable-keyboard-lock</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enable-keyboard-lock-1">2. Activating and Deactivating System Keyboard Lock</a>
+    <li><a href="#ref-for-enable-keyboard-lock-2">2.1. requestSystemKeyboardLock</a> <a href="#ref-for-enable-keyboard-lock-3">(2)</a>
+    <li><a href="#ref-for-enable-keyboard-lock-4">2.2. cancelSystemKeyboardLock</a> <a href="#ref-for-enable-keyboard-lock-5">(2)</a>
+    <li><a href="#ref-for-enable-keyboard-lock-6">3.1. Handling Keyboard Events</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="reserved-key-codes">
+   <b><a href="#reserved-key-codes">#reserved-key-codes</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-reserved-key-codes-1">2.1. requestSystemKeyboardLock</a> <a href="#ref-for-reserved-key-codes-2">(2)</a>
+    <li><a href="#ref-for-reserved-key-codes-3">2.2. cancelSystemKeyboardLock</a>
+    <li><a href="#ref-for-reserved-key-codes-4">3.1. Handling Keyboard Events</a> <a href="#ref-for-reserved-key-codes-5">(2)</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

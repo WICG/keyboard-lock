@@ -67,11 +67,11 @@ spec:ui-events-1; type:attribute; text:code
 	};
 	</pre>
 
-	The <a>user agent</a> has <dfn>enable keyboard lock</dfn>, which is a
+	The navigator has <dfn>enable keyboard lock</dfn>, which is a
 	boolean that is set to true when System Keyboard Lock is enabled.
 	By default, this is set to false.
 
-	The <a>user agent</a> has <dfn>reserved key codes</dfn>, which is a
+	The navigator has <dfn>reserved key codes</dfn>, which is a
 	sequence of DOMStrings, each of which is a valid KeyboardEvent {{code}}
 	as defined in [[UIEvents-Code]].
 	By default this sequence is empty (which would capture all keys
@@ -153,7 +153,7 @@ spec:ui-events-1; type:attribute; text:code
 			Note: The fullscreen element would not have focus, for example, if there
 				was a system dialog being displayed with focus.
 
-		3. If |isJsFullscreen|, |hasFocus| and |enableKeyboardLock| are all set
+		3. If |isJsFullscreen|, |hasFocus| and <a>enable keyboard lock</a> are all set
 			to true, then run the following substeps:
 
 			1. Let |keyEvent| be the key event for the new key press.
