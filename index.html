@@ -256,12 +256,12 @@ pre.idl.highlight { color: #708090; }
    <header>
     <p data-fill-with="logo"><a href="http://www.w3.org/"><img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"></a></p>
     <h1>System Keyboard Lock</h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">W3C Working Draft, <time class="dt-updated" datetime="2016-12-07">7 December 2016</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">W3C Working Draft, <time class="dt-updated" datetime="2016-12-13">13 December 2016</time></span></h2>
    </header>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
-     <dd><a class="u-url" href="https://www.w3.org/TR/2016/WD-systemkeylock-20161207/">https://www.w3.org/TR/2016/WD-systemkeylock-20161207/</a>
+     <dd><a class="u-url" href="https://www.w3.org/TR/2016/WD-systemkeylock-20161213/">https://www.w3.org/TR/2016/WD-systemkeylock-20161213/</a>
      <dt>Latest published version:
      <dd><a href="http://www.w3.org/TR/systemkeylock/">http://www.w3.org/TR/systemkeylock/</a>
      <dt>Editor's Draft:
@@ -325,9 +325,15 @@ applications that provide a fullscreen immersive experience
       <li><a href="#cancelSystemKeyboardLock"><span class="secno">2.2</span> <span class="content">cancelSystemKeyboardLock</span></a>
      </ol>
     <li>
-     <a href="#handling-events"><span class="secno">3</span> <span class="content">Handling Events</span></a>
+     <a href="#handling-events"><span class="secno">3</span> <span class="content">Handling Keyboard Key Presses</span></a>
      <ol class="toc">
-      <li><a href="#handling-keyboard-events"><span class="secno">3.1</span> <span class="content">Handling Keyboard Events</span></a>
+      <li>
+       <a href="#key-press-handler"><span class="secno">3.1</span> <span class="content">System Key Press Handler</span></a>
+       <ol class="toc">
+        <li><a href="#registering"><span class="secno">3.1.1</span> <span class="content">Registering</span></a>
+        <li><a href="#unregistering"><span class="secno">3.1.2</span> <span class="content">Unregistering</span></a>
+       </ol>
+      <li><a href="#handling-keyboard-events"><span class="secno">3.2</span> <span class="content">Handling Keyboard Events</span></a>
      </ol>
     <li><a href="#fullscreen-considerations"><span class="secno">4</span> <span class="content">Fullscreen Considerations</span></a>
     <li><a href="#mobile"><span class="secno">5</span> <span class="content">Mobile Device Considerations</span></a>
@@ -396,27 +402,11 @@ removing any entries which are not <a data-link-type="dfn" href="http://www.w3.o
 substeps:</p>
      <ol>
       <li data-md="">
-       <p>Register a low level keyboard event handler. This event handler
-should have the following properties:</p>
-       <ul>
-        <li data-md="">
-         <p>It should process keyboard events before any user agent
-keyboard shortcuts are handled.</p>
-        <li data-md="">
-         <p>Wherever possible, it should process keyboard events before
-any system keyboard shortcuts are processed.</p>
-       </ul>
+       <p><a data-link-type="dfn" href="#register-a-system-key-press-handler" id="ref-for-register-a-system-key-press-handler-1">Register a system key press handler</a>.</p>
       <li data-md="">
        <p>Set <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-3">enable keyboard lock</a> to be true.</p>
      </ol>
    </ol>
-   <p class="note" role="note">Note: If the user agent already has a keyboard event handler registered,
-		then it can optionally extend that handler to support the system
-		keyboard lock (assuming it meets the requirements mentioned above).</p>
-   <p class="note" role="note">Note: The exact process for registering a keyboard event handler varies
-		from platform to platform.
-		For examples of how to register keyboard event handlers on common
-		platforms, see <a data-link-type="biblio" href="#biblio-lowlevelkeyboardproc">[LowLevelKeyboardProc]</a> for Windows, <a data-link-type="biblio" href="#biblio-quartzeventservices">[QuartzEventServices]</a> for Mac OS X and <a data-link-type="biblio" href="#biblio-grabkeyboard">[GrabKeyboard]</a> for X Windows.</p>
    <h3 class="heading settled" data-level="2.2" id="cancelSystemKeyboardLock"><span class="secno">2.2. </span><span class="content">cancelSystemKeyboardLock</span><a class="self-link" href="#cancelSystemKeyboardLock"></a></h3>
    <p>When <code class="idl"><a data-link-type="idl" href="#dom-navigator-cancelsystemkeyboardlock" id="ref-for-dom-navigator-cancelsystemkeyboardlock-1">cancelSystemKeyboardLock()</a></code> is called, the user agent must
 		run the following steps:</p>
@@ -425,21 +415,54 @@ any system keyboard shortcuts are processed.</p>
      <p>If <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-4">enable keyboard lock</a> is true, then run the following substeps:</p>
      <ol>
       <li data-md="">
-       <p>Unregister the system keyboard event handler.</p>
+       <p><a data-link-type="dfn" href="#unregister-the-system-key-press-handler" id="ref-for-unregister-the-system-key-press-handler-1">Unregister the system key press handler</a>.</p>
       <li data-md="">
        <p>Set <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-5">enable keyboard lock</a> to be false.</p>
       <li data-md="">
        <p>Reset <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-3">reserved key codes</a> to be an empty sequence.</p>
      </ol>
    </ol>
-   <p class="note" role="note">Note: As with registering keyboard event handlers, the process for
-		unregistering keyboard event handlers is also platform-specific.
-		See the references listed under <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestsystemkeyboardlock" id="ref-for-dom-navigator-requestsystemkeyboardlock-2">requestSystemKeyboardLock()</a></code> for
-		more details and examples.</p>
-   <h2 class="heading settled" data-level="3" id="handling-events"><span class="secno">3. </span><span class="content">Handling Events</span><a class="self-link" href="#handling-events"></a></h2>
-   <h3 class="heading settled" data-level="3.1" id="handling-keyboard-events"><span class="secno">3.1. </span><span class="content">Handling Keyboard Events</span><a class="self-link" href="#handling-keyboard-events"></a></h3>
-   <p>In response to the user pressing a key, if a low-level keyboard handler
-		is registered, it should run the following steps:</p>
+   <h2 class="heading settled" data-level="3" id="handling-events"><span class="secno">3. </span><span class="content">Handling Keyboard Key Presses</span><a class="self-link" href="#handling-events"></a></h2>
+   <h3 class="heading settled" data-level="3.1" id="key-press-handler"><span class="secno">3.1. </span><span class="content">System Key Press Handler</span><a class="self-link" href="#key-press-handler"></a></h3>
+    A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="system-key-press-handler">system key press handler</dfn> is an platform-specific handler
+		that can be used to filter keys at the platform level. Since
+		System Keyboard Lock feature is intended to provide access to key
+		presses that are not normally made available to the browser (for
+		example, Cmd/Alt-Tab), most platforms will require a special handler
+		to be set up. 
+   <p>The <a data-link-type="dfn" href="#system-key-press-handler" id="ref-for-system-key-press-handler-1">system key press handler</a> must have the following properties:</p>
+   <ul>
+    <li data-md="">
+     <p>It must process key presses before any user agent keyboard shortcuts
+are handled.</p>
+    <li data-md="">
+     <p>Wherever possible, it should process key presses before any system
+keyboard shortcuts are processed.</p>
+   </ul>
+   <h4 class="heading settled" data-level="3.1.1" id="registering"><span class="secno">3.1.1. </span><span class="content">Registering</span><a class="self-link" href="#registering"></a></h4>
+   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="register-a-system-key-press-handler">register a system key press handler</dfn>, the user agent
+			will need to follow the platform-specific steps to add a low-level
+			hook that will be called whenever the platform begins to process a
+			new key press.</p>
+   <p>The exact process for adding a <a data-link-type="dfn" href="#system-key-press-handler" id="ref-for-system-key-press-handler-2">system key press handler</a> varies
+			from platform to platform. For examples of how to register a
+			low-level hook to process key presses on common platforms, see <a data-link-type="biblio" href="#biblio-lowlevelkeyboardproc">[LowLevelKeyboardProc]</a> for Windows, <a data-link-type="biblio" href="#biblio-quartzeventservices">[QuartzEventServices]</a> for
+			Mac OS X and <a data-link-type="biblio" href="#biblio-grabkeyboard">[GrabKeyboard]</a> for X Windows.</p>
+   <p class="note" role="note">Note: If the user agent already has a key press handler registered
+			for another purpose, then it can optionally extend that handler to
+			support the System Keyboard Lock feature (assuming it meets the
+			requirements mentioned above).</p>
+   <h4 class="heading settled" data-level="3.1.2" id="unregistering"><span class="secno">3.1.2. </span><span class="content">Unregistering</span><a class="self-link" href="#unregistering"></a></h4>
+   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="unregister-the-system-key-press-handler">unregister the system key press handler</dfn>, the user
+			agent will need to follow the platform-specific steps to remove the
+			(previously added) low-level hook for processing new key press.</p>
+   <p>As with registering system key press handlers, the process for
+			unregistering system key press handlers is also platform-specific.
+			See the references listed in <a href="#registering">§3.1.1 Registering</a> for more details and
+			examples.</p>
+   <h3 class="heading settled" data-level="3.2" id="handling-keyboard-events"><span class="secno">3.2. </span><span class="content">Handling Keyboard Events</span><a class="self-link" href="#handling-keyboard-events"></a></h3>
+   <p>In response to the user pressing a key, if a <a data-link-type="dfn" href="#system-key-press-handler" id="ref-for-system-key-press-handler-3">system key press handler</a> has been <a data-link-type="dfn" href="#register-a-system-key-press-handler" id="ref-for-register-a-system-key-press-handler-2">registered</a>,
+		it should run the following steps:</p>
    <ol>
     <li data-md="">
      <p>Let <var>isJsFullscreen</var> be set to true if the user agent is currently in
@@ -451,8 +474,8 @@ fullscreen mode that was initiated by Element.requestFullscreen()
     <li data-md="">
      <p>Let <var>hasFocus</var> be set to true if the current fullscreen document or
 element has input focus.</p>
-     <p class="note" role="note">Note: The fullscreen element would not have focus, for example, if there
-	was a system dialog being displayed with focus.</p>
+     <p class="note" role="note">Note: The fullscreen element would not have focus, for example, if
+there was a system dialog being displayed with focus.</p>
     <li data-md="">
      <p>If <var>isJsFullscreen</var>, <var>hasFocus</var> and <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-6">enable keyboard lock</a> are all set
 to true, then run the following substeps:</p>
@@ -480,11 +503,15 @@ for normal processing (which will exit fullscreen).</p>
         <li data-md="">
          <p>Dispatch <var>keyEvent</var> to the fullsceen document or element.</p>
        </ol>
+      <li data-md="">
+       <p>Else, handle the key event as it normally would be handled,
+either by dispatching a key event or performing the
+usual keyboard shortcut action.</p>
      </ol>
    </ol>
    <p class="note" role="note">Note: It is not required that a conforming implementation be able to
 		override the OS default behaviour for every key combination.
-		Specifically, most OSes have a “secure attention sequence” (e.g.,
+		Specifically, most platforms have a “secure attention sequence” (e.g.,
 		Ctrl-Alt-Del on Windows) that applications cannot override; this
 		specification does not supersede that.</p>
    <h2 class="heading settled" data-level="4" id="fullscreen-considerations"><span class="secno">4. </span><span class="content">Fullscreen Considerations</span><a class="self-link" href="#fullscreen-considerations"></a></h2>
@@ -528,9 +555,12 @@ for normal processing (which will exit fullscreen).</p>
   <ul class="index">
    <li><a href="#dom-navigator-cancelsystemkeyboardlock">cancelSystemKeyboardLock()</a><span>, in §2</span>
    <li><a href="#enable-keyboard-lock">enable keyboard lock</a><span>, in §2</span>
+   <li><a href="#register-a-system-key-press-handler">register a system key press handler</a><span>, in §3.1.1</span>
    <li><a href="#dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock()</a><span>, in §2</span>
    <li><a href="#dom-navigator-requestsystemkeyboardlock">requestSystemKeyboardLock(keyCodes)</a><span>, in §2</span>
    <li><a href="#reserved-key-codes">reserved key codes</a><span>, in §2</span>
+   <li><a href="#system-key-press-handler">system key press handler</a><span>, in §3.1</span>
+   <li><a href="#unregister-the-system-key-press-handler">unregister the system key press handler</a><span>, in §3.1.2</span>
   </ul>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
@@ -601,7 +631,6 @@ for normal processing (which will exit fullscreen).</p>
    <b><a href="#dom-navigator-requestsystemkeyboardlock">#dom-navigator-requestsystemkeyboardlock</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-navigator-requestsystemkeyboardlock-1">2.1. requestSystemKeyboardLock</a>
-    <li><a href="#ref-for-dom-navigator-requestsystemkeyboardlock-2">2.2. cancelSystemKeyboardLock</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-navigator-requestsystemkeyboardlock-keycodes-keycodes">
@@ -622,7 +651,7 @@ for normal processing (which will exit fullscreen).</p>
     <li><a href="#ref-for-enable-keyboard-lock-1">2. Activating and Deactivating System Keyboard Lock</a>
     <li><a href="#ref-for-enable-keyboard-lock-2">2.1. requestSystemKeyboardLock</a> <a href="#ref-for-enable-keyboard-lock-3">(2)</a>
     <li><a href="#ref-for-enable-keyboard-lock-4">2.2. cancelSystemKeyboardLock</a> <a href="#ref-for-enable-keyboard-lock-5">(2)</a>
-    <li><a href="#ref-for-enable-keyboard-lock-6">3.1. Handling Keyboard Events</a>
+    <li><a href="#ref-for-enable-keyboard-lock-6">3.2. Handling Keyboard Events</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="reserved-key-codes">
@@ -630,7 +659,28 @@ for normal processing (which will exit fullscreen).</p>
    <ul>
     <li><a href="#ref-for-reserved-key-codes-1">2.1. requestSystemKeyboardLock</a> <a href="#ref-for-reserved-key-codes-2">(2)</a>
     <li><a href="#ref-for-reserved-key-codes-3">2.2. cancelSystemKeyboardLock</a>
-    <li><a href="#ref-for-reserved-key-codes-4">3.1. Handling Keyboard Events</a> <a href="#ref-for-reserved-key-codes-5">(2)</a>
+    <li><a href="#ref-for-reserved-key-codes-4">3.2. Handling Keyboard Events</a> <a href="#ref-for-reserved-key-codes-5">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="system-key-press-handler">
+   <b><a href="#system-key-press-handler">#system-key-press-handler</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-system-key-press-handler-1">3.1. System Key Press Handler</a>
+    <li><a href="#ref-for-system-key-press-handler-2">3.1.1. Registering</a>
+    <li><a href="#ref-for-system-key-press-handler-3">3.2. Handling Keyboard Events</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="register-a-system-key-press-handler">
+   <b><a href="#register-a-system-key-press-handler">#register-a-system-key-press-handler</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-register-a-system-key-press-handler-1">2.1. requestSystemKeyboardLock</a>
+    <li><a href="#ref-for-register-a-system-key-press-handler-2">3.2. Handling Keyboard Events</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="unregister-the-system-key-press-handler">
+   <b><a href="#unregister-the-system-key-press-handler">#unregister-the-system-key-press-handler</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-unregister-the-system-key-press-handler-1">2.2. cancelSystemKeyboardLock</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
