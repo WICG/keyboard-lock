@@ -9,3 +9,7 @@ For background, see:
 
 * The [explainer](https://github.com/jondahlke/system-keyboard-lock/blob/master/EXPLAINER.md)
 * The [WICG incubation discussion](https://discourse.wicg.io/t/proposal-system-keyboard-lock-api/1594) for this feature
+
+Links:
+
+* [Design Doc for Chrome](https://goo.gl/WjAhiZ)
