@@ -1,13 +1,13 @@
-<h1>System Keyboard Lock</h1>
+<h1>Keyboard Lock</h1>
 
 <pre class="metadata">
-Shortname: systemkeylock
+Shortname: keyboard-lock
 Level:
 Group: uievents
 Status: WD
-TR: http://www.w3.org/TR/systemkeylock/
-ED: https://github.com/w3c/systemkeylock/
-Repository: garykac/system-keyboard-lock
+TR: http://www.w3.org/TR/keyboard-lock/
+ED: https://w3c.github.io/keyboard-lock/
+Repository: w3c/keyboard-lock
 Previous Version:
 	<none>
 Editor:
@@ -56,20 +56,20 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 
 	By default, these keys are not available to the web application because
 	they are captured by the browser or the underlying operating
-	system. The System Keyboard Lock API enables websites to capture and use
+	system. The Keyboard Lock API enables websites to capture and use
 	all available keys allowed by the OS.
 
-<h2 id="API">Activating and Deactivating System Keyboard Lock</h3>
+<h2 id="API">Activating and Deactivating Keyboard Lock</h3>
 
 	<pre class="idl" data-highlight="webidl">
 	partial interface Navigator {
-		[SecureContext] void requestSystemKeyboardLock(optional sequence&lt;DOMString> keyCodes);
-		[SecureContext] void cancelSystemKeyboardLock();
+		[SecureContext] void requestKeyboardLock(optional sequence&lt;DOMString> keyCodes);
+		[SecureContext] void cancelKeyboardLock();
 	};
 	</pre>
 
 	The navigator has <dfn>enable keyboard lock</dfn>, which is a
-	boolean that is set to true when System Keyboard Lock is enabled.
+	boolean that is set to true when Keyboard Lock is enabled.
 	By default, this is set to false.
 
 	The navigator has <dfn>reserved key codes</dfn>, which is a
@@ -78,9 +78,9 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 	By default this sequence is empty (which would capture all keys
 	if [=enable keyboard lock=] was enabled).
 
-	<h3 id="requestSystemKeyboardLock">requestSystemKeyboardLock</h3>
+	<h3 id="requestKeyboardLock">requestKeyboardLock</h3>
 
-		When {{requestSystemKeyboardLock()}} is called, the user agent must
+		When {{requestKeyboardLock()}} is called, the user agent must
 		run the following steps:
 
 		1. Reset [=reserved key codes=] to be an empty sequence.
@@ -99,9 +99,9 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 
 			2. Set [=enable keyboard lock=] to be true.
 
-	<h3 id="cancelSystemKeyboardLock">cancelSystemKeyboardLock</h3>
+	<h3 id="cancelKeyboardLock">cancelKeyboardLock</h3>
 
-		When {{cancelSystemKeyboardLock()}} is called, the user agent must
+		When {{cancelKeyboardLock()}} is called, the user agent must
 		run the following steps:
 
 		1. If [=enable keyboard lock=] is true, then run the following substeps:
@@ -117,7 +117,7 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 	<h3 id="key-press-handler">System Key Press Handler</h3>
 		A <dfn>system key press handler</dfn> is an platform-specific handler
 		that can be used to filter keys at the platform level. Since
-		System Keyboard Lock feature is intended to provide access to key
+		Keyboard Lock feature is intended to provide access to key
 		presses that are not normally made available to the browser (for
 		example, Cmd/Alt-Tab), most platforms will require a special handler
 		to be set up.
@@ -144,7 +144,7 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 
 			Note: If the user agent already has a key press handler registered
 			for another purpose, then it can optionally extend that handler to
-			support the System Keyboard Lock feature (assuming it meets the
+			support the Keyboard Lock feature (assuming it meets the
 			requirements mentioned above).
 
 		<h4 id="unregistering">Unregistering</h4>
@@ -228,9 +228,9 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 	normally fired for JS fullscreen are not sent for F11 fullscreen.
 
 	Because of these differences (and because there is no standard shortcut
-	for F11 fullscreen), the System Keyboard Lock API is only valid when the
+	for F11 fullscreen), the Keyboard Lock API is only valid when the
 	a JavaScript-initiated fullscreen is active. During F11 fullscreen, no
-	System Keyboard Lock processing of keyboard events will take place.
+	Keyboard Lock processing of keyboard events will take place.
 
 <h2 id="mobile">Mobile Device Considerations</h2>
 
