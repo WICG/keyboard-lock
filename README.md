@@ -1,9 +1,9 @@
-# System Keyboard Lock
+# Keyboard Lock
 
-Preliminary W3C spec draft for System Keyboard Lock.
-
-System Keyboard Lock is an API that allows websites to capture and use
+Keyboard Lock is an API that allows websites to capture and use
 reserved keys and keyboard shortcuts.
+
+Note, in early discussions, Keyboard Lock was known as System Keyboard Lock.
 
 For background, see:
 
