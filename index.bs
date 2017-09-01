@@ -4,7 +4,7 @@
 Shortname: keyboard-lock
 Level:
 Group: uievents
-Status: WD
+Status: ED
 TR: http://www.w3.org/TR/keyboard-lock/
 ED: https://w3c.github.io/keyboard-lock/
 Repository: w3c/keyboard-lock
@@ -19,6 +19,10 @@ Abstract:
 	operating system. It is intended to be used by web
 	applications that provide a fullscreen immersive experience
 	(like games or remote access apps).
+
+Status Text:
+	This document is an editor's draft proposed as a First Public Working Draft.
+	
 </pre>
 
 <pre class="anchors">
@@ -234,20 +238,25 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 
 <h2 id="mobile">Mobile Device Considerations</h2>
 
-	Issue: What level of support do we need on mobile? Is it enough to say that
-	it's a keyboard-focused API and mobile devices typically don't have
-	keyboards? What does Chrome do if you activate full-screen on a mobile
-	web site and hit Escape from an attached keyboard? It seems like that should
-	also be supported.
+	Since this is a keyboard-focused API and mobile devices do not commonly
+	have physical keyboards, this API will not typically be present or
+	supported on mobile devices.
+
+	However, mobile devices may choose to support this API if it makes sense to
+	do so when a physical keyboard is connected.
 
 <h2 id="security">Security Considerations</h2>
 
-	Issue: How does this proposal prevent malicious sites from taking all
-	key events and preventing the user from escaping?
-
-	Issue: How could this be used (alone or in conjunction with
-	other APIs) to give the user a bad experience?
-
+	One concern with this API is that it could be used to grab all of the keys
+	and (in conjunction with the [[PointerLock]] API) prevent the user from exiting
+	the web page. 
+	
+	To prevent this, the user agent MUST provide a way for the user to exit from
+	keyboard lock even if all of the keys are "lock"ed.
+	
+	One method that a user agent MAY employ for this purpose is to trigger an
+	exit whenever a long (more than 2 seconds) Escape key press is detected.
+	
 <h2 id="privacy">Privacy Considerations</h2>
 
 	Not applicable. This API does not use or reveal any personal information
