@@ -248,8 +248,8 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 <h2 id="security">Security Considerations</h2>
 
 	One concern with this API is that it could be used to grab all of the keys
-	and (in conjunction with the [[PointerLock]] API) prevent the user from exiting
-	the web page. 
+	and (in conjunction with the [[Fullscreen]] and [[PointerLock]] API) prevent
+	the user from exiting the web page. 
 	
 	To prevent this, the user agent MUST provide a way for the user to exit from
 	keyboard lock even if all of the keys are requested by the API.
