@@ -252,11 +252,11 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 	the web page. 
 	
 	To prevent this, the user agent MUST provide a way for the user to exit from
-	keyboard lock even if all of the keys are "lock"ed.
+	keyboard lock even if all of the keys are requested by the API.
 	
 	This specification requires support for allowing a long (more than 2 second) Escape
-	key press to trigger an exit from Keyboard Lock. User agents may also provide
-	alternate ways to exit Keyboard Lock.
+	key press to trigger an exit from Keyboard Lock. In addition, user agents may choose
+	to also provide alternate ways to exit Keyboard Lock.
 	
 <h2 id="privacy">Privacy Considerations</h2>
 
