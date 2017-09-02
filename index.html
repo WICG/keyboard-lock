@@ -256,7 +256,7 @@ pre.idl.highlight { color: #708090; }
    <header>
     <p data-fill-with="logo"><a href="http://www.w3.org/"><img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"></a></p>
     <h1>Keyboard Lock</h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-09-01">1 September 2017</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-09-02">2 September 2017</time></span></h2>
    </header>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -521,8 +521,9 @@ usual keyboard shortcut action.</p>
 	the web page.</p>
    <p>To prevent this, the user agent MUST provide a way for the user to exit from
 	keyboard lock even if all of the keys are "lock"ed.</p>
-   <p>One method that a user agent MAY employ for this purpose is to trigger an
-	exit whenever a long (more than 2 seconds) Escape key press is detected.</p>
+   <p>This specification requires support for allowing a long (more than 2 second) Escape
+	key press to trigger an exit from Keyboard Lock. User agents may also provide
+	alternate ways to exit Keyboard Lock.</p>
    <h2 class="heading settled" data-level="7" id="privacy"><span class="secno">7. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#privacy"></a></h2>
    <p>Not applicable. This API does not use or reveal any personal information
 	about the current user.</p>
