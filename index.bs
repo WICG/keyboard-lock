@@ -27,7 +27,7 @@ Status Text:
 
 <pre class="anchors">
 urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
-	text: valid KeyboardEvent code
+	text: key code attribute value
 </pre>
 
 <pre class="biblio">
@@ -77,7 +77,7 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 	By default, this is set to false.
 
 	The navigator has <dfn>reserved key codes</dfn>, which is a
-	sequence of DOMStrings, each of which is a [=valid KeyboardEvent code=]
+	sequence of DOMStrings, each of which is a valid [=key code attribute value=]
 	as defined in [[UIEvents-Code]].
 	By default this sequence is empty (which would capture all keys
 	if [=enable keyboard lock=] was enabled).
@@ -93,8 +93,8 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 			following substeps:
 
 			1. Copy the values from {{keyCodes}} into [=reserved key codes=],
-				removing any entries which are not [=valid KeyboardEvent codes=]
-				or duplicate.
+				removing any entries which do not contain a valid [=key code attribute value=]
+				or are duplicate.
 
 		3. If [=enable keyboard lock=] is currently false, run the following
 			substeps:
