@@ -359,22 +359,29 @@ applications that provide a fullscreen immersive experience
 	boolean that is set to true when Keyboard Lock is enabled.
 	By default, this is set to false.</p>
    <p>The navigator has <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="reserved-key-codes">reserved key codes</dfn>, which is a
-	sequence of DOMStrings, each of which is a valid <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value">key code attribute value</a> as defined in <a data-link-type="biblio" href="#biblio-uievents-code">[UIEvents-Code]</a>.
-	By default this sequence is empty (which would capture all keys
+	set of DOMStrings, each of which is a valid <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value">key code attribute value</a> as defined in <a data-link-type="biblio" href="#biblio-uievents-code">[UIEvents-Code]</a>.
+	By default this set is empty (which would capture all keys
 	if <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-1">enable keyboard lock</a> was enabled).</p>
    <h3 class="heading settled" data-level="2.1" id="requestKeyboardLock"><span class="secno">2.1. </span><span class="content">requestKeyboardLock</span><a class="self-link" href="#requestKeyboardLock"></a></h3>
    <p>When <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock" id="ref-for-dom-navigator-requestkeyboardlock-1">requestKeyboardLock()</a></code> is called, the user agent must
 		run the following steps:</p>
    <ol>
     <li data-md="">
-     <p>Reset <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-1">reserved key codes</a> to be an empty sequence.</p>
+     <p>Reset <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-1">reserved key codes</a> to be an empty set.</p>
     <li data-md="">
      <p>If the optional <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-1">keyCodes</a></code> argument is present, run the
 following substeps:</p>
      <ol>
       <li data-md="">
-       <p>Copy the values from <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-2">keyCodes</a></code> into <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-2">reserved key codes</a>,
-removing any entries which do not contain a valid <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value">key code attribute value</a> or are duplicate.</p>
+       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate">For each</a> string <var>key</var> in <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-2">keyCodes</a></code>:</p>
+       <ol>
+        <li data-md="">
+         <p>If <var>key</var> contains a valid <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value">key code attribute value</a>, then</p>
+         <ol>
+          <li data-md="">
+           <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#set-append">Append</a> <var>key</var> to <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-2">reserved key codes</a>.</p>
+         </ol>
+       </ol>
      </ol>
     <li data-md="">
      <p>If <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-2">enable keyboard lock</a> is currently false, run the following
@@ -555,6 +562,12 @@ usual keyboard shortcut action.</p>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a>
     </ul>
    <li>
+    <a data-link-type="biblio">[INFRA]</a> defines the following terms:
+    <ul>
+     <li><a href="https://infra.spec.whatwg.org/#set-append">append</a>
+     <li><a href="https://infra.spec.whatwg.org/#list-iterate">for each</a>
+    </ul>
+   <li>
     <a data-link-type="biblio">[uievents]</a> defines the following terms:
     <ul>
      <li><a href="https://www.w3.org/TR/uievents/#dom-keyboardevent-code">code</a>
@@ -575,6 +588,8 @@ usual keyboard shortcut action.</p>
   <dl>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dt id="biblio-infra">[INFRA]
+   <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/">Infra Standard</a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
    <dt id="biblio-uievents">[UIEVENTS]
    <dd>Gary Kacmarcik; Travis Leithead. <a href="https://github.com/w3c/uievents/">UI Events</a>. URL: <a href="https://github.com/w3c/uievents/">https://github.com/w3c/uievents/</a>
    <dt id="biblio-uievents-code">[UIEvents-Code]

@@ -77,9 +77,9 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 	By default, this is set to false.
 
 	The navigator has <dfn>reserved key codes</dfn>, which is a
-	sequence of DOMStrings, each of which is a valid [=key code attribute value=]
+	set of DOMStrings, each of which is a valid [=key code attribute value=]
 	as defined in [[UIEvents-Code]].
-	By default this sequence is empty (which would capture all keys
+	By default this set is empty (which would capture all keys
 	if [=enable keyboard lock=] was enabled).
 
 	<h3 id="requestKeyboardLock">requestKeyboardLock</h3>
@@ -87,14 +87,16 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 		When {{requestKeyboardLock()}} is called, the user agent must
 		run the following steps:
 
-		1. Reset [=reserved key codes=] to be an empty sequence.
+		1. Reset [=reserved key codes=] to be an empty set.
 
 		2. If the optional {{keyCodes}} argument is present, run the
 			following substeps:
 
-			1. Copy the values from {{keyCodes}} into [=reserved key codes=],
-				removing any entries which do not contain a valid [=key code attribute value=]
-				or are duplicate.
+			1. [=list/For each=] string |key| in {{keyCodes}}:
+			
+				1. If |key| contains a valid [=key code attribute value=], then
+				
+					1. [=set/Append=] |key| to [=reserved key codes=].
 
 		3. If [=enable keyboard lock=] is currently false, run the following
 			substeps:
