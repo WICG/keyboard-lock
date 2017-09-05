@@ -67,7 +67,7 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 
 	<pre class="idl" data-highlight="webidl">
 	partial interface Navigator {
-		[SecureContext] void requestKeyboardLock(optional sequence&lt;DOMString> keyCodes);
+		[SecureContext] void requestKeyboardLock(optional sequence&lt;DOMString> keyCodes = []);
 		[SecureContext] void cancelKeyboardLock();
 	};
 	</pre>
