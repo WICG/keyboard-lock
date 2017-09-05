@@ -386,8 +386,10 @@ substeps:</p>
        <p>Set <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-3">enable keyboard lock</a> to be true.</p>
      </ol>
    </ol>
+   <p class="note" role="note">Note: If <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock" id="ref-for-dom-navigator-requestkeyboardlock-2">requestKeyboardLock()</a></code> is called multiple times without an
+		intervening call to <code class="idl"><a data-link-type="idl" href="#dom-navigator-cancelkeyboardlock" id="ref-for-dom-navigator-cancelkeyboardlock-1">cancelKeyboardLock()</a></code>, then only the <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-3">keyCodes</a></code> specified in the last request call will be in effect.</p>
    <h3 class="heading settled" data-level="2.2" id="cancelKeyboardLock"><span class="secno">2.2. </span><span class="content">cancelKeyboardLock</span><a class="self-link" href="#cancelKeyboardLock"></a></h3>
-   <p>When <code class="idl"><a data-link-type="idl" href="#dom-navigator-cancelkeyboardlock" id="ref-for-dom-navigator-cancelkeyboardlock-1">cancelKeyboardLock()</a></code> is called, the user agent must
+   <p>When <code class="idl"><a data-link-type="idl" href="#dom-navigator-cancelkeyboardlock" id="ref-for-dom-navigator-cancelkeyboardlock-2">cancelKeyboardLock()</a></code> is called, the user agent must
 		run the following steps:</p>
    <ol>
     <li data-md="">
@@ -603,19 +605,20 @@ usual keyboard shortcut action.</p>
   <aside class="dfn-panel" data-for="dom-navigator-requestkeyboardlock">
    <b><a href="#dom-navigator-requestkeyboardlock">#dom-navigator-requestkeyboardlock</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-navigator-requestkeyboardlock-1">2.1. requestKeyboardLock</a>
+    <li><a href="#ref-for-dom-navigator-requestkeyboardlock-1">2.1. requestKeyboardLock</a> <a href="#ref-for-dom-navigator-requestkeyboardlock-2">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-navigator-requestkeyboardlock-keycodes-keycodes">
    <b><a href="#dom-navigator-requestkeyboardlock-keycodes-keycodes">#dom-navigator-requestkeyboardlock-keycodes-keycodes</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-1">2.1. requestKeyboardLock</a> <a href="#ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-2">(2)</a>
+    <li><a href="#ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-1">2.1. requestKeyboardLock</a> <a href="#ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-2">(2)</a> <a href="#ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-3">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-navigator-cancelkeyboardlock">
    <b><a href="#dom-navigator-cancelkeyboardlock">#dom-navigator-cancelkeyboardlock</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-navigator-cancelkeyboardlock-1">2.2. cancelKeyboardLock</a>
+    <li><a href="#ref-for-dom-navigator-cancelkeyboardlock-1">2.1. requestKeyboardLock</a>
+    <li><a href="#ref-for-dom-navigator-cancelkeyboardlock-2">2.2. cancelKeyboardLock</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enable-keyboard-lock">

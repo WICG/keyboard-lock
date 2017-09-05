@@ -103,6 +103,10 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 
 			2. Set [=enable keyboard lock=] to be true.
 
+		Note: If {{requestKeyboardLock()}} is called multiple times without an
+		intervening call to {{cancelKeyboardLock()}}, then only the
+		{{keyCodes}} specified in the last request call will be in effect.
+		
 	<h3 id="cancelKeyboardLock">cancelKeyboardLock</h3>
 
 		When {{cancelKeyboardLock()}} is called, the user agent must
