@@ -256,7 +256,7 @@ pre.idl.highlight { color: #708090; }
    <header>
     <p data-fill-with="logo"><a href="http://www.w3.org/"><img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"></a></p>
     <h1>Keyboard Lock</h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-09-05">5 September 2017</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-09-02">2 September 2017</time></span></h2>
    </header>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -359,7 +359,7 @@ applications that provide a fullscreen immersive experience
 	boolean that is set to true when Keyboard Lock is enabled.
 	By default, this is set to false.</p>
    <p>The navigator has <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="reserved-key-codes">reserved key codes</dfn>, which is a
-	sequence of DOMStrings, each of which is a valid <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value">key code attribute value</a> as defined in <a data-link-type="biblio" href="#biblio-uievents-code">[UIEvents-Code]</a>.
+	sequence of DOMStrings, each of which is a <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#valid-keyboardevent-code">valid KeyboardEvent code</a> as defined in <a data-link-type="biblio" href="#biblio-uievents-code">[UIEvents-Code]</a>.
 	By default this sequence is empty (which would capture all keys
 	if <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-1">enable keyboard lock</a> was enabled).</p>
    <h3 class="heading settled" data-level="2.1" id="requestKeyboardLock"><span class="secno">2.1. </span><span class="content">requestKeyboardLock</span><a class="self-link" href="#requestKeyboardLock"></a></h3>
@@ -374,7 +374,7 @@ following substeps:</p>
      <ol>
       <li data-md="">
        <p>Copy the values from <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-2">keyCodes</a></code> into <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-2">reserved key codes</a>,
-removing any entries which do not contain a valid <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value">key code attribute value</a> or are duplicate.</p>
+removing any entries which are not <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#valid-keyboardevent-code">valid KeyboardEvent codes</a> or duplicate.</p>
      </ol>
     <li data-md="">
      <p>If <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-2">enable keyboard lock</a> is currently false, run the following
@@ -560,7 +560,7 @@ usual keyboard shortcut action.</p>
    <li>
     <a data-link-type="biblio">[UIEvents-Code]</a> defines the following terms:
     <ul>
-     <li><a href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value">key code attribute value</a>
+     <li><a href="http://www.w3.org/TR/uievents-code/#valid-keyboardevent-code">valid keyboardevent code</a>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
