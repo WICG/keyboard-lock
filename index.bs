@@ -102,7 +102,7 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 
 		1. Let |p| be a new [=Promise=].
 		
-		1. Run the following steps [=in parallel=]:
+		1. [=Queue a task=] that runs the following steps:
 
 			1. Reset [=reserved key codes=] to be an empty set.
 
