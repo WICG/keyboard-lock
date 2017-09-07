@@ -256,7 +256,7 @@ pre.idl.highlight { color: #708090; }
    <header>
     <p data-fill-with="logo"><a href="http://www.w3.org/"><img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"></a></p>
     <h1>Keyboard Lock</h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-09-05">5 September 2017</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-09-07">7 September 2017</time></span></h2>
    </header>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -453,19 +453,15 @@ keyboard shortcuts are processed.</p>
 		it should run the following steps:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>isJsFullscreen</var> be set to true if the user agent is currently in
-fullscreen mode that was initiated by Element.requestFullscreen()
-(see <a data-link-type="biblio" href="#biblio-fullscreen">[Fullscreen]</a>).</p>
-     <p class="note" role="note">Note: This can be determined by adding a tracking variable in the
-	requestFullscreen() call or by checking to see if
-	Document.fullscreenElement is non-null.</p>
+     <p>Let <var>isFullscreen</var> be set to true if the current document’s
+fullscreen element is non-null (see <a data-link-type="biblio" href="#biblio-fullscreen">[Fullscreen]</a>).</p>
     <li data-md="">
      <p>Let <var>hasFocus</var> be set to true if the current fullscreen document or
 element has input focus.</p>
      <p class="note" role="note">Note: The fullscreen element would not have focus, for example, if
 there was a system dialog being displayed with focus.</p>
     <li data-md="">
-     <p>If <var>isJsFullscreen</var>, <var>hasFocus</var> and <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-6">enable keyboard lock</a> are all set
+     <p>If <var>isFullscreen</var>, <var>hasFocus</var> and <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-6">enable keyboard lock</a> are all set
 to true, then run the following substeps:</p>
      <ol>
       <li data-md="">

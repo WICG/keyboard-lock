@@ -175,13 +175,8 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 		<a lt="register a system key press handler">registered</a>,
 		it should run the following steps:
 
-		1. Let |isJsFullscreen| be set to true if the user agent is currently in
-			fullscreen mode that was initiated by Element.requestFullscreen()
-			(see [[Fullscreen]]).
-
-			Note: This can be determined by adding a tracking variable in the
-				requestFullscreen() call or by checking to see if
-				Document.fullscreenElement is non-null.
+		1. Let |isFullscreen| be set to true if the current document's
+			fullscreen element is non-null (see [[Fullscreen]]).
 
 		2. Let |hasFocus| be set to true if the current fullscreen document or
 			element has input focus.
@@ -189,7 +184,7 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 			Note: The fullscreen element would not have focus, for example, if
 			there was a system dialog being displayed with focus.
 
-		3. If |isJsFullscreen|, |hasFocus| and [=enable keyboard lock=] are all set
+		3. If |isFullscreen|, |hasFocus| and [=enable keyboard lock=] are all set
 			to true, then run the following substeps:
 
 			1. Let |keyEvent| be the key event for the new key press.
