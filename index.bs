@@ -3,7 +3,7 @@
 <pre class="metadata">
 Shortname: keyboard-lock
 Level:
-Group: uievents
+Group: webplatform
 Status: ED
 TR: http://www.w3.org/TR/keyboard-lock/
 ED: https://w3c.github.io/keyboard-lock/
