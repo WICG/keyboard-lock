@@ -28,6 +28,10 @@ Status Text:
 <pre class="anchors">
 urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 	text: key code attribute value
+urlPrefix: https://fullscreen.spec.whatwg.org/#; type: dfn; spec: fullscreen;
+	text: fullscreen element
+urlPrefix: https://html.spec.whatwg.org/#; type: dfn; spec: html;
+	text: currently focused area of a top-level browsing context
 </pre>
 
 <pre class="biblio">
@@ -175,16 +179,14 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 		<a lt="register a system key press handler">registered</a>,
 		it should run the following steps:
 
-		1. Let |isFullscreen| be set to true if the current document's
-			fullscreen element is non-null (see [[Fullscreen]]).
+		1. Let |isFullscreen| be set to true if the [=fullscreen element=] of the
+			[=currently focused area of a top-level browsing context=] is non-null
+			(see [[Fullscreen]]).
 
-		2. Let |hasFocus| be set to true if the current fullscreen document or
-			element has input focus.
-
-			Note: The fullscreen element would not have focus, for example, if
+			Note: The [=fullscreen element=] would not have focus, for example, if
 			there was a system dialog being displayed with focus.
 
-		3. If |isFullscreen|, |hasFocus| and [=enable keyboard lock=] are all set
+		2. If |isFullscreen| and [=enable keyboard lock=] are all set
 			to true, then run the following substeps:
 
 			1. Let |keyEvent| be the key event for the new key press.
@@ -211,8 +213,9 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#; type: dfn; spec: uievents-code;
 				either by dispatching a key event or performing the
 				usual keyboard shortcut action.
 
-		Note: It is not required that a conforming implementation be able to
-		override the OS default behaviour for every key combination.
+		Note: This API operates on a "best effort" basis.
+		It is not required that a conforming implementation be able to
+		override the OS default behaviour for every possible key combination.
 		Specifically, most platforms have a “secure attention sequence” (e.g.,
 		Ctrl-Alt-Del on Windows) that applications cannot override; this
 		specification does not supersede that.

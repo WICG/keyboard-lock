@@ -453,15 +453,12 @@ keyboard shortcuts are processed.</p>
 		it should run the following steps:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>isFullscreen</var> be set to true if the current document’s
-fullscreen element is non-null (see <a data-link-type="biblio" href="#biblio-fullscreen">[Fullscreen]</a>).</p>
-    <li data-md="">
-     <p>Let <var>hasFocus</var> be set to true if the current fullscreen document or
-element has input focus.</p>
-     <p class="note" role="note">Note: The fullscreen element would not have focus, for example, if
+     <p>Let <var>isFullscreen</var> be set to true if the <a data-link-type="dfn" href="https://fullscreen.spec.whatwg.org/#fullscreen-element">fullscreen element</a> of the <a data-link-type="dfn" href="https://html.spec.whatwg.org/#currently-focused-area-of-a-top-level-browsing-context">currently focused area of a top-level browsing context</a> is non-null
+(see <a data-link-type="biblio" href="#biblio-fullscreen">[Fullscreen]</a>).</p>
+     <p class="note" role="note">Note: The <a data-link-type="dfn" href="https://fullscreen.spec.whatwg.org/#fullscreen-element">fullscreen element</a> would not have focus, for example, if
 there was a system dialog being displayed with focus.</p>
     <li data-md="">
-     <p>If <var>isFullscreen</var>, <var>hasFocus</var> and <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-6">enable keyboard lock</a> are all set
+     <p>If <var>isFullscreen</var> and <a data-link-type="dfn" href="#enable-keyboard-lock" id="ref-for-enable-keyboard-lock-6">enable keyboard lock</a> are all set
 to true, then run the following substeps:</p>
      <ol>
       <li data-md="">
@@ -493,8 +490,9 @@ either by dispatching a key event or performing the
 usual keyboard shortcut action.</p>
      </ol>
    </ol>
-   <p class="note" role="note">Note: It is not required that a conforming implementation be able to
-		override the OS default behaviour for every key combination.
+   <p class="note" role="note">Note: This API operates on a "best effort" basis.
+		It is not required that a conforming implementation be able to
+		override the OS default behaviour for every possible key combination.
 		Specifically, most platforms have a “secure attention sequence” (e.g.,
 		Ctrl-Alt-Del on Windows) that applications cannot override; this
 		specification does not supersede that.</p>
@@ -553,9 +551,15 @@ usual keyboard shortcut action.</p>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
+    <a data-link-type="biblio">[Fullscreen]</a> defines the following terms:
+    <ul>
+     <li><a href="https://fullscreen.spec.whatwg.org/#fullscreen-element">fullscreen element</a>
+    </ul>
+   <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a>
+     <li><a href="https://html.spec.whatwg.org/#currently-focused-area-of-a-top-level-browsing-context">currently focused area of a top-level browsing context</a>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
@@ -582,6 +586,8 @@ usual keyboard shortcut action.</p>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-fullscreen">[Fullscreen]
+   <dd>Anne van Kesteren. <a href="https://fullscreen.spec.whatwg.org/">Fullscreen API Standard</a>. Living Standard. URL: <a href="https://fullscreen.spec.whatwg.org/">https://fullscreen.spec.whatwg.org/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-infra">[INFRA]
@@ -595,8 +601,6 @@ usual keyboard shortcut action.</p>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
-   <dt id="biblio-fullscreen">[Fullscreen]
-   <dd>Anne van Kesteren. <a href="https://fullscreen.spec.whatwg.org/">Fullscreen API Standard</a>. Living Standard. URL: <a href="https://fullscreen.spec.whatwg.org/">https://fullscreen.spec.whatwg.org/</a>
    <dt id="biblio-grabkeyboard">[GrabKeyboard]
    <dd><a href="https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard">X11 GrabKeyboard API</a>. URL: <a href="https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard">https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard</a>
    <dt id="biblio-lowlevelkeyboardproc">[LowLevelKeyboardProc]
