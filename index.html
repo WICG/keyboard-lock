@@ -395,6 +395,30 @@ substeps:</p>
    </ol>
    <p class="note" role="note">Note: If <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock" id="ref-for-dom-navigator-requestkeyboardlock-2">requestKeyboardLock()</a></code> is called multiple times without an
 		intervening call to <code class="idl"><a data-link-type="idl" href="#dom-navigator-cancelkeyboardlock" id="ref-for-dom-navigator-cancelkeyboardlock-1">cancelKeyboardLock()</a></code>, then only the <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock-keycodes-keycodes" id="ref-for-dom-navigator-requestkeyboardlock-keycodes-keycodes-3">keyCodes</a></code> specified in the last request call will be in effect.</p>
+   <div class="example" id="example-5108f617">
+    <a class="self-link" href="#example-5108f617"></a> To capture all keys, simply call <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock" id="ref-for-dom-navigator-requestkeyboardlock-3">requestKeyboardLock()</a></code> with no arguments: 
+<pre>requestKeyboardLock();
+</pre>
+   </div>
+   <div class="example" id="example-e11d48e2">
+    <a class="self-link" href="#example-e11d48e2"></a> To capture the "W", "A", "S", and "D" keys, call <code class="idl"><a data-link-type="idl" href="#dom-navigator-requestkeyboardlock" id="ref-for-dom-navigator-requestkeyboardlock-4">requestKeyboardLock()</a></code> with
+		a list that contains the <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value">key code attribute value</a> for each of these keys: 
+<pre>requestKeyboardLock(["KeyW", "KeyA", "KeyS", "KeyD"]);
+</pre>
+    <p>This will capture these keys regardless of which modifiers are used with the
+		key press. Registering <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#code-keyw">KeyW</a> will ensure that W, Shift+W, Control+W,
+		Control+Shift+W, and all other key modifier combinations with "W" will be
+		sent to the app. Similarly for <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#code-keya">KeyA</a>, <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#code-keys">KeyS</a> and <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#code-keyd">KeyD</a>.</p>
+   </div>
+   <div class="example" id="example-2ad5dec6">
+    <a class="self-link" href="#example-2ad5dec6"></a> Note that requesting a key is not a guarantee that all modified versions will
+		be made available to the app. As an example, consider <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#code-delete">Delete</a> 
+<pre>requestKeyboardLock(["Delete"]);
+</pre>
+    <p>While this will make most Delete key presses available (e.g., Shift+Delete,
+		Control+Delete, Shift+Control+Delete), on Windows it will not make available
+		the “secure attention sequence” Control+Alt+Delete.</p>
+   </div>
    <h3 class="heading settled" data-level="2.2" id="cancelKeyboardLock"><span class="secno">2.2. </span><span class="content">cancelKeyboardLock</span><a class="self-link" href="#cancelKeyboardLock"></a></h3>
    <p>When <code class="idl"><a data-link-type="idl" href="#dom-navigator-cancelkeyboardlock" id="ref-for-dom-navigator-cancelkeyboardlock-2">cancelKeyboardLock()</a></code> is called, the user agent must
 		run the following steps:</p>
@@ -578,7 +602,12 @@ usual keyboard shortcut action.</p>
    <li>
     <a data-link-type="biblio">[UIEvents-Code]</a> defines the following terms:
     <ul>
+     <li><a href="http://www.w3.org/TR/uievents-code/#code-delete">delete</a>
      <li><a href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value">key code attribute value</a>
+     <li><a href="http://www.w3.org/TR/uievents-code/#code-keya">keya</a>
+     <li><a href="http://www.w3.org/TR/uievents-code/#code-keyd">keyd</a>
+     <li><a href="http://www.w3.org/TR/uievents-code/#code-keys">keys</a>
+     <li><a href="http://www.w3.org/TR/uievents-code/#code-keyw">keyw</a>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
@@ -623,7 +652,7 @@ usual keyboard shortcut action.</p>
   <aside class="dfn-panel" data-for="dom-navigator-requestkeyboardlock">
    <b><a href="#dom-navigator-requestkeyboardlock">#dom-navigator-requestkeyboardlock</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-navigator-requestkeyboardlock-1">2.1. requestKeyboardLock</a> <a href="#ref-for-dom-navigator-requestkeyboardlock-2">(2)</a>
+    <li><a href="#ref-for-dom-navigator-requestkeyboardlock-1">2.1. requestKeyboardLock</a> <a href="#ref-for-dom-navigator-requestkeyboardlock-2">(2)</a> <a href="#ref-for-dom-navigator-requestkeyboardlock-3">(3)</a> <a href="#ref-for-dom-navigator-requestkeyboardlock-4">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-navigator-requestkeyboardlock-keycodes-keycodes">
