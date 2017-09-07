@@ -410,6 +410,8 @@ substeps:</p>
        <p>Reset <a data-link-type="dfn" href="#reserved-key-codes" id="ref-for-reserved-key-codes-3">reserved key codes</a> to be an empty sequence.</p>
      </ol>
    </ol>
+   <p class="note" role="note">Note: When a document is closed, the user agent MUST implicitly call <code class="idl"><a data-link-type="idl" href="#dom-navigator-cancelkeyboardlock" id="ref-for-dom-navigator-cancelkeyboardlock-3">cancelKeyboardLock()</a></code> so that the [system key press handler=] (if any) is
+		unregistered.</p>
    <h2 class="heading settled" data-level="3" id="handling-events"><span class="secno">3. </span><span class="content">Handling Keyboard Key Presses</span><a class="self-link" href="#handling-events"></a></h2>
    <h3 class="heading settled" data-level="3.1" id="key-press-handler"><span class="secno">3.1. </span><span class="content">System Key Press Handler</span><a class="self-link" href="#key-press-handler"></a></h3>
     A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="system-key-press-handler">system key press handler</dfn> is an platform-specific handler
@@ -633,7 +635,7 @@ usual keyboard shortcut action.</p>
    <b><a href="#dom-navigator-cancelkeyboardlock">#dom-navigator-cancelkeyboardlock</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-navigator-cancelkeyboardlock-1">2.1. requestKeyboardLock</a>
-    <li><a href="#ref-for-dom-navigator-cancelkeyboardlock-2">2.2. cancelKeyboardLock</a>
+    <li><a href="#ref-for-dom-navigator-cancelkeyboardlock-2">2.2. cancelKeyboardLock</a> <a href="#ref-for-dom-navigator-cancelkeyboardlock-3">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enable-keyboard-lock">

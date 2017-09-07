@@ -126,6 +126,10 @@ urlPrefix: https://html.spec.whatwg.org/#; type: dfn; spec: html;
 
 			3. Reset [=reserved key codes=] to be an empty sequence.
 
+		Note: When a document is closed, the user agent MUST implicitly call
+		{{cancelKeyboardLock()}} so that the [system key press handler=] (if any) is
+		unregistered.
+		
 <h2 id="handling-events">Handling Keyboard Key Presses</h2>
 
 	<h3 id="key-press-handler">System Key Press Handler</h3>
