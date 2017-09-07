@@ -100,7 +100,7 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#code-; type: dfn; spec: uievents-
 
 		1. Reset [=reserved key codes=] to be an empty set.
 
-		2. If the optional {{keyCodes}} argument is present, run the
+		1. If the optional {{keyCodes}} argument is present, run the
 			following substeps:
 
 			1. [=list/For each=] string |key| in {{keyCodes}}:
@@ -109,12 +109,12 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#code-; type: dfn; spec: uievents-
 				
 					1. [=set/Append=] |key| to [=reserved key codes=].
 
-		3. If [=enable keyboard lock=] is currently false, run the following
+		1. If [=enable keyboard lock=] is currently false, run the following
 			substeps:
 
 			1. [=Register a system key press handler=].
 
-			2. Set [=enable keyboard lock=] to be true.
+			1. Set [=enable keyboard lock=] to be true.
 
 		Note: If {{requestKeyboardLock()}} is called multiple times without an
 		intervening call to {{cancelKeyboardLock()}}, then only the
@@ -159,9 +159,9 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#code-; type: dfn; spec: uievents-
 
 			1. [=Unregister the system key press handler=].
 
-			2. Set [=enable keyboard lock=] to be false.
+			1. Set [=enable keyboard lock=] to be false.
 
-			3. Reset [=reserved key codes=] to be an empty sequence.
+			1. Reset [=reserved key codes=] to be an empty sequence.
 
 		Note: When a document is closed, the user agent MUST implicitly call
 		{{cancelKeyboardLock()}} so that the [system key press handler=] (if any) is
@@ -227,14 +227,14 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#code-; type: dfn; spec: uievents-
 			Note: The [=fullscreen element=] would not have focus, for example, if
 			there was a system dialog being displayed with focus.
 
-		2. If |isFullscreen| and [=enable keyboard lock=] are all set
+		1. If |isFullscreen| and [=enable keyboard lock=] are all set
 			to true, then run the following substeps:
 
 			1. Let |keyEvent| be the key event for the new key press.
 
-			2. Let |code| be the value of the {{KeyboardEvent/code}} attribute of |keyEvent|.
+			1. Let |code| be the value of the {{KeyboardEvent/code}} attribute of |keyEvent|.
 
-			3. If [=reserved key codes=] is empty or if |code| is listed in
+			1. If [=reserved key codes=] is empty or if |code| is listed in
 				[=reserved key codes=], then run the following substeps:
 
 				1. If |code| is equal to "Escape", then run the following
@@ -244,14 +244,14 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#code-; type: dfn; spec: uievents-
 						user that they can Hold the Escape key to exit from
 						fullscreen.
 
-					2. If the key is held for 2 seconds, then exit from the
+					1. If the key is held for 2 seconds, then exit from the
 						keyboard handler and pass the key on to the user agent
 						for normal processing (which will exit fullscreen).
 
-				2. Dispatch |keyEvent| directly to the fullsceen document or element,
+				1. Dispatch |keyEvent| directly to the fullsceen document or element,
 					bypassing any normal user agent processing.
 
-			4. Else, handle the key event as it normally would be handled,
+			1. Else, handle the key event as it normally would be handled,
 				either by dispatching a key event or performing the
 				usual keyboard shortcut action.
 
