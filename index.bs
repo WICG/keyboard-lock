@@ -38,7 +38,9 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#code-; type: dfn; spec: uievents-
 	text: KeyD
 	text: KeyS
 	text: KeyW
-	text: Tab
+spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
+    type: dfn
+        text: promise; url: sec-promise-objects
 </pre>
 
 <pre class="biblio">
@@ -78,7 +80,7 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#code-; type: dfn; spec: uievents-
 
 	<pre class="idl" data-highlight="webidl">
 	partial interface Navigator {
-		[SecureContext] void requestKeyboardLock(optional sequence&lt;DOMString> keyCodes = []);
+		[SecureContext] Promise&lt;void> requestKeyboardLock(optional sequence&lt;DOMString> keyCodes = []);
 		[SecureContext] void cancelKeyboardLock();
 	};
 	</pre>
@@ -98,23 +100,31 @@ urlPrefix: http://www.w3.org/TR/uievents-code/#code-; type: dfn; spec: uievents-
 		When {{requestKeyboardLock()}} is called, the user agent must
 		run the following steps:
 
-		1. Reset [=reserved key codes=] to be an empty set.
+		1. Let |p| be a new [=Promise=].
+		
+		1. Run the following steps [=in parallel=]:
 
-		1. If the optional {{keyCodes}} argument is present, run the
-			following substeps:
+			1. Reset [=reserved key codes=] to be an empty set.
 
-			1. [=list/For each=] string |key| in {{keyCodes}}:
+			1. If the optional {{keyCodes}} argument is present, run the
+				following substeps:
+
+				1. [=list/For each=] string |key| in {{keyCodes}}:
 			
-				1. If |key| contains a valid [=key code attribute value=], then
+					1. If |key| contains a valid [=key code attribute value=], then
 				
-					1. [=set/Append=] |key| to [=reserved key codes=].
+						1. [=set/Append=] |key| to [=reserved key codes=].
 
-		1. If [=enable keyboard lock=] is currently false, run the following
-			substeps:
+			1. If [=enable keyboard lock=] is currently false, run the following
+				substeps:
 
-			1. [=Register a system key press handler=].
+				1. [=Register a system key press handler=].
 
-			1. Set [=enable keyboard lock=] to be true.
+				1. Set [=enable keyboard lock=] to be true.
+			
+			1. Resolve |p|.
+
+		1. Return |p|.
 
 		Note: If {{requestKeyboardLock()}} is called multiple times without an
 		intervening call to {{cancelKeyboardLock()}}, then only the
