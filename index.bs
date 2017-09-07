@@ -211,7 +211,8 @@ urlPrefix: https://html.spec.whatwg.org/#; type: dfn; spec: html;
 						keyboard handler and pass the key on to the user agent
 						for normal processing (which will exit fullscreen).
 
-				2. Dispatch |keyEvent| to the fullsceen document or element.
+				2. Dispatch |keyEvent| directly to the fullsceen document or element,
+					bypassing any normal user agent processing.
 
 			4. Else, handle the key event as it normally would be handled,
 				either by dispatching a key event or performing the
