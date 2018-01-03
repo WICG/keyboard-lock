@@ -80,8 +80,8 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 
 	<pre class="idl" data-highlight="webidl">
 	partial interface Navigator {
-		[SecureContext] Promise&lt;void> requestKeyboardLock(optional sequence&lt;DOMString> keyCodes = []);
-		[SecureContext] void cancelKeyboardLock();
+		[SecureContext] Promise&lt;void> keyboardLock(optional sequence&lt;DOMString> keyCodes = []);
+		[SecureContext] void keyboardUnlock();
 	};
 	</pre>
 
@@ -95,9 +95,9 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 	By default this set is empty (which would capture all keys
 	if [=enable keyboard lock=] was enabled).
 
-	<h3 id="requestKeyboardLock">requestKeyboardLock</h3>
+	<h3 id="keyboardLock">keyboardLock</h3>
 
-		When {{requestKeyboardLock()}} is called, the user agent must
+		When {{keyboardLock()}} is called, the user agent must
 		run the following steps:
 
 		1. Let |p| be a new [=Promise=].
@@ -126,22 +126,22 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 
 		1. Return |p|.
 
-		Note: If {{requestKeyboardLock()}} is called multiple times without an
-		intervening call to {{cancelKeyboardLock()}}, then only the
+		Note: If {{keyboardLock()}} is called multiple times without an
+		intervening call to {{keyboardUnlock()}}, then only the
 		{{keyCodes}} specified in the last request call will be in effect.
 		
 		<div class="example">
-		To capture all keys, simply call {{requestKeyboardLock()}} with no arguments:
+		To capture all keys, simply call {{keyboardLock()}} with no arguments:
 		<pre>
-			requestKeyboardLock();
+			navigator.keyboardLock();
 		</pre>
 		</div>
 		
 		<div class="example">
-		To capture the "W", "A", "S", and "D" keys, call {{requestKeyboardLock()}} with
+		To capture the "W", "A", "S", and "D" keys, call {{keyboardLock()}} with
 		a list that contains the [=key code attribute value=] for each of these keys:
 		<pre>
-			requestKeyboardLock(["KeyW", "KeyA", "KeyS", "KeyD"]);
+			navigator.keyboardLock(["KeyW", "KeyA", "KeyS", "KeyD"]);
 		</pre>
 		This will capture these keys regardless of which modifiers are used with the
 		key press. Registering [=KeyW=] will ensure that W, Shift+W, Control+W,
@@ -153,16 +153,16 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 		Note that requesting a key is not a guarantee that all modified versions will
 		be made available to the app. As an example, consider [=Delete=]
 		<pre>
-			requestKeyboardLock(["Delete"]);
+			navigator.keyboardLock(["Delete"]);
 		</pre>
 		While this will make most Delete key presses available (e.g., Shift+Delete,
 		Control+Delete, Shift+Control+Delete), on Windows it will not make available
 		the “secure attention sequence” Control+Alt+Delete.
 		</div>
 		
-	<h3 id="cancelKeyboardLock">cancelKeyboardLock</h3>
+	<h3 id="keyboardUnlock">keyboardUnlock</h3>
 
-		When {{cancelKeyboardLock()}} is called, the user agent must
+		When {{keyboardUnlock()}} is called, the user agent must
 		run the following steps:
 
 		1. If [=enable keyboard lock=] is true, then run the following substeps:
@@ -174,7 +174,7 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 			1. Reset [=reserved key codes=] to be an empty sequence.
 
 		Note: When a document is closed, the user agent MUST implicitly call
-		{{cancelKeyboardLock()}} so that the [system key press handler=] (if any) is
+		{{keyboardUnlock()}} so that the [system key press handler=] (if any) is
 		unregistered.
 		
 <h2 id="handling-events">Handling Keyboard Key Presses</h2>
