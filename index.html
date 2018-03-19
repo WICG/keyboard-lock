@@ -1424,7 +1424,7 @@ pre.idl.highlight { color: #708090; }
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="http://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1>Keyboard Lock</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-03-14">14 March 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-03-19">19 March 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1559,7 +1559,7 @@ applications that provide a fullscreen immersive experience
     </div>
    </div>
    <h3 class="heading settled" data-level="2.2" id="keyboard-interface"><span class="secno">2.2. </span><span class="content">Keyboard Interface</span><a class="self-link" href="#keyboard-interface"></a></h3>
-<pre class="idl highlight def" data-highlight="webidl">[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>, <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed">Exposed</a>=<span class="n">Window</span>] <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="keyboard">Keyboard</dfn> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
+<pre class="idl highlight def" data-highlight="webidl">[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>, <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed">Exposed</a>=<span class="n">Window</span>] <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="keyboard">Keyboard</dfn> {
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export="" data-lt="lock(keyCodes)|lock()" id="dom-keyboard-lock">lock</dfn>(<span class="kt">optional</span> <span class="kt">sequence</span>&lt;<span class="kt">DOMString</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Keyboard/lock(keyCodes), Keyboard/lock()" data-dfn-type="argument" data-export="" id="dom-keyboard-lock-keycodes-keycodes">keyCodes</dfn> = []);
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export="" data-lt="unlock()" id="dom-keyboard-unlock">unlock</dfn>();
 };
@@ -1838,11 +1838,6 @@ usual keyboard shortcut action.</p>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
-    <a data-link-type="biblio">[WHATWG-DOM]</a> defines the following terms:
-    <ul>
-     <li><a href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a>
-    </ul>
-   <li>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
     <ul>
      <li><a href="http://tc39.github.io/ecma262/#sec-promise-objects">promise</a>
@@ -1907,8 +1902,6 @@ usual keyboard shortcut action.</p>
    <dd>Gary Kacmarcik; Travis Leithead. <a href="https://github.com/w3c/uievents-code/">UI Events KeyboardEvent code Values</a>. URL: <a href="https://github.com/w3c/uievents-code/">https://github.com/w3c/uievents-code/</a>
    <dt id="biblio-webidl">[WebIDL]
    <dd>Cameron McCormack; Boris Zbarsky; Tobie Langel. <a href="https://heycam.github.io/webidl/">Web IDL</a>. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
-   <dt id="biblio-whatwg-dom">[WHATWG-DOM]
-   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/">DOM Standard</a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
@@ -1926,7 +1919,7 @@ usual keyboard shortcut action.</p>
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>, <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#keyboard">Keyboard</a> <a class="nv" data-readonly="" data-type="Keyboard" href="#dom-navigator-keyboard">keyboard</a>;
 };
 
-[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>, <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed">Exposed</a>=<span class="n">Window</span>] <span class="kt">interface</span> <a class="nv" href="#keyboard">Keyboard</a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>, <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed">Exposed</a>=<span class="n">Window</span>] <span class="kt">interface</span> <a class="nv" href="#keyboard">Keyboard</a> {
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <a class="nv" href="#dom-keyboard-lock">lock</a>(<span class="kt">optional</span> <span class="kt">sequence</span>&lt;<span class="kt">DOMString</span>> <a class="nv" href="#dom-keyboard-lock-keycodes-keycodes">keyCodes</a> = []);
   <span class="kt">void</span> <a class="nv" href="#dom-keyboard-unlock">unlock</a>();
 };

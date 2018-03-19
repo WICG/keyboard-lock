@@ -98,7 +98,7 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 	<h3 id="keyboard-interface">Keyboard Interface</h3>
 
 		<pre class="idl" data-highlight="webidl">
-		[SecureContext, Exposed=Window] interface Keyboard : EventTarget {
+		[SecureContext, Exposed=Window] interface Keyboard {
 			Promise&lt;void> lock(optional sequence&lt;DOMString> keyCodes = []);
 			void unlock();
 		};
