@@ -175,9 +175,10 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 				navigator.keyboard.lock(["KeyW", "KeyA", "KeyS", "KeyD"]);
 			</pre>
 			This will capture these keys regardless of which modifiers are used with the
-			key press. Registering [=KeyW=] will ensure that W, Shift+W, Control+W,
-			Control+Shift+W, and all other key modifier combinations with "W" will be
-			sent to the app. Similarly for [=KeyA=], [=KeyS=] and [=KeyD=].
+			key press. Assuming a standard US QWERTY layout, registering [=KeyW=] will
+			ensure that "W", Shift+"W", Control+"W", Control+Shift+"W", and all other key
+			modifier combinations with "W" will be sent to the app. Similarly for
+			[=KeyA=], [=KeyS=] and [=KeyD=].
 			</div>
 		
 			<div class="example">
