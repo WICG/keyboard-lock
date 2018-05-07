@@ -1179,7 +1179,7 @@ Possible extra rowspan handling
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version eef4acd901f774f3d130c245844f8ea23319c1b2" name="generator">
   <link href="http://www.w3.org/TR/keyboard-lock/" rel="canonical">
-  <meta content="271e3993c094f9c6ff7e269dd99bd358fb6493eb" name="document-revision">
+  <meta content="5fb16212eb4dd21722656ad1b65bf4147a7acd5e" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1437,7 +1437,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1>Keyboard Lock</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-04">4 May 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-07">7 May 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1761,6 +1761,11 @@ usual keyboard shortcut action.</p>
 		Specifically, most platforms have a “secure attention sequence” (e.g.,
 		Ctrl-Alt-Del on Windows) that applications cannot override; this
 		specification does not supersede that.</p>
+   <p class="note" role="note"><span>Note:</span> When implementing this API, user agents should take care not to change
+		the order in which keyboard events are dispatched to the page. Keys that are
+		included in the set of <a data-link-type="dfn" href="#keyboard-reserved-key-codes" id="ref-for-keyboard-reserved-key-codes⑥">reserved key codes</a> must be dispatched in the same
+		relative order that they would have been sent had they not been included in the
+		set.</p>
    <h2 class="heading settled" data-level="4" id="fullscreen-considerations"><span class="secno">4. </span><span class="content">Fullscreen Considerations</span><a class="self-link" href="#fullscreen-considerations"></a></h2>
    <p>There are two different types of fullscreen available in modern user agents:
 	JavaScript-initiated fullscreen (via the <a data-link-type="biblio" href="#biblio-fullscreen">[Fullscreen]</a> API) and
@@ -2005,7 +2010,7 @@ usual keyboard shortcut action.</p>
    <ul>
     <li><a href="#ref-for-keyboard-reserved-key-codes">2.2.1. lock()</a> <a href="#ref-for-keyboard-reserved-key-codes①">(2)</a> <a href="#ref-for-keyboard-reserved-key-codes②">(3)</a>
     <li><a href="#ref-for-keyboard-reserved-key-codes③">2.2.2. unlock()</a>
-    <li><a href="#ref-for-keyboard-reserved-key-codes④">3.2. Handling Keyboard Events</a> <a href="#ref-for-keyboard-reserved-key-codes⑤">(2)</a>
+    <li><a href="#ref-for-keyboard-reserved-key-codes④">3.2. Handling Keyboard Events</a> <a href="#ref-for-keyboard-reserved-key-codes⑤">(2)</a> <a href="#ref-for-keyboard-reserved-key-codes⑥">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="system-key-press-handler">

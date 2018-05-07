@@ -313,6 +313,12 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 		Ctrl-Alt-Del on Windows) that applications cannot override; this
 		specification does not supersede that.
 
+		Note: When implementing this API, user agents should take care not to change
+		the order in which keyboard events are dispatched to the page. Keys that are
+		included in the set of [=reserved key codes=] must be dispatched in the same
+		relative order that they would have been sent had they not been included in the
+		set.
+
 <h2 id="fullscreen-considerations">Fullscreen Considerations</h2>
 
 	There are two different types of fullscreen available in modern user agents:
