@@ -142,7 +142,8 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 				
 							1. [=set/Append=] |key| to [=reserved key codes=].
 				
-					1. If [=reserved key codes=] is empty, reject |p|.
+					1. If [=reserved key codes=] is empty, return |p| rejected with an
+						"{{InvalidAccessError}}" {{DOMException}}.
 
 				1. If [=enable keyboard lock=] is currently false, run the following
 					substeps:

@@ -1179,7 +1179,7 @@ Possible extra rowspan handling
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version eef4acd901f774f3d130c245844f8ea23319c1b2" name="generator">
   <link href="http://www.w3.org/TR/keyboard-lock/" rel="canonical">
-  <meta content="5fb16212eb4dd21722656ad1b65bf4147a7acd5e" name="document-revision">
+  <meta content="4dbe7f69496d96604777e466313cd97c298cfb9c" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1608,7 +1608,8 @@ following substeps:</p>
              </ol>
            </ol>
           <li data-md="">
-           <p>If <a data-link-type="dfn" href="#keyboard-reserved-key-codes" id="ref-for-keyboard-reserved-key-codes②">reserved key codes</a> is empty, reject <var>p</var>.</p>
+           <p>If <a data-link-type="dfn" href="#keyboard-reserved-key-codes" id="ref-for-keyboard-reserved-key-codes②">reserved key codes</a> is empty, reject <var>p</var> with an
+"<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
          </ol>
         <li data-md="">
          <p>If <a data-link-type="dfn" href="#keyboard-enable-keyboard-lock" id="ref-for-keyboard-enable-keyboard-lock①">enable keyboard lock</a> is currently false, run the following
@@ -1915,8 +1916,10 @@ usual keyboard shortcut action.</p>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
+     <li><a href="https://heycam.github.io/webidl/#idl-DOMException">DOMException</a>
      <li><a href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a>
      <li><a href="https://heycam.github.io/webidl/#Exposed">Exposed</a>
+     <li><a href="https://heycam.github.io/webidl/#invalidaccesserror">InvalidAccessError</a>
      <li><a href="https://heycam.github.io/webidl/#SameObject">SameObject</a>
      <li><a href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>
     </ul>
