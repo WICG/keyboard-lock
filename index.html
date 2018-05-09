@@ -1179,7 +1179,7 @@ Possible extra rowspan handling
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version eef4acd901f774f3d130c245844f8ea23319c1b2" name="generator">
   <link href="http://www.w3.org/TR/keyboard-lock/" rel="canonical">
-  <meta content="fc004c6a5af83aa716d9334ba2dc99b6cb5a8ad3" name="document-revision">
+  <meta content="7cdb1512d560a84b43d6ed9acfbb770dc574ba85" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1597,22 +1597,22 @@ applications that provide a fullscreen immersive experience
       <li data-md="">
        <p>Let <var>p</var> be a new <a data-link-type="dfn" href="http://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①">Promise</a>.</p>
       <li data-md="">
-       <p>If not currently executing in the currently active <a data-link-type="dfn" href="https://html.spec.whatwg.org/#top-level-browsing-context" id="ref-for-top-level-browsing-context">top-level browsing context</a>, then</p>
-       <ol>
-        <li data-md="">
-         <p>Return <var>p</var> rejected with an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
-       </ol>
-      <li data-md="">
-       <p>If the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise">current keyboard lock promise</a> is not null, then</p>
-       <ol>
-        <li data-md="">
-         <p>Reject the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise①">current keyboard lock promise</a> with an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#aborterror" id="ref-for-aborterror">AbortError</a></code>" DOMException.</p>
-       </ol>
-      <li data-md="">
-       <p>Set the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise②">current keyboard lock promise</a> to <var>p</var>.</p>
-      <li data-md="">
        <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task">Queue a task</a> that runs the following steps:</p>
        <ol>
+        <li data-md="">
+         <p>If not currently executing in the currently active <a data-link-type="dfn" href="https://html.spec.whatwg.org/#top-level-browsing-context" id="ref-for-top-level-browsing-context">top-level browsing context</a>, then</p>
+         <ol>
+          <li data-md="">
+           <p>Reject <var>p</var> with an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
+         </ol>
+        <li data-md="">
+         <p>If the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise">current keyboard lock promise</a> is not null, then</p>
+         <ol>
+          <li data-md="">
+           <p>Reject the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise①">current keyboard lock promise</a> with an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#aborterror" id="ref-for-aborterror">AbortError</a></code>" DOMException.</p>
+         </ol>
+        <li data-md="">
+         <p>Set the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise②">current keyboard lock promise</a> to <var>p</var>.</p>
         <li data-md="">
          <p>Reset <a data-link-type="dfn" href="#keyboard-reserved-key-codes" id="ref-for-keyboard-reserved-key-codes">reserved key codes</a> to be an empty set.</p>
         <li data-md="">
@@ -1635,7 +1635,7 @@ following substeps:</p>
             <li data-md="">
              <p>Set <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise③">current keyboard lock promise</a> to null.</p>
             <li data-md="">
-             <p>Return <var>p</var> rejected with an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code>.</p>
+             <p>Reject <var>p</var> with an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code>.</p>
            </ol>
          </ol>
         <li data-md="">

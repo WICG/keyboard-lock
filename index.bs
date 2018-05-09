@@ -134,18 +134,18 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 
 			1. Let |p| be a new [=Promise=].
 		
-			1. If not currently executing in the currently active [=top-level browsing context=], then
-			
-				1. Return |p| rejected with an "{{InvalidStateError}}" {{DOMException}}.
-
-			1. If the [=current keyboard lock promise=] is not null, then
-		
-				1. Reject the [=current keyboard lock promise=] with an "{{AbortError}}" DOMException.
-			
-			1. Set the [=current keyboard lock promise=] to |p|.
-			
 			1. [=Queue a task=] that runs the following steps:
 
+				1. If not currently executing in the currently active [=top-level browsing context=], then
+			
+					1. Reject |p| with an "{{InvalidStateError}}" {{DOMException}}.
+
+				1. If the [=current keyboard lock promise=] is not null, then
+		
+					1. Reject the [=current keyboard lock promise=] with an "{{AbortError}}" DOMException.
+			
+				1. Set the [=current keyboard lock promise=] to |p|.
+			
 				1. Reset [=reserved key codes=] to be an empty set.
 
 				1. If the optional {{keyCodes}} argument is present, run the
@@ -161,7 +161,7 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 					
 						1. Set [=current keyboard lock promise=] to null.
 						
-						1. Return |p| rejected with an "{{InvalidAccessError}}" {{DOMException}}.
+						1. Reject |p| with an "{{InvalidAccessError}}" {{DOMException}}.
 
 				1. If [=enable keyboard lock=] is currently false, run the following
 					substeps:
