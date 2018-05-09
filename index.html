@@ -1179,7 +1179,7 @@ Possible extra rowspan handling
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version eef4acd901f774f3d130c245844f8ea23319c1b2" name="generator">
   <link href="http://www.w3.org/TR/keyboard-lock/" rel="canonical">
-  <meta content="9a8cdf6c798e5cd07703c759a5a95243e8950ebd" name="document-revision">
+  <meta content="b9bbc726a6d98443dded0faf105fade8d677b765" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1513,8 +1513,13 @@ applications that provide a fullscreen immersive experience
        </ol>
       <li><a href="#handling-keyboard-events"><span class="secno">3.2</span> <span class="content">Handling Keyboard Events</span></a>
      </ol>
-    <li><a href="#fullscreen-considerations"><span class="secno">4</span> <span class="content">Fullscreen Considerations</span></a>
-    <li><a href="#escape-key"><span class="secno">5</span> <span class="content">Special Considerations with the Escape Key</span></a>
+    <li>
+     <a href="#interactions"><span class="secno">4</span> <span class="content">Intergration With Other Web Platform APIs</span></a>
+     <ol class="toc">
+      <li><a href="#escape-key"><span class="secno">4.1</span> <span class="content">Special Considerations with the Escape Key</span></a>
+      <li><a href="#fullscreen-considerations"><span class="secno">4.2</span> <span class="content">Fullscreen Considerations</span></a>
+     </ol>
+    <li><a href="#pointerlock-considerations"><span class="secno">5</span> <span class="content">Pointer Lock Considerations</span></a>
     <li><a href="#mobile"><span class="secno">6</span> <span class="content">Mobile Device Considerations</span></a>
     <li><a href="#security"><span class="secno">7</span> <span class="content">Security Considerations</span></a>
     <li><a href="#privacy"><span class="secno">8</span> <span class="content">Privacy Considerations</span></a>
@@ -1745,7 +1750,8 @@ fullscreen.</p>
           <li data-md="">
            <p>If the key is held for 2 seconds, then exit from the
 keyboard handler and pass the key on to the user agent
-for normal processing (which will exit fullscreen).</p>
+for normal processing (which will exit fullscreen
+(and pointer lock, if active)).</p>
          </ol>
         <li data-md="">
          <p>Dispatch <var>keyEvent</var> directly to the fullsceen document or element,
@@ -1768,45 +1774,60 @@ usual keyboard shortcut action.</p>
 		included in the set of <a data-link-type="dfn" href="#keyboard-reserved-key-codes" id="ref-for-keyboard-reserved-key-codes⑥">reserved key codes</a> must be dispatched in the same
 		relative order that they would have been sent had they not been included in the
 		set.</p>
-   <h2 class="heading settled" data-level="4" id="fullscreen-considerations"><span class="secno">4. </span><span class="content">Fullscreen Considerations</span><a class="self-link" href="#fullscreen-considerations"></a></h2>
-   <p>There are two different types of fullscreen available in modern user agents:
-	JavaScript-initiated fullscreen (via the <a data-link-type="biblio" href="#biblio-fullscreen">[Fullscreen]</a> API) and
-	user-initiated fullscreen (when the user enters fullscreen using a keyboard
-	shortcut). The user-initiated fullscreen is often referred to as "F11"
-	fullscreen since that is a common key shortcut used to enter and exit
-	fullscreen mode.</p>
-   <p>F11 fullscreen and JavaScript (JS) fullscreen do not behave the same way.
-	When a user enters F11 fullscreen, they can only exit it via the same
-	keyboard shortcut that they used to enter it -- the exitFullscreen()
-	function will not work in this case. In addition, fullscreen events that are
-	normally fired for JS fullscreen are not sent for F11 fullscreen.</p>
-   <p>Because of these differences (and because there is no standard shortcut
-	for F11 fullscreen), the Keyboard Lock API is only valid when the
-	a JavaScript-initiated fullscreen is active. During F11 fullscreen, no
-	Keyboard Lock processing of keyboard events will take place.</p>
-   <h2 class="heading settled" data-level="5" id="escape-key"><span class="secno">5. </span><span class="content">Special Considerations with the Escape Key</span><a class="self-link" href="#escape-key"></a></h2>
+   <h2 class="heading settled" data-level="4" id="interactions"><span class="secno">4. </span><span class="content">Intergration With Other Web Platform APIs</span><a class="self-link" href="#interactions"></a></h2>
+   <p><a data-link-type="biblio" href="#biblio-fullscreen">[Fullscreen]</a> and <a data-link-type="biblio" href="#biblio-pointerlock">[PointerLock]</a> are APIs that allow the page to temporarily take
+	control of part of the user’s experience (screen and mouse cursor, respectively).
+	Because of the concern for abuse of these features, they provide an "escape" or
+	"unlock" gesture that the user can rely on to exit those features. By default,
+	this gesture is pressing the Escape key, which is one of the keys that can be
+	captured by this API.</p>
+   <h3 class="heading settled" data-level="4.1" id="escape-key"><span class="secno">4.1. </span><span class="content">Special Considerations with the Escape Key</span><a class="self-link" href="#escape-key"></a></h3>
    <p>Because of the special actions associated with the Escape key, when the <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock④">lock()</a></code> request includes the Escape key, the user agent may need to make additional
-	changes to the UX to account for the changed behavior.</p>
+		changes to the UX to account for the changed behavior.</p>
    <p>For example, if the user agent shows a user message "Press ESC to exit fullscreen"
-	when Javascript-initiated fullscreen is activated, then that message will need to
-	be updated when keyboard lock is in effect to read "Press and hold ESC to exit
-	fullscreen".</p>
+		when Javascript-initiated fullscreen is activated, then that message will need to
+		be updated when keyboard lock is in effect to read "Press and hold ESC to exit
+		fullscreen".</p>
    <p>If keyboard lock is activated after fullscreen is already in effect, then the user
-	my see multiple messages about how to exit fullscreen.
-	For this reason, we recommend that developers call <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock⑤">lock()</a></code> before they enter
-	fullscreen:</p>
+		my see multiple messages about how to exit fullscreen.
+		For this reason, we recommend that developers call <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock⑤">lock()</a></code> before they enter
+		fullscreen:</p>
 <pre>navigator.keyboard.lock();
 document.documentElement.requestFullscreen();
 </pre>
    <p>A similar concern with multiple user messages exists when exiting keyboard lock and
-	fullscreen, so it is recommended to call them in the reverse order:</p>
+		fullscreen, so it is recommended to call them in the reverse order:</p>
 <pre>document.exitFullscreen();
 navigator.keyboard.unlock();
 </pre>
    <p>In general, developers should only include the Escape key in the set of locked
-	keys if they actually have need for that key. And it is recommended that, if the
-	Escape key is locked, the developer should maintain its primary meaning of allowing
-	the user to exit their current state.</p>
+		keys if they actually have need for that key. And it is recommended that, if the
+		Escape key is locked, the developer should maintain its primary meaning of
+		allowing the user to exit their current state.</p>
+   <h3 class="heading settled" data-level="4.2" id="fullscreen-considerations"><span class="secno">4.2. </span><span class="content">Fullscreen Considerations</span><a class="self-link" href="#fullscreen-considerations"></a></h3>
+   <p>There are two different types of fullscreen available in modern user agents:
+		JavaScript-initiated fullscreen (via the <a data-link-type="biblio" href="#biblio-fullscreen">[Fullscreen]</a> API) and
+		user-initiated fullscreen (when the user enters fullscreen using a keyboard
+		shortcut). The user-initiated fullscreen is often referred to as "F11"
+		fullscreen since that is a common key shortcut used to enter and exit
+		fullscreen mode.</p>
+   <p>F11 fullscreen and JavaScript (JS) fullscreen do not behave the same way.
+		When a user enters F11 fullscreen, they can only exit it via the same
+		keyboard shortcut that they used to enter it -- the exitFullscreen()
+		function will not work in this case. In addition, fullscreen events that are
+		normally fired for JS fullscreen are not sent for F11 fullscreen.</p>
+   <p>Because of these differences (and because there is no standard shortcut
+		for F11 fullscreen), the Keyboard Lock API is only valid when the
+		a JavaScript-initiated fullscreen is active. During F11 fullscreen, no
+		Keyboard Lock processing of keyboard events will take place.</p>
+   <h2 class="heading settled" data-level="5" id="pointerlock-considerations"><span class="secno">5. </span><span class="content">Pointer Lock Considerations</span><a class="self-link" href="#pointerlock-considerations"></a></h2>
+   <p>Other than the UX changes noted earlier, there are no changes to the operation
+		of Pointer Lock.</p>
+   <p>When Pointer Lock is enabled outside of fullscreen, then Keyboard Lock cannot
+		be enabled.</p>
+   <p>When Pointer Lock, Keyboard Lock and Fullscreen are all enabled, then the behavior
+		is unchanged unless Keyboard Lock includes the Escape key. In that case, the
+		only chages are to the UX (as noted above).</p>
    <h2 class="heading settled" data-level="6" id="mobile"><span class="secno">6. </span><span class="content">Mobile Device Considerations</span><a class="self-link" href="#mobile"></a></h2>
    <p>Since this is a keyboard-focused API and mobile devices do not commonly
 	have physical keyboards, this API will not typically be present or
@@ -2008,7 +2029,7 @@ navigator.keyboard.unlock();
    <b><a href="#dom-keyboard-lock">#dom-keyboard-lock</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-keyboard-lock">2.2.1. lock()</a> <a href="#ref-for-dom-keyboard-lock①">(2)</a> <a href="#ref-for-dom-keyboard-lock②">(3)</a> <a href="#ref-for-dom-keyboard-lock③">(4)</a>
-    <li><a href="#ref-for-dom-keyboard-lock④">5. Special Considerations with the Escape Key</a> <a href="#ref-for-dom-keyboard-lock⑤">(2)</a>
+    <li><a href="#ref-for-dom-keyboard-lock④">4.1. Special Considerations with the Escape Key</a> <a href="#ref-for-dom-keyboard-lock⑤">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-keyboard-lock-keycodes-keycodes">
