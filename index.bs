@@ -340,6 +340,40 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 	a JavaScript-initiated fullscreen is active. During F11 fullscreen, no
 	Keyboard Lock processing of keyboard events will take place.
 
+<h2 id="escape-key">Special Considerations with the Escape Key</h2>
+
+	Because of the special actions associated with the Escape key, when the {{lock()}}
+	request includes the Escape key, the user agent may need to make additional
+	changes to the UX to account for the changed behavior.
+
+	For example, if the user agent shows a user message "Press ESC to exit fullscreen"
+	when Javascript-initiated fullscreen is activated, then that message will need to
+	be updated when keyboard lock is in effect to read "Press and hold ESC to exit
+	fullscreen".
+
+	If keyboard lock is activated after fullscreen is already in effect, then the user
+	my see multiple messages about how to exit fullscreen.
+	For this reason, we recommend that developers call {{lock()}} before they enter
+	fullscreen:
+	
+	<pre>
+		navigator.keyboard.lock();
+		document.documentElement.requestFullscreen();
+	</pre>
+
+	A similar concern with multiple user messages exists when exiting keyboard lock and
+	fullscreen, so it is recommended to call them in the reverse order:
+	
+	<pre>
+		document.exitFullscreen();
+		navigator.keyboard.unlock();
+	</pre>
+
+	In general, developers should only include the Escape key in the set of locked
+	keys if they actually have need for that key. And it is recommended that, if the
+	Escape key is locked, the developer should maintain its primary meaning of allowing
+	the user to exit their current state.
+		
 <h2 id="mobile">Mobile Device Considerations</h2>
 
 	Since this is a keyboard-focused API and mobile devices do not commonly
