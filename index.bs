@@ -32,6 +32,7 @@ urlPrefix: https://fullscreen.spec.whatwg.org/#; type: dfn; spec: fullscreen;
 	text: fullscreen element
 urlPrefix: https://html.spec.whatwg.org/#; type: dfn; spec: html;
 	text: currently focused area of a top-level browsing context
+	text: top-level browsing context
 urlPrefix: http://www.w3.org/TR/uievents-code/#code-; type: dfn; spec: uievents-code;
 	text: Delete
 	text: KeyA
@@ -121,6 +122,10 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 		By default this set is empty (which would capture all keys
 		if [=enable keyboard lock=] was enabled).
 
+		The keyboard object has <dfn>current keyboard lock promise</dfn>, which is the
+		[=Promise=] (if any) associated with the {{lock()}} call that is currently
+		being processed. By default, this is set to null.
+		
 		<div class="algorithm" data-algorithm="keyboard-lock">
 		<h4 id="h-keyboard-lock"><dfn>lock()</dfn></h4>
 
@@ -129,6 +134,16 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 
 			1. Let |p| be a new [=Promise=].
 		
+			1. If not currently executing in the currently active [=top-level browsing context=], then
+			
+				1. Return |p| rejected with an "{{InvalidStateError}}" {{DOMException}}.
+
+			1. If the [=current keyboard lock promise=] is not null, then
+		
+				1. Reject the [=current keyboard lock promise=] with an "{{AbortError}}" DOMException.
+			
+			1. Set the [=current keyboard lock promise=] to |p|.
+			
 			1. [=Queue a task=] that runs the following steps:
 
 				1. Reset [=reserved key codes=] to be an empty set.
@@ -142,8 +157,11 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 				
 							1. [=set/Append=] |key| to [=reserved key codes=].
 				
-					1. If [=reserved key codes=] is empty, return |p| rejected with an
-						"{{InvalidAccessError}}" {{DOMException}}.
+					1. If [=reserved key codes=] is empty, then
+					
+						1. Set [=current keyboard lock promise=] to null.
+						
+						1. Return |p| rejected with an "{{InvalidAccessError}}" {{DOMException}}.
 
 				1. If [=enable keyboard lock=] is currently false, run the following
 					substeps:
@@ -151,7 +169,9 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 					1. Optionally, [=register a system key press handler=].
 
 					1. Set [=enable keyboard lock=] to be true.
-			
+
+				1. Set the [=current keyboard lock promise=] to null.
+							
 				1. Resolve |p|.
 
 			1. Return |p|.

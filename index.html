@@ -1179,7 +1179,7 @@ Possible extra rowspan handling
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version eef4acd901f774f3d130c245844f8ea23319c1b2" name="generator">
   <link href="http://www.w3.org/TR/keyboard-lock/" rel="canonical">
-  <meta content="8a8093cbc3a8f3e5f91540e76824c6d306d67902" name="document-revision">
+  <meta content="fc004c6a5af83aa716d9334ba2dc99b6cb5a8ad3" name="document-revision">
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -1587,13 +1587,29 @@ applications that provide a fullscreen immersive experience
 		set of DOMStrings, each of which is a valid <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value" id="ref-for-key-code-attribute-value">key code attribute value</a> as defined in <a data-link-type="biblio" href="#biblio-uievents-code">[UIEvents-Code]</a>.
 		By default this set is empty (which would capture all keys
 		if <a data-link-type="dfn" href="#keyboard-enable-keyboard-lock" id="ref-for-keyboard-enable-keyboard-lock">enable keyboard lock</a> was enabled).</p>
+    <p>The keyboard object has <dfn class="dfn-paneled" data-dfn-for="Keyboard" data-dfn-type="dfn" data-noexport="" id="keyboard-current-keyboard-lock-promise">current keyboard lock promise</dfn>, which is the <a data-link-type="dfn" href="http://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects">Promise</a> (if any) associated with the <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock">lock()</a></code> call that is currently
+		being processed. By default, this is set to null.</p>
     <div class="algorithm" data-algorithm="keyboard-lock">
      <h4 class="heading settled" data-level="2.2.1" id="h-keyboard-lock"><span class="secno">2.2.1. </span><span class="content"><dfn data-dfn-for="Keyboard" data-dfn-type="dfn" data-noexport="" id="keyboard-lock">lock()<a class="self-link" href="#keyboard-lock"></a></dfn></span><a class="self-link" href="#h-keyboard-lock"></a></h4>
-     <p>When <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock">lock()</a></code> is called, the user agent must
+     <p>When <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock①">lock()</a></code> is called, the user agent must
 			run the following steps:</p>
      <ol>
       <li data-md="">
-       <p>Let <var>p</var> be a new <a data-link-type="dfn" href="http://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects">Promise</a>.</p>
+       <p>Let <var>p</var> be a new <a data-link-type="dfn" href="http://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①">Promise</a>.</p>
+      <li data-md="">
+       <p>If not currently executing in the currently active <a data-link-type="dfn" href="https://html.spec.whatwg.org/#top-level-browsing-context" id="ref-for-top-level-browsing-context">top-level browsing context</a>, then</p>
+       <ol>
+        <li data-md="">
+         <p>Return <var>p</var> rejected with an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
+       </ol>
+      <li data-md="">
+       <p>If the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise">current keyboard lock promise</a> is not null, then</p>
+       <ol>
+        <li data-md="">
+         <p>Reject the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise①">current keyboard lock promise</a> with an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#aborterror" id="ref-for-aborterror">AbortError</a></code>" DOMException.</p>
+       </ol>
+      <li data-md="">
+       <p>Set the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise②">current keyboard lock promise</a> to <var>p</var>.</p>
       <li data-md="">
        <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task">Queue a task</a> that runs the following steps:</p>
        <ol>
@@ -1614,8 +1630,13 @@ following substeps:</p>
              </ol>
            </ol>
           <li data-md="">
-           <p>If <a data-link-type="dfn" href="#keyboard-reserved-key-codes" id="ref-for-keyboard-reserved-key-codes②">reserved key codes</a> is empty, return <var>p</var> rejected with an
-"<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
+           <p>If <a data-link-type="dfn" href="#keyboard-reserved-key-codes" id="ref-for-keyboard-reserved-key-codes②">reserved key codes</a> is empty, then</p>
+           <ol>
+            <li data-md="">
+             <p>Set <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise③">current keyboard lock promise</a> to null.</p>
+            <li data-md="">
+             <p>Return <var>p</var> rejected with an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code>.</p>
+           </ol>
          </ol>
         <li data-md="">
          <p>If <a data-link-type="dfn" href="#keyboard-enable-keyboard-lock" id="ref-for-keyboard-enable-keyboard-lock①">enable keyboard lock</a> is currently false, run the following
@@ -1627,21 +1648,23 @@ substeps:</p>
            <p>Set <a data-link-type="dfn" href="#keyboard-enable-keyboard-lock" id="ref-for-keyboard-enable-keyboard-lock②">enable keyboard lock</a> to be true.</p>
          </ol>
         <li data-md="">
+         <p>Set the <a data-link-type="dfn" href="#keyboard-current-keyboard-lock-promise" id="ref-for-keyboard-current-keyboard-lock-promise④">current keyboard lock promise</a> to null.</p>
+        <li data-md="">
          <p>Resolve <var>p</var>.</p>
        </ol>
       <li data-md="">
        <p>Return <var>p</var>.</p>
      </ol>
      <div></div>
-     <p class="note" role="note"><span>Note:</span> If <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock①">lock()</a></code> is called multiple times without an
+     <p class="note" role="note"><span>Note:</span> If <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock②">lock()</a></code> is called multiple times without an
 			intervening call to <code class="idl"><a data-link-type="idl" href="#dom-keyboard-unlock" id="ref-for-dom-keyboard-unlock">unlock()</a></code>, then only the <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock-keycodes-keycodes" id="ref-for-dom-keyboard-lock-keycodes-keycodes②">keyCodes</a></code> specified in the last request call will be in effect.</p>
      <div class="example" id="example-3c1370ba">
-      <a class="self-link" href="#example-3c1370ba"></a> To capture all keys, simply call <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock②">lock()</a></code> with no arguments: 
+      <a class="self-link" href="#example-3c1370ba"></a> To capture all keys, simply call <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock③">lock()</a></code> with no arguments: 
 <pre>navigator.keyboard.lock();
 </pre>
      </div>
      <div class="example" id="example-5c32e45b">
-      <a class="self-link" href="#example-5c32e45b"></a> To capture the "W", "A", "S", and "D" keys, call <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock③">lock()</a></code> with
+      <a class="self-link" href="#example-5c32e45b"></a> To capture the "W", "A", "S", and "D" keys, call <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock④">lock()</a></code> with
 			a list that contains the <a data-link-type="dfn" href="http://www.w3.org/TR/uievents-code/#key-code-attribute-value" id="ref-for-key-code-attribute-value②">key code attribute value</a> for each of these keys: 
 <pre>navigator.keyboard.lock(["KeyW", "KeyA", "KeyS", "KeyD"]);
 </pre>
@@ -1782,7 +1805,7 @@ usual keyboard shortcut action.</p>
 	this gesture is pressing the Escape key, which is one of the keys that can be
 	captured by this API.</p>
    <h3 class="heading settled" data-level="4.1" id="escape-key"><span class="secno">4.1. </span><span class="content">Special Considerations with the Escape Key</span><a class="self-link" href="#escape-key"></a></h3>
-   <p>Because of the special actions associated with the Escape key, when the <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock④">lock()</a></code> request includes the Escape key, the user agent may need to make additional
+   <p>Because of the special actions associated with the Escape key, when the <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock⑤">lock()</a></code> request includes the Escape key, the user agent may need to make additional
 		changes to the UX to account for the changed behavior.</p>
    <p>For example, if the user agent shows a user message "Press ESC to exit fullscreen"
 		when Javascript-initiated fullscreen is activated, then that message will need to
@@ -1790,7 +1813,7 @@ usual keyboard shortcut action.</p>
 		fullscreen".</p>
    <p>If keyboard lock is activated after fullscreen is already in effect, then the user
 		my see multiple messages about how to exit fullscreen.
-		For this reason, we recommend that developers call <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock⑤">lock()</a></code> before they enter
+		For this reason, we recommend that developers call <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock⑥">lock()</a></code> before they enter
 		fullscreen:</p>
 <pre>navigator.keyboard.lock();
 document.documentElement.requestFullscreen();
@@ -1891,6 +1914,7 @@ navigator.keyboard.unlock();
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
+   <li><a href="#keyboard-current-keyboard-lock-promise">current keyboard lock promise</a><span>, in §2.2</span>
    <li><a href="#keyboard-enable-keyboard-lock">enable keyboard lock</a><span>, in §2.2</span>
    <li>
     keyboard
@@ -1936,6 +1960,7 @@ navigator.keyboard.unlock();
      <li><a href="https://html.spec.whatwg.org/multipage/system-state.html#navigator">Navigator</a>
      <li><a href="https://html.spec.whatwg.org/#currently-focused-area-of-a-top-level-browsing-context">currently focused area of a top-level browsing context</a>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a>
+     <li><a href="https://html.spec.whatwg.org/#top-level-browsing-context">top-level browsing context</a>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
@@ -1961,10 +1986,12 @@ navigator.keyboard.unlock();
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
+     <li><a href="https://heycam.github.io/webidl/#aborterror">AbortError</a>
      <li><a href="https://heycam.github.io/webidl/#idl-DOMException">DOMException</a>
      <li><a href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a>
      <li><a href="https://heycam.github.io/webidl/#Exposed">Exposed</a>
      <li><a href="https://heycam.github.io/webidl/#invalidaccesserror">InvalidAccessError</a>
+     <li><a href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a>
      <li><a href="https://heycam.github.io/webidl/#SameObject">SameObject</a>
      <li><a href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>
     </ul>
@@ -2028,8 +2055,9 @@ navigator.keyboard.unlock();
   <aside class="dfn-panel" data-for="dom-keyboard-lock">
    <b><a href="#dom-keyboard-lock">#dom-keyboard-lock</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-keyboard-lock">2.2.1. lock()</a> <a href="#ref-for-dom-keyboard-lock①">(2)</a> <a href="#ref-for-dom-keyboard-lock②">(3)</a> <a href="#ref-for-dom-keyboard-lock③">(4)</a>
-    <li><a href="#ref-for-dom-keyboard-lock④">4.1. Special Considerations with the Escape Key</a> <a href="#ref-for-dom-keyboard-lock⑤">(2)</a>
+    <li><a href="#ref-for-dom-keyboard-lock">2.2. Keyboard Interface</a>
+    <li><a href="#ref-for-dom-keyboard-lock①">2.2.1. lock()</a> <a href="#ref-for-dom-keyboard-lock②">(2)</a> <a href="#ref-for-dom-keyboard-lock③">(3)</a> <a href="#ref-for-dom-keyboard-lock④">(4)</a>
+    <li><a href="#ref-for-dom-keyboard-lock⑤">4.1. Special Considerations with the Escape Key</a> <a href="#ref-for-dom-keyboard-lock⑥">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-keyboard-lock-keycodes-keycodes">
@@ -2060,6 +2088,12 @@ navigator.keyboard.unlock();
     <li><a href="#ref-for-keyboard-reserved-key-codes">2.2.1. lock()</a> <a href="#ref-for-keyboard-reserved-key-codes①">(2)</a> <a href="#ref-for-keyboard-reserved-key-codes②">(3)</a>
     <li><a href="#ref-for-keyboard-reserved-key-codes③">2.2.2. unlock()</a>
     <li><a href="#ref-for-keyboard-reserved-key-codes④">3.2. Handling Keyboard Events</a> <a href="#ref-for-keyboard-reserved-key-codes⑤">(2)</a> <a href="#ref-for-keyboard-reserved-key-codes⑥">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="keyboard-current-keyboard-lock-promise">
+   <b><a href="#keyboard-current-keyboard-lock-promise">#keyboard-current-keyboard-lock-promise</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-keyboard-current-keyboard-lock-promise">2.2.1. lock()</a> <a href="#ref-for-keyboard-current-keyboard-lock-promise①">(2)</a> <a href="#ref-for-keyboard-current-keyboard-lock-promise②">(3)</a> <a href="#ref-for-keyboard-current-keyboard-lock-promise③">(4)</a> <a href="#ref-for-keyboard-current-keyboard-lock-promise④">(5)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="system-key-press-handler">
