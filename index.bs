@@ -5,8 +5,7 @@ Shortname: keyboard-lock
 Level:
 Group: webplatform
 Status: CG-DRAFT
-TR: https://w3c.github.io/keyboard-lock/
-ED: https://w3c.github.io/keyboard-lock/
+ED: https://wicg.github.io/keyboard-lock/
 Repository: w3c/keyboard-lock
 Previous Version:
 	<none>
