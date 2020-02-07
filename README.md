@@ -5,9 +5,11 @@ reserved keys and keyboard shortcuts.
 
 Note, in early discussions, Keyboard Lock was known as System Keyboard Lock.
 
+[Current (Unofficial) Draft](https://wicg.github.io/keyboard-lock/)
+
 For background, see:
 
-* The [explainer](explainer.md)
+* The original [explainer](explainer.md) (from 2016)
 * The [WICG incubation discussion](https://discourse.wicg.io/t/proposal-system-keyboard-lock-api/1594) for this feature
 
 Links:
