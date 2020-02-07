@@ -3,9 +3,11 @@
 Keyboard Lock is an API that allows websites to capture and use
 reserved keys and keyboard shortcuts.
 
-[Current (Unofficial) Draft](https://wicg.github.io/keyboard-lock/)
+[Current (Unofficial) Draft Specification](https://wicg.github.io/keyboard-lock/)
 
 [Web Platform Tests](https://github.com/web-platform-tests/wpt/tree/master/keyboard-lock)
+
+[MDN documentation](https://developer.mozilla.org/en-US/docs/Web/API/Keyboard/lock)
 
 For background, see:
 
