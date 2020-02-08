@@ -17,15 +17,15 @@ Without access to these keys, it can be challending for developers to embrace th
 
 The current Lock API allows developers to specify a set of keys, but if no keys are specified it will by default
 capture all keys.
-Feedback from developers indicates that they would prefer the default to capture only the Browser keys.
-This document describes our proposal for updateing the Lock API.
+Feedback from developers indicates that they would prefer the default to capture only the Browser Keys.
+This document describes our proposal for updating the Lock API.
 
 ## Background
 
 There are two groups of keys that can be captured, based on where they are currently being handled.
 
-* **Browser Keys** are keys that are currently handled by the user agent.
-Examples of browser keys are Ctrl-S or Ctrl-T.
+* **Browser Keys** are keys that are currently handled by the user agent (the "browser").
+Examples of Browser Keys are Ctrl-S or Ctrl-T.
 
 * **System Keys** are keys that are handled by the underlying operating sytesm.
 Examples of System Keys are Alt-Tab (Windows) and Command-Tab (Mac).
@@ -48,7 +48,7 @@ Alt-Tab to quickly switch to another (e.g., a chat) application.
 Almost everything.
 
 Fullscreen must be active for the API. Interaction with Pointer Lock and the Escape key does not change.
-Two methods: `lock()` and `unlock()`. The `lock()` method returns a Promise.
+There are still only two methods: `lock()` and `unlock()`, and the `lock()` method returns a Promise.
 
 ## What changes with this proposal
 
@@ -57,8 +57,8 @@ to just capture Browser Keys.
 
 ## How the API currently works
 
-The `lock()` method accepts an array of DomKeys to lock/capture. These keys can be a mix of browser and
-system level keys. If an array is not speficied, then all keys (browser and system) are captured
+The `lock()` method accepts an array of DomKeys to lock/capture. These keys can be a mix of Browser and
+System level keys. If an array is not speficied, then all keys (Browser and System) are captured
 
 `lock()` returns a promise which either resolves w/o a return value or rejects with an error.
 
@@ -69,22 +69,22 @@ For example, if `lock('KeyA')` was called and then `lock('KeyB')` was called, on
 
 Modify the `lock()` so that
 
-* 'lock` With no arguments means the developer is only requesting browser keys
-(cf. the current API which captures both browser and system keys).
-* `lock` with arguments means the developer wants all browser keys + the specified system keys.
+* 'lock` With no arguments means the developer is only requesting Browser keys
+(cf. the current API which captures both Browser and System keys).
+* `lock` with arguments means the developer wants all Browser keys + the specified System keys.
 
-Note that support for capturing system keys requires that the browser install a OS-level keyboard hook.
-Browser implementation may choose to only support browser keys (ie, with no arguments).
+Note that support for capturing System keys requires that the browser install a OS-level keyboard hook.
+The browser implementation may choose to only support Browser keys (ie, with no arguments).
 In this situation, if arguments were passed then the `lock()` call would reject the Promise.
 
-The method signature stays the same, but the behavior changes.
+Overall, the method signature stays the same, but the default behavior changes.
 
 ## Benefits of Proposed Changes
 
 While only Chromium-based browsers currently implement this API, making Browser Keys the default simplifies
 the minimum implementation requirements.
 
-Supporting Browser Keys requires only changes to the user agent's pipeline, whereas supporting System Keys
+Supporting Browser Keys requires only changes to the user agent's input pipeline, whereas supporting System Keys
 requires that the user agent registers a OS level input hook to get access to these keys.
 
 This will allow us to split the specification into 2 levels:
@@ -92,37 +92,38 @@ This will allow us to split the specification into 2 levels:
 * Level 1 support : browser keys only
 * Level 2 support : browser keys + system keys
 
-While no other browser has expressed interest in supporting this
-API, simplifying the implementation requirements makes it more likely to be considered. We are actively
+While no other browser has expressed interest in supporting this API,
+simplifying the implementation requirements makes it more likely to be considered. We are actively
 seeking feedback from other browser vendors on this matter.
 
 ## Impact and backward compatibility
 
 There are only a few users of the API currently, so making this change shouldn't be a large burden.
 
-The common use case is for applicaitons that only want to capture browser keys. This change makes it
+The common use case is for applicaitons that only want to capture Browser Keys. This change makes it
 easier for this use case, but current users will want to update their calls to remove the argument
 to `lock()`. Failure to do so will simply mean that they are capturing more keys than they require.
 
-The only current users who will be "broken" by this change are those that need both browser and 
-system keys. This is the more rare use case (typically for remote access or remote shell application)
-and transitioning these applications. These apps will need to specify a list of the keys that they
-wish to capture. However, these used can update their calls now (with the current API) so that they
+The only current users who will be "broken" by this change are those that need both Browser and 
+System Keys. This is the more rare use case (typically for remote access or remote shell application)
+so there are few application that need to be transitioned. These apps will need to be updated to specify
+a list of the System Keys that they wish to capture.
+However, these used can update their calls now (with the current API) so that they
 are not impacted when the updated version rolls out.
 
 ## Alternatives considered
 
 Instead of changing the behavior of the existing API, we also considered:
 
-### Adding new methods to the API
+#### Adding new methods to the API
 
-We could add new method(s) (like `lockBrowserKeys()` and `lockAllKeys()`) instead of changing the implementation
+We could add new methods to the API (like `lockBrowserKeys()` and `lockAllKeys()`) instead of changing the implementation
 of the `lock()` method.
 
 This would make feature detection (to detect old vs. new version) easier, but it makes it less clear what
 should happen when the old and new APIs are used at the same time.
 
-### Adding version info
+#### Adding version info
 
 Alternately we could add a version number somewhere (e.g., on `navigator.keyboard`) that could be queried to
 determine if `lock()` was the old or new version. This would make it easy to distinguish the old vs new
