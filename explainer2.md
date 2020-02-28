@@ -32,16 +32,32 @@ Examples of System Keys are Alt-Tab (Windows) and Command-Tab (Mac).
 
 ## Use Cases
 
-* Remote access where all Browser and System keys are sent to the remote machine. E.g., the Escape key is
-sent so that a developer can effectively use VI on the remote machine.
-* Remote access where browser keys are sent to the remote machine, but the user can still use OS shortcuts
-to switch between virtual desktops locally.
-* Playing a game via a streaming service, where the keyboard shortcuts were determined assuming that the
-game is running as a native app. E.g., using Escape to pull up the game menu, or players can use ctrl as a
-modifer for WASD movement keys.
-* Playing a game via a streaming service, where browser shortcuts are used in-game, but the player can
-Alt-Tab to quickly switch to another (e.g., a chat) application.
-* Playing a web-based fullscreen game that makes use of Alt-Tab in game without switching away from the game.
+Based on API usage so far, users of this API fall into 3 groups:
+
+* (I) Give me all the Browser Keys
+
+	* Remote access where browser keys are sent to the remote machine, but the user
+	can still use OS shortcuts to switch between virtual desktops locally.
+
+	* Playing a game (local or streaming), where browser shortcuts are used in-game,
+	but the player can Alt-Tab to quickly switch to another (e.g., a chat) application.
+
+* (II) Give me some of the Browser Keys (I'll tell you which ones)
+
+	* Playing a game (local or streaming), where some, but not all, of the browser
+	shortcuts are handled by the game and the others are handled by the browser.
+
+	* Remote access where most browser keys are sent to the remote machine, but a few
+	are handled by the local machine. OS shortcuts are handled by the local machine.
+
+* (III) Give me all the keys (Browser and System)
+
+	* Remote access where all Browser and System keys are sent to the remote machine.
+	E.g., the Escape key is sent so that a developer can effectively use VI on the
+	remote machine.
+
+	* Playing a web-based fullscreen game that makes use of Alt-Tab in game without
+	switching away from the game.
 
 ## What stays the same
 
@@ -52,8 +68,8 @@ There are still only two methods: `lock()` and `unlock()`, and the `lock()` meth
 
 ## What changes with this proposal
 
-The current API defaults to capturing all keys (Browser and System). The proposal changes the default
-to just capture Browser Keys.
+The current API defaults to capturing all keys (Browser and System). The proposal
+changes the default to just capture Browser Keys.
 
 ## How the API currently works
 
@@ -63,7 +79,7 @@ System level keys. If an array is not specified, then all keys (Browser and Syst
 `lock()` returns a promise which either resolves w/o a return value or rejects with an error.
 
 Subsequent calls to `lock()` override the previous parameters passed.
-For example, if `lock('KeyA')` was called and then `lock('KeyB')` was called, only `KeyB` would be locked.
+For example, if `lock(['KeyA'])` was called and then `lock(['KeyB'])` was called, only `KeyB` would be locked.
 
 ## The Proposal
 
@@ -71,21 +87,23 @@ Modify the `lock()` so that
 
 * 'lock` With no arguments means the developer is only requesting Browser keys
 (cf. the current API which captures both Browser and System keys).
-* `lock` with arguments means the developer wants all Browser keys + the specified System keys.
+* `lock` with arguments means the developer wants a subset of Browser keys.
+* A special argument value may be passed to indicate that System keys are desired.
 
 Note that support for capturing System keys requires that the browser install a OS-level keyboard hook.
 The browser implementation may choose to only support Browser keys (ie, with no arguments).
-In this situation, if arguments were passed then the `lock()` call would reject the Promise.
 
-Overall, the method signature stays the same, but the default behavior changes.
+Overall, the method signature stays the same, but the default behavior and the method
+for capturing System keys changes.
 
 ## Benefits of Proposed Changes
 
-While only Chromium-based browsers currently implement this API, making Browser Keys the default simplifies
-the minimum implementation requirements.
+While only Chromium-based browsers currently implement this API, making Browser
+Keys the default simplifies the minimum implementation requirements.
 
-Supporting Browser Keys requires only changes to the user agent's input pipeline, whereas supporting System Keys
-requires that the user agent registers a OS level input hook to get access to these keys.
+Supporting Browser Keys requires only changes to the user agent's input pipeline,
+whereas supporting System Keys requires that the user agent registers an OS level
+input hook to get access to these keys.
 
 This will allow us to split the specification into 2 levels:
 
@@ -93,23 +111,21 @@ This will allow us to split the specification into 2 levels:
 * Level 2 support : browser keys + system keys
 
 While no other browser has expressed interest in supporting this API,
-simplifying the implementation requirements makes it more likely to be considered. We are actively
-seeking feedback from other browser vendors on this matter.
+simplifying the implementation requirements makes it more likely to be considered.
+We are actively seeking feedback from other browser vendors on this matter.
 
 ## Impact and backward compatibility
 
-There are only a few users of the API currently, so making this change shouldn't be a large burden.
+There are only a few users of the API currently, so making this change shouldn't be a
+large burden.
 
-The common use case is for applicaitons that only want to capture Browser Keys. This change makes it
-easier for this use case, but current users will want to update their calls to remove the argument
-to `lock()`. Failure to do so will simply mean that they are capturing more keys than they require.
+The common use case is for applications that want to capture all Browser Keys. This
+change makes it easier for this use case.
 
-The only current users who will be "broken" by this change are those that need both Browser and 
-System Keys. This is the more rare use case (typically for remote access or remote shell application)
-so there are few application that need to be transitioned. These apps will need to be updated to specify
-a list of the System Keys that they wish to capture.
-However, these used can update their calls now (with the current API) so that they
-are not impacted when the updated version rolls out.
+The only current users who will be "broken" by this change are those that need both
+Browser and System Keys. This is the more rare use case (typically for remote access or
+remote shell application) so there are few application that need to be transitioned.
+These apps will need to be updated to explicitly request System keys.
 
 ## Alternatives considered
 
