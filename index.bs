@@ -339,7 +339,7 @@ spec: ecma-262; urlPrefix: http://tc39.github.io/ecma262/
 		relative order that they would have been sent had they not been included in the
 		set.
 
-<h2 id="interactions">Intergration With Other Web Platform APIs</h2>
+<h2 id="interactions">Integration With Other Web Platform APIs</h2>
 
 	[[Fullscreen]] and [[PointerLock]] are APIs that allow the page to temporarily take
 	control of part of the user's experience (screen and mouse cursor, respectively).
