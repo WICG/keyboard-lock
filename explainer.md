@@ -58,7 +58,7 @@ document.body.requestFullscreen().then(
       ];
       navigator.requestSystemKeyboardLock(keys);
     });
-document.addEventListener(‘keydown’, event => {
+document.addEventListener('keydown', event => {
   if (event.code == 'Escape') {
     game.toggleMenu();
   }
