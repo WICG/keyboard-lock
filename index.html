@@ -4,8 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Keyboard Lock</title>
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet" type="text/css">
-  <meta content="Bikeshed version 78f8c09c, updated Tue May 19 10:51:23 2020 -0700" name="generator">
+  <meta content="Bikeshed version 70ffa934, updated Fri May 1 10:12:04 2020 -0700" name="generator">
   <link href="https://wicg.github.io/keyboard-lock/" rel="canonical">
+  <meta content="b87889fe173ead154852cea3299d9255293caa60" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -263,14 +264,11 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1>Keyboard Lock</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-05-27">27 May 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-04-01">1 April 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://wicg.github.io/keyboard-lock/">https://wicg.github.io/keyboard-lock/</a>
-     <dt>Previous Versions:
-     <dd><a href rel="prev"></a>
-     <dd><a href="<none>" rel="prev">&lt;none></a>
      <dt>Issue Tracking:
      <dd><a href="https://github.com/wicg/keyboard-lock/issues/">GitHub</a>
      <dt class="editor">Editors:
@@ -280,7 +278,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2020 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="httsp://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2021 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="httsp://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -390,8 +388,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 		home for these specifications.</p>
    <h3 class="heading settled" data-level="2.2" id="keyboard-interface"><span class="secno">2.2. </span><span class="content">Keyboard Interface</span><a class="self-link" href="#keyboard-interface"></a></h3>
 <pre class="idl highlight def" data-highlight="webidl">[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->] <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="keyboard"><code><c- g>Keyboard</c-></code></dfn> {
-  <c- b>Promise</c->&lt;<c- b>void</c->> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export data-lt="lock(keyCodes)|lock()" id="dom-keyboard-lock"><code><c- g>lock</c-></code></dfn>(<c- b>optional</c-> <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard/lock(keyCodes), Keyboard/lock()" data-dfn-type="argument" data-export id="dom-keyboard-lock-keycodes-keycodes"><code><c- g>keyCodes</c-></code></dfn> = []);
-  <c- b>void</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export data-lt="unlock()" id="dom-keyboard-unlock"><code><c- g>unlock</c-></code></dfn>();
+  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined"><c- n>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export data-lt="lock(keyCodes)|lock()" id="dom-keyboard-lock"><code><c- g>lock</c-></code></dfn>(<c- b>optional</c-> <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard/lock(keyCodes), Keyboard/lock()" data-dfn-type="argument" data-export id="dom-keyboard-lock-keycodes-keycodes"><code><c- g>keyCodes</c-></code></dfn> = []);
+  <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined①"><c- n>undefined</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export data-lt="unlock()" id="dom-keyboard-unlock"><code><c- g>unlock</c-></code></dfn>();
 };
 </pre>
    <div id="keyboard-idl">
@@ -904,6 +902,12 @@ navigator.keyboard.unlock();
     <li><a href="#ref-for-SecureContext①">2.2. Keyboard Interface</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-undefined">
+   <a href="https://heycam.github.io/webidl/#idl-undefined">https://heycam.github.io/webidl/#idl-undefined</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-undefined">2.2. Keyboard Interface</a> <a href="#ref-for-idl-undefined①">(2)</a>
+   </ul>
+  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
@@ -957,6 +961,7 @@ navigator.keyboard.unlock();
      <li><span class="dfn-paneled" id="term-for-invalidstateerror" style="color:initial">InvalidStateError</span>
      <li><span class="dfn-paneled" id="term-for-SameObject" style="color:initial">SameObject</span>
      <li><span class="dfn-paneled" id="term-for-SecureContext" style="color:initial">SecureContext</span>
+     <li><span class="dfn-paneled" id="term-for-idl-undefined" style="color:initial">undefined</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -996,8 +1001,8 @@ navigator.keyboard.unlock();
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->] <c- b>interface</c-> <a href="#keyboard"><code><c- g>Keyboard</c-></code></a> {
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-keyboard-lock"><code><c- g>lock</c-></code></a>(<c- b>optional</c-> <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>> <a href="#dom-keyboard-lock-keycodes-keycodes"><code><c- g>keyCodes</c-></code></a> = []);
-  <c- b>void</c-> <a href="#dom-keyboard-unlock"><code><c- g>unlock</c-></code></a>();
+  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-undefined"><c- n>undefined</c-></a>> <a href="#dom-keyboard-lock"><code><c- g>lock</c-></code></a>(<c- b>optional</c-> <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>> <a href="#dom-keyboard-lock-keycodes-keycodes"><code><c- g>keyCodes</c-></code></a> = []);
+  <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-undefined"><c- n>undefined</c-></a> <a href="#dom-keyboard-unlock"><code><c- g>unlock</c-></code></a>();
 };
 
 </pre>
