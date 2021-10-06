@@ -4,13 +4,13 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Keyboard Lock</title>
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet" type="text/css">
-  <meta content="Bikeshed version 70ffa934, updated Fri May 1 10:12:04 2020 -0700" name="generator">
+  <meta content="Bikeshed version e8cbf4ed2, updated Fri Sep 10 10:21:28 2021 -0700" name="generator">
   <link href="https://wicg.github.io/keyboard-lock/" rel="canonical">
-  <meta content="b87889fe173ead154852cea3299d9255293caa60" name="document-revision">
+  <meta content="17ec6f65673c69b0fdc7d49d16224762619ed77e" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
-    color: #005a9c;
+    color: var(--a-normal-text);
     font-size: inherit;
     font-family: inherit;
 }
@@ -69,6 +69,115 @@ pre .property::before, pre .property::after {
 [data-link-type=biblio] {
     white-space: pre;
 }</style>
+<style>/* style-colors */
+
+/* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
+:root {
+    color-scheme: light dark;
+
+    --text: black;
+    --bg: white;
+
+    --unofficial-watermark: url(https://www.w3.org/StyleSheets/TR/2016/logos/UD-watermark);
+
+    --logo-bg: #1a5e9a;
+    --logo-active-bg: #c00;
+    --logo-text: white;
+
+    --tocnav-normal-text: #707070;
+    --tocnav-normal-bg: var(--bg);
+    --tocnav-hover-text: var(--tocnav-normal-text);
+    --tocnav-hover-bg: #f8f8f8;
+    --tocnav-active-text: #c00;
+    --tocnav-active-bg: var(--tocnav-normal-bg);
+
+    --tocsidebar-text: var(--text);
+    --tocsidebar-bg: #f7f8f9;
+    --tocsidebar-shadow: rgba(0,0,0,.1);
+    --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+    --toclink-text: var(--text);
+    --toclink-underline: #3980b5;
+    --toclink-visited-text: var(--toclink-text);
+    --toclink-visited-underline: #054572;
+
+    --heading-text: #005a9c;
+
+    --hr-text: var(--text);
+
+    --algo-border: #def;
+
+    --del-text: red;
+    --del-bg: transparent;
+    --ins-text: #080;
+    --ins-bg: transparent;
+
+    --a-normal-text: #034575;
+    --a-normal-underline: #bbb;
+    --a-visited-text: var(--a-normal-text);
+    --a-visited-underline: #707070;
+    --a-hover-bg: rgba(75%, 75%, 75%, .25);
+    --a-active-text: #c00;
+    --a-active-underline: #c00;
+
+    --blockquote-border: silver;
+    --blockquote-bg: transparent;
+    --blockquote-text: currentcolor;
+
+    --issue-border: #e05252;
+    --issue-bg: #fbe9e9;
+    --issue-text: var(--text);
+    --issueheading-text: #831616;
+
+    --example-border: #e0cb52;
+    --example-bg: #fcfaee;
+    --example-text: var(--text);
+    --exampleheading-text: #574b0f;
+
+    --note-border: #52e052;
+    --note-bg: #e9fbe9;
+    --note-text: var(--text);
+    --noteheading-text: hsl(120, 70%, 30%);
+    --notesummary-underline: silver;
+
+    --assertion-border: #aaa;
+    --assertion-bg: #eee;
+    --assertion-text: black;
+
+    --advisement-border: orange;
+    --advisement-bg: #fec;
+    --advisement-text: var(--text);
+    --advisementheading-text: #b35f00;
+
+    --warning-border: red;
+    --warning-bg: hsla(40,100%,50%,0.95);
+    --warning-text: var(--text);
+
+    --amendment-border: #330099;
+    --amendment-bg: #F5F0FF;
+    --amendment-text: var(--text);
+    --amendmentheading-text: #220066;
+
+    --def-border: #8ccbf2;
+    --def-bg: #def;
+    --def-text: var(--text);
+    --defrow-border: #bbd7e9;
+
+    --datacell-border: silver;
+
+    --indexinfo-text: #707070;
+
+    --indextable-hover-text: black;
+    --indextable-hover-bg: #f7f8f9;
+
+    --outdatedspec-bg: rgba(0, 0, 0, .5);
+    --outdatedspec-text: black;
+    --outdated-bg: maroon;
+    --outdated-text: white;
+    --outdated-shadow: red;
+
+    --editedrec-bg: darkorange;
+}</style>
 <style>/* style-counters */
 
 body {
@@ -100,6 +209,10 @@ figcaption:not(.no-marker)::before {
 }</style>
 <style>/* style-dfn-panel */
 
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
 .dfn-panel {
     position: absolute;
     z-index: 35;
@@ -111,14 +224,14 @@ figcaption:not(.no-marker)::before {
     overflow: auto;
     padding: 0.5em 0.75em;
     font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-    background: #DDDDDD;
-    color: black;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
     border: outset 0.2em;
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
 .dfn-panel > b { display: block; }
-.dfn-panel a { color: black; }
+.dfn-panel a { color: var(--dfnpanel-text); }
 .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
 .dfn-panel > b + b { margin-top: 0.25em; }
 .dfn-panel ul { padding: 0; }
@@ -147,6 +260,11 @@ figcaption:not(.no-marker)::before {
 }</style>
 <style>/* style-selflinks */
 
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
 .heading, .issue, .note, .example, li, dt {
     position: relative;
 }
@@ -176,8 +294,8 @@ dfn > a.self-link {
     opacity: 0;
     width: 1.5em;
     height: 1.5em;
-    background: gray;
-    color: white;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
     font-style: normal;
     transition: opacity .2s, background-color .2s, color .2s;
 }
@@ -185,17 +303,23 @@ dfn:hover > a.self-link {
     opacity: 1;
 }
 dfn > a.self-link:hover {
-    color: black;
+    color: var(--selflink-hover-text);
 }
 
 a.self-link::before            { content: "¶"; }
 .heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }</style>
+dfn > a.self-link::before      { content: "#"; }
+</style>
 <style>/* style-syntax-highlighting */
-pre.idl.highlight { color: #708090; }
-.highlight:not(.idl) { background: hsl(24, 20%, 95%); }
+
+            pre.idl.highlight {
+                background: var(--borderedblock-bg, var(--def-bg));
+            }
+            
 code.highlight { padding: .1em; border-radius: .3em; }
 pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
 c-[a] { color: #990055 } /* Keyword.Declaration */
 c-[b] { color: #990055 } /* Keyword.Type */
 c-[c] { color: #708090 } /* Comment */
@@ -260,11 +384,201 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
     var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
     </style>
+<style>/* style-darkmode */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ddd;
+        --bg: black;
+
+        --unofficial-watermark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='%23100808' transform='translate(200 200) rotate(-45) translate(-200 -200)' stroke='%23100808' stroke-width='3'%3E%3Ctext x='50%25' y='220' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EUNOFFICIAL%3C/text%3E%3Ctext x='50%25' y='305' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EDRAFT%3C/text%3E%3C/g%3E%3C/svg%3E");
+
+        --logo-bg: #1a5e9a;
+        --logo-active-bg: #c00;
+        --logo-text: white;
+
+        --tocnav-normal-text: #999;
+        --tocnav-normal-bg: var(--bg);
+        --tocnav-hover-text: var(--tocnav-normal-text);
+        --tocnav-hover-bg: #080808;
+        --tocnav-active-text: #f44;
+        --tocnav-active-bg: var(--tocnav-normal-bg);
+
+        --tocsidebar-text: var(--text);
+        --tocsidebar-bg: #080808;
+        --tocsidebar-shadow: rgba(255,255,255,.1);
+        --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+        --toclink-text: var(--text);
+        --toclink-underline: #6af;
+        --toclink-visited-text: var(--toclink-text);
+        --toclink-visited-underline: #054572;
+
+        --heading-text: #8af;
+
+        --hr-text: var(--text);
+
+        --algo-border: #456;
+
+        --del-text: #f44;
+        --del-bg: transparent;
+        --ins-text: #4a4;
+        --ins-bg: transparent;
+
+        --a-normal-text: #6af;
+        --a-normal-underline: #555;
+        --a-visited-text: var(--a-normal-text);
+        --a-visited-underline: var(--a-normal-underline);
+        --a-hover-bg: rgba(25%, 25%, 25%, .2);
+        --a-active-text: #f44;
+        --a-active-underline: var(--a-active-text);
+
+        --borderedblock-bg: rgba(255, 255, 255, .05);
+
+        --blockquote-border: silver;
+        --blockquote-bg: var(--borderedblock-bg);
+        --blockquote-text: currentcolor;
+
+        --issue-border: #e05252;
+        --issue-bg: var(--borderedblock-bg);
+        --issue-text: var(--text);
+        --issueheading-text: hsl(0deg, 70%, 70%);
+
+        --example-border: hsl(50deg, 90%, 60%);
+        --example-bg: var(--borderedblock-bg);
+        --example-text: var(--text);
+        --exampleheading-text: hsl(50deg, 70%, 70%);
+
+        --note-border: hsl(120deg, 100%, 35%);
+        --note-bg: var(--borderedblock-bg);
+        --note-text: var(--text);
+        --noteheading-text: hsl(120, 70%, 70%);
+        --notesummary-underline: silver;
+
+        --assertion-border: #444;
+        --assertion-bg: var(--borderedblock-bg);
+        --assertion-text: var(--text);
+
+        --advisement-border: orange;
+        --advisement-bg: #222218;
+        --advisement-text: var(--text);
+        --advisementheading-text: #f84;
+
+        --warning-border: red;
+        --warning-bg: hsla(40,100%,20%,0.95);
+        --warning-text: var(--text);
+
+        --amendment-border: #330099;
+        --amendment-bg: #080010;
+        --amendment-text: var(--text);
+        --amendmentheading-text: #cc00ff;
+
+        --def-border: #8ccbf2;
+        --def-bg: #080818;
+        --def-text: var(--text);
+        --defrow-border: #136;
+
+        --datacell-border: silver;
+
+        --indexinfo-text: #aaa;
+
+        --indextable-hover-text: var(--text);
+        --indextable-hover-bg: #181818;
+
+        --outdatedspec-bg: rgba(255, 255, 255, .5);
+        --outdatedspec-text: black;
+        --outdated-bg: maroon;
+        --outdated-text: white;
+        --outdated-shadow: red;
+
+        --editedrec-bg: darkorange;
+    }
+    /* In case a transparent-bg image doesn't expect to be on a dark bg,
+       which is quite common in practice... */
+    img { background: white; }
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
+</style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1>Keyboard Lock</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-04-01">1 April 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-10-06">6 October 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -375,7 +689,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <h2 class="heading settled" data-level="2" id="API"><span class="secno">2. </span><span class="content">Keyboard Lock API</span><a class="self-link" href="#API"></a></h2>
    <h3 class="heading settled" data-level="2.1" id="navigator-interface"><span class="secno">2.1. </span><span class="content">Navigator Interface</span><a class="self-link" href="#navigator-interface"></a></h3>
 <pre class="idl highlight def" data-highlight="webidl"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator"><c- g>Navigator</c-></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#keyboard" id="ref-for-keyboard"><c- n>Keyboard</c-></a> <dfn class="idl-code" data-dfn-for="Navigator" data-dfn-type="attribute" data-export data-readonly data-type="Keyboard" id="dom-navigator-keyboard"><code><c- g>keyboard</c-></code><a class="self-link" href="#dom-navigator-keyboard"></a></dfn>;
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#keyboard" id="ref-for-keyboard"><c- n>Keyboard</c-></a> <dfn class="idl-code" data-dfn-for="Navigator" data-dfn-type="attribute" data-export data-readonly data-type="Keyboard" id="dom-navigator-keyboard"><code><c- g>keyboard</c-></code><a class="self-link" href="#dom-navigator-keyboard"></a></dfn>;
 };
 </pre>
    <div id="navigator-idl">
@@ -384,12 +698,11 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       The <a data-link-type="dfn" href="#navigator-keyboard" id="ref-for-navigator-keyboard">keyboard</a> attribute must return the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator①">Navigator</a></code>'s <code class="idl"><a data-link-type="idl" href="#keyboard" id="ref-for-keyboard①">Keyboard</a></code> object. 
     </div>
    </div>
-   <p class="note" role="note"><span>Note:</span> The <a data-link-type="dfn" href="#navigator-keyboard" id="ref-for-navigator-keyboard①">keyboard</a> object is also defined in the <a href="https://wicg.github.io/keyboard-map/#navigator-interface">Keyboard Map</a> specification. These two definitions will be reconciled once we decide on a final
-		home for these specifications.</p>
    <h3 class="heading settled" data-level="2.2" id="keyboard-interface"><span class="secno">2.2. </span><span class="content">Keyboard Interface</span><a class="self-link" href="#keyboard-interface"></a></h3>
-<pre class="idl highlight def" data-highlight="webidl">[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->] <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="keyboard"><code><c- g>Keyboard</c-></code></dfn> {
-  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined"><c- n>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export data-lt="lock(keyCodes)|lock()" id="dom-keyboard-lock"><code><c- g>lock</c-></code></dfn>(<c- b>optional</c-> <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard/lock(keyCodes), Keyboard/lock()" data-dfn-type="argument" data-export id="dom-keyboard-lock-keycodes-keycodes"><code><c- g>keyCodes</c-></code></dfn> = []);
-  <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined①"><c- n>undefined</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export data-lt="unlock()" id="dom-keyboard-unlock"><code><c- g>unlock</c-></code></dfn>();
+<pre class="idl highlight def" data-highlight="webidl">[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
+<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="keyboard"><code><c- g>Keyboard</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export data-lt="lock(keyCodes)|lock()" id="dom-keyboard-lock"><code><c- g>lock</c-></code></dfn>(<c- b>optional</c-> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence" id="ref-for-idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard/lock(keyCodes), Keyboard/lock()" data-dfn-type="argument" data-export id="dom-keyboard-lock-keycodes-keycodes"><code><c- g>keyCodes</c-></code></dfn> = []);
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="Keyboard" data-dfn-type="method" data-export data-lt="unlock()" id="dom-keyboard-unlock"><code><c- g>unlock</c-></code></dfn>();
 };
 </pre>
    <div id="keyboard-idl">
@@ -402,8 +715,10 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 		if <a data-link-type="dfn" href="#keyboard-enable-keyboard-lock" id="ref-for-keyboard-enable-keyboard-lock">enable keyboard lock</a> was enabled).</p>
     <p>The keyboard object has a <dfn class="dfn-paneled" data-dfn-for="Keyboard" data-dfn-type="dfn" data-noexport id="keyboard-keyboard-lock-task-queue">keyboard lock task queue</dfn> which is
 		initialized to the result of <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#starting-a-new-parallel-queue" id="ref-for-starting-a-new-parallel-queue">starting a new parallel queue</a>.</p>
+    <p class="note" role="note"><span>Note:</span> The <code class="idl"><a data-link-type="idl" href="#keyboard" id="ref-for-keyboard②">Keyboard</a></code> interface inherits from <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget①">EventTarget</a></code> because
+		it needs to be able to handle some keyboard-releated events like <a href="https://wicg.github.io/keyboard-map/#layoutchange-event"><code>layoutchange</code></a>.</p>
     <div class="algorithm" data-algorithm="keyboard-lock">
-     <h4 class="heading settled" data-level="2.2.1" id="h-keyboard-lock"><span class="secno">2.2.1. </span><span class="content"><dfn data-dfn-for="Keyboard" data-dfn-type="dfn" data-noexport id="keyboard-lock">lock()<a class="self-link" href="#keyboard-lock"></a></dfn></span><a class="self-link" href="#h-keyboard-lock"></a></h4>
+     <h4 class="heading settled" data-level="2.2.1" id="h-keyboard-lock"><span class="secno">2.2.1. </span><span class="content"><dfn data-dfn-for="Keyboard" data-dfn-type="dfn" data-export id="keyboard-lock">lock()<a class="self-link" href="#keyboard-lock"></a></dfn></span><a class="self-link" href="#h-keyboard-lock"></a></h4>
      <p>When <code class="idl"><a data-link-type="idl" href="#dom-keyboard-lock" id="ref-for-dom-keyboard-lock">lock()</a></code> is called, the user agent must
 			run the following steps:</p>
      <ol>
@@ -493,7 +808,7 @@ substeps:</p>
      </div>
     </div>
     <div class="algorithm" data-algorithm="keyboard-unlock">
-     <h4 class="heading settled" data-level="2.2.2" id="h-keyboard-unlock"><span class="secno">2.2.2. </span><span class="content"><dfn data-dfn-for="Keyboard" data-dfn-type="dfn" data-noexport id="keyboard-unlock">unlock()<a class="self-link" href="#keyboard-unlock"></a></dfn></span><a class="self-link" href="#h-keyboard-unlock"></a></h4>
+     <h4 class="heading settled" data-level="2.2.2" id="h-keyboard-unlock"><span class="secno">2.2.2. </span><span class="content"><dfn data-dfn-for="Keyboard" data-dfn-type="dfn" data-export id="keyboard-unlock">unlock()<a class="self-link" href="#keyboard-unlock"></a></dfn></span><a class="self-link" href="#h-keyboard-unlock"></a></h4>
      <p>When <code class="idl"><a data-link-type="idl" href="#dom-keyboard-unlock" id="ref-for-dom-keyboard-unlock①">unlock()</a></code> is called, the user agent must
 			run the following steps:</p>
      <ol>
@@ -727,33 +1042,39 @@ navigator.keyboard.unlock();
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#keyboard-enable-keyboard-lock">enable keyboard lock</a><span>, in §2.2</span>
-   <li><a href="#keyboard">Keyboard</a><span>, in §2.2</span>
+   <li><a href="#keyboard-enable-keyboard-lock">enable keyboard lock</a><span>, in § 2.2</span>
+   <li><a href="#keyboard">Keyboard</a><span>, in § 2.2</span>
    <li>
     keyboard
     <ul>
-     <li><a href="#dom-navigator-keyboard">attribute for Navigator</a><span>, in §2.1</span>
-     <li><a href="#navigator-keyboard">dfn for Navigator</a><span>, in §2.1.1</span>
+     <li><a href="#dom-navigator-keyboard">attribute for Navigator</a><span>, in § 2.1</span>
+     <li><a href="#navigator-keyboard">dfn for Navigator</a><span>, in § 2.1.1</span>
     </ul>
-   <li><a href="#keyboard-keyboard-lock-task-queue">keyboard lock task queue</a><span>, in §2.2</span>
+   <li><a href="#keyboard-keyboard-lock-task-queue">keyboard lock task queue</a><span>, in § 2.2</span>
    <li>
     lock()
     <ul>
-     <li><a href="#keyboard-lock">dfn for Keyboard</a><span>, in §2.2.1</span>
-     <li><a href="#dom-keyboard-lock">method for Keyboard</a><span>, in §2.2</span>
+     <li><a href="#keyboard-lock">dfn for Keyboard</a><span>, in § 2.2.1</span>
+     <li><a href="#dom-keyboard-lock">method for Keyboard</a><span>, in § 2.2</span>
     </ul>
-   <li><a href="#dom-keyboard-lock">lock(keyCodes)</a><span>, in §2.2</span>
-   <li><a href="#register-a-system-key-press-handler">register a system key press handler</a><span>, in §3.1.1</span>
-   <li><a href="#keyboard-reserved-key-codes">reserved key codes</a><span>, in §2.2</span>
-   <li><a href="#system-key-press-handler">system key press handler</a><span>, in §3.1</span>
+   <li><a href="#dom-keyboard-lock">lock(keyCodes)</a><span>, in § 2.2</span>
+   <li><a href="#register-a-system-key-press-handler">register a system key press handler</a><span>, in § 3.1.1</span>
+   <li><a href="#keyboard-reserved-key-codes">reserved key codes</a><span>, in § 2.2</span>
+   <li><a href="#system-key-press-handler">system key press handler</a><span>, in § 3.1</span>
    <li>
     unlock()
     <ul>
-     <li><a href="#keyboard-unlock">dfn for Keyboard</a><span>, in §2.2.2</span>
-     <li><a href="#dom-keyboard-unlock">method for Keyboard</a><span>, in §2.2</span>
+     <li><a href="#keyboard-unlock">dfn for Keyboard</a><span>, in § 2.2.2</span>
+     <li><a href="#dom-keyboard-unlock">method for Keyboard</a><span>, in § 2.2</span>
     </ul>
-   <li><a href="#unregister-the-system-key-press-handler">unregister the system key press handler</a><span>, in §3.1.2</span>
+   <li><a href="#unregister-the-system-key-press-handler">unregister the system key press handler</a><span>, in § 3.1.2</span>
   </ul>
+  <aside class="dfn-panel" data-for="term-for-eventtarget">
+   <a href="https://dom.spec.whatwg.org/#eventtarget">https://dom.spec.whatwg.org/#eventtarget</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-eventtarget">2.2. Keyboard Interface</a> <a href="#ref-for-eventtarget①">(2)</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-sec-promise-objects">
    <a href="http://tc39.github.io/ecma262/#sec-promise-objects">http://tc39.github.io/ecma262/#sec-promise-objects</a><b>Referenced in:</b>
    <ul>
@@ -889,6 +1210,12 @@ navigator.keyboard.unlock();
     <li><a href="#ref-for-invalidstateerror">2.2.1. lock()</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-promise">
+   <a href="https://heycam.github.io/webidl/#idl-promise">https://heycam.github.io/webidl/#idl-promise</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-promise">2.2. Keyboard Interface</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-SameObject">
    <a href="https://heycam.github.io/webidl/#SameObject">https://heycam.github.io/webidl/#SameObject</a><b>Referenced in:</b>
    <ul>
@@ -902,6 +1229,12 @@ navigator.keyboard.unlock();
     <li><a href="#ref-for-SecureContext①">2.2. Keyboard Interface</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-sequence">
+   <a href="https://heycam.github.io/webidl/#idl-sequence">https://heycam.github.io/webidl/#idl-sequence</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-sequence">2.2. Keyboard Interface</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-idl-undefined">
    <a href="https://heycam.github.io/webidl/#idl-undefined">https://heycam.github.io/webidl/#idl-undefined</a><b>Referenced in:</b>
    <ul>
@@ -911,98 +1244,108 @@ navigator.keyboard.unlock();
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
+    <a data-link-type="biblio">[DOM]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-eventtarget">EventTarget</span>
+    </ul>
+   <li>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-sec-promise-objects" style="color:initial">promise</span>
+     <li><span class="dfn-paneled" id="term-for-sec-promise-objects">promise</span>
     </ul>
    <li>
     <a data-link-type="biblio">[Fullscreen]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-fullscreen-element" style="color:initial">fullscreen element</span>
+     <li><span class="dfn-paneled" id="term-for-fullscreen-element">fullscreen element</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-navigator" style="color:initial">Navigator</span>
-     <li><span class="dfn-paneled" id="term-for-currently-focused-area-of-a-top-level-browsing-context" style="color:initial">currently focused area of a top-level browsing context</span>
-     <li><span class="dfn-paneled" id="term-for-enqueue-the-following-steps" style="color:initial">enqueue the following steps</span>
-     <li><span class="dfn-paneled" id="term-for-starting-a-new-parallel-queue" style="color:initial">starting a new parallel queue</span>
-     <li><span class="dfn-paneled" id="term-for-top-level-browsing-context" style="color:initial">top-level browsing context</span>
+     <li><span class="dfn-paneled" id="term-for-navigator">Navigator</span>
+     <li><span class="dfn-paneled" id="term-for-currently-focused-area-of-a-top-level-browsing-context">currently focused area of a top-level browsing context</span>
+     <li><span class="dfn-paneled" id="term-for-enqueue-the-following-steps">enqueue the following steps</span>
+     <li><span class="dfn-paneled" id="term-for-starting-a-new-parallel-queue">starting a new parallel queue</span>
+     <li><span class="dfn-paneled" id="term-for-top-level-browsing-context">top-level browsing context</span>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-set-append" style="color:initial">append</span>
-     <li><span class="dfn-paneled" id="term-for-list-iterate" style="color:initial">for each</span>
+     <li><span class="dfn-paneled" id="term-for-set-append">append</span>
+     <li><span class="dfn-paneled" id="term-for-list-iterate">for each</span>
     </ul>
    <li>
     <a data-link-type="biblio">[uievents]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dom-keyboardevent-code" style="color:initial">code</span>
+     <li><span class="dfn-paneled" id="term-for-dom-keyboardevent-code">code</span>
     </ul>
    <li>
     <a data-link-type="biblio">[UIEvents-Code]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-code-delete" style="color:initial">delete</span>
-     <li><span class="dfn-paneled" id="term-for-key-code-attribute-value" style="color:initial">key code attribute value</span>
-     <li><span class="dfn-paneled" id="term-for-code-keya" style="color:initial">keya</span>
-     <li><span class="dfn-paneled" id="term-for-code-keyd" style="color:initial">keyd</span>
-     <li><span class="dfn-paneled" id="term-for-code-keys" style="color:initial">keys</span>
-     <li><span class="dfn-paneled" id="term-for-code-keyw" style="color:initial">keyw</span>
+     <li><span class="dfn-paneled" id="term-for-code-delete">delete</span>
+     <li><span class="dfn-paneled" id="term-for-key-code-attribute-value">key code attribute value</span>
+     <li><span class="dfn-paneled" id="term-for-code-keya">keya</span>
+     <li><span class="dfn-paneled" id="term-for-code-keyd">keyd</span>
+     <li><span class="dfn-paneled" id="term-for-code-keys">keys</span>
+     <li><span class="dfn-paneled" id="term-for-code-keyw">keyw</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-aborterror" style="color:initial">AbortError</span>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMException" style="color:initial">DOMException</span>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMString" style="color:initial">DOMString</span>
-     <li><span class="dfn-paneled" id="term-for-Exposed" style="color:initial">Exposed</span>
-     <li><span class="dfn-paneled" id="term-for-invalidaccesserror" style="color:initial">InvalidAccessError</span>
-     <li><span class="dfn-paneled" id="term-for-invalidstateerror" style="color:initial">InvalidStateError</span>
-     <li><span class="dfn-paneled" id="term-for-SameObject" style="color:initial">SameObject</span>
-     <li><span class="dfn-paneled" id="term-for-SecureContext" style="color:initial">SecureContext</span>
-     <li><span class="dfn-paneled" id="term-for-idl-undefined" style="color:initial">undefined</span>
+     <li><span class="dfn-paneled" id="term-for-aborterror">AbortError</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
+     <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
+     <li><span class="dfn-paneled" id="term-for-invalidaccesserror">InvalidAccessError</span>
+     <li><span class="dfn-paneled" id="term-for-invalidstateerror">InvalidStateError</span>
+     <li><span class="dfn-paneled" id="term-for-idl-promise">Promise</span>
+     <li><span class="dfn-paneled" id="term-for-SameObject">SameObject</span>
+     <li><span class="dfn-paneled" id="term-for-SecureContext">SecureContext</span>
+     <li><span class="dfn-paneled" id="term-for-idl-sequence">sequence</span>
+     <li><span class="dfn-paneled" id="term-for-idl-undefined">undefined</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-dom">[DOM]
+   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-ecmascript">[ECMASCRIPT]
-   <dd><a href="https://tc39.es/ecma262/">ECMAScript Language Specification</a>. URL: <a href="https://tc39.es/ecma262/">https://tc39.es/ecma262/</a>
+   <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
    <dt id="biblio-fullscreen">[Fullscreen]
-   <dd>Philip Jägenstedt. <a href="https://fullscreen.spec.whatwg.org/">Fullscreen API Standard</a>. Living Standard. URL: <a href="https://fullscreen.spec.whatwg.org/">https://fullscreen.spec.whatwg.org/</a>
+   <dd>Philip Jägenstedt. <a href="https://fullscreen.spec.whatwg.org/"><cite>Fullscreen API Standard</cite></a>. Living Standard. URL: <a href="https://fullscreen.spec.whatwg.org/">https://fullscreen.spec.whatwg.org/</a>
    <dt id="biblio-html">[HTML]
-   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-infra">[INFRA]
-   <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/">Infra Standard</a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
+   <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
    <dt id="biblio-rfc2119">[RFC2119]
-   <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-uievents">[UIEVENTS]
-   <dd>Gary Kacmarcik; Travis Leithead; Doug Schepers. <a href="https://www.w3.org/TR/uievents/">UI Events</a>. 30 May 2019. WD. URL: <a href="https://www.w3.org/TR/uievents/">https://www.w3.org/TR/uievents/</a>
+   <dd>Gary Kacmarcik; Travis Leithead; Doug Schepers. <a href="https://www.w3.org/TR/uievents/"><cite>UI Events</cite></a>. 30 May 2019. WD. URL: <a href="https://www.w3.org/TR/uievents/">https://www.w3.org/TR/uievents/</a>
    <dt id="biblio-uievents-code">[UIEvents-Code]
-   <dd>Gary Kacmarcik; Travis Leithead. <a href="https://www.w3.org/TR/uievents-code/">UI Events KeyboardEvent code Values</a>. 1 June 2017. CR. URL: <a href="https://www.w3.org/TR/uievents-code/">https://www.w3.org/TR/uievents-code/</a>
+   <dd>Gary Kacmarcik; Travis Leithead. <a href="https://www.w3.org/TR/uievents-code/"><cite>UI Events KeyboardEvent code Values</cite></a>. 1 June 2017. CR. URL: <a href="https://www.w3.org/TR/uievents-code/">https://www.w3.org/TR/uievents-code/</a>
    <dt id="biblio-webidl">[WebIDL]
-   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/">Web IDL</a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
+   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/"><cite>Web IDL</cite></a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-grabkeyboard">[GrabKeyboard]
-   <dd><a href="https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard">X11 GrabKeyboard API</a>. URL: <a href="https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard">https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard</a>
+   <dd><a href="https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard"><cite>X11 GrabKeyboard API</cite></a>. URL: <a href="https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard">https://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html#requests:GrabKeyboard</a>
    <dt id="biblio-lowlevelkeyboardproc">[LowLevelKeyboardProc]
-   <dd><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644985(v=vs.85).aspx">LowLevelKeyboardProc documentation on MSDN</a>. URL: <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644985(v=vs.85).aspx">https://msdn.microsoft.com/en-us/library/windows/desktop/ms644985(v=vs.85).aspx</a>
+   <dd><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644985(v=vs.85).aspx"><cite>LowLevelKeyboardProc documentation on MSDN</cite></a>. URL: <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644985(v=vs.85).aspx">https://msdn.microsoft.com/en-us/library/windows/desktop/ms644985(v=vs.85).aspx</a>
    <dt id="biblio-pointerlock">[PointerLock]
-   <dd>Vincent Scheib. <a href="https://www.w3.org/TR/pointerlock/">Pointer Lock</a>. 27 October 2016. REC. URL: <a href="https://www.w3.org/TR/pointerlock/">https://www.w3.org/TR/pointerlock/</a>
+   <dd>Vincent Scheib. <a href="https://www.w3.org/TR/pointerlock/"><cite>Pointer Lock</cite></a>. 27 October 2016. REC. URL: <a href="https://www.w3.org/TR/pointerlock/">https://www.w3.org/TR/pointerlock/</a>
    <dt id="biblio-quartzeventservices">[QuartzEventServices]
-   <dd><a href="https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services">Quartz Event Services</a>. URL: <a href="https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services">https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services</a>
+   <dd><a href="https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services"><cite>Quartz Event Services</cite></a>. URL: <a href="https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services">https://developer.apple.com/reference/coregraphics/1658572-quartz_event_services</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator"><c- g>Navigator</c-></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#keyboard"><c- n>Keyboard</c-></a> <a data-readonly data-type="Keyboard" href="#dom-navigator-keyboard"><code><c- g>keyboard</c-></code></a>;
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#keyboard"><c- n>Keyboard</c-></a> <a data-readonly data-type="Keyboard" href="#dom-navigator-keyboard"><code><c- g>keyboard</c-></code></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->] <c- b>interface</c-> <a href="#keyboard"><code><c- g>Keyboard</c-></code></a> {
-  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-undefined"><c- n>undefined</c-></a>> <a href="#dom-keyboard-lock"><code><c- g>lock</c-></code></a>(<c- b>optional</c-> <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>> <a href="#dom-keyboard-lock-keycodes-keycodes"><code><c- g>keyCodes</c-></code></a> = []);
-  <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-undefined"><c- n>undefined</c-></a> <a href="#dom-keyboard-unlock"><code><c- g>unlock</c-></code></a>();
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
+<c- b>interface</c-> <a href="#keyboard"><code><c- g>Keyboard</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-keyboard-lock"><code><c- g>lock</c-></code></a>(<c- b>optional</c-> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>> <a href="#dom-keyboard-lock-keycodes-keycodes"><code><c- g>keyCodes</c-></code></a> = []);
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a> <a href="#dom-keyboard-unlock"><code><c- g>unlock</c-></code></a>();
 };
 
 </pre>
@@ -1010,7 +1353,6 @@ navigator.keyboard.unlock();
    <b><a href="#navigator-keyboard">#navigator-keyboard</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-navigator-keyboard">2.1.1. keyboard</a>
-    <li><a href="#ref-for-navigator-keyboard①">2.1. Navigator Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="keyboard">
@@ -1018,6 +1360,7 @@ navigator.keyboard.unlock();
    <ul>
     <li><a href="#ref-for-keyboard">2.1. Navigator Interface</a>
     <li><a href="#ref-for-keyboard①">2.1.1. keyboard</a>
+    <li><a href="#ref-for-keyboard②">2.2. Keyboard Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-keyboard-lock">
@@ -1190,7 +1533,7 @@ document.body.addEventListener("click", function(e) {
             }
         }
         function getVarName(el) {
-            return el.textContent.replace(/(\s| )+/, " ").trim();
+            return el.textContent.replace(/(\s|\xa0)+/, " ").trim();
         }
         function chooseHighlightIndex(algoName, varName) {
             let indexes = null;
